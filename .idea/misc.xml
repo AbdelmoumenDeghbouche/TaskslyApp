@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.209" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/about_user_items_background.xml" value="0.1225" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/add_category.xml" value="0.209" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/add_task_background.xml" value="0.1275" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/add_task_items_background.xml" value="0.1275" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/background_edit_text.xml" value="0.1275" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/card_off_back.xml" value="0.14493243243243242" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/card_on_back.xml" value="0.2234375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/cardview_style.xml" value="0.208" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/cardview_style2.xml" value="0.208" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/custom_button.xml" value="0.1275" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/custom_button2.xml" value="0.1275" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/done_creating_task_button_back.xml" value="0.1275" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/eamilsvg.xml" value="0.1225" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/facebooksvg.xml" value="0.14493243243243242" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/googlesvg.xml" value="0.209" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/ic_add.xml" value="0.14493243243243242" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/ic_alarm.xml" value="0.208" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/ic_ban.xml" value="0.209" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/ic_calendar.xml" value="0.209" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/ic_calendar2.xml" value="0.209" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/ic_calendar3svg.xml" value="0.1275" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/ic_calendar_add_task.xml" value="0.1275" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/ic_check_box_oval.xml" value="0.208" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/ic_check_box_oval_not_checked.xml" value="0.208" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/ic_clock.xml" value="0.1275" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/ic_home.xml" value="0.14493243243243242" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/ic_icon.xml" value="0.14493243243243242" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/ic_launcher_background.xml" value="0.209" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/ic_playlist.xml" value="0.209" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/ic_profile_pic.xml" value="0.1635" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/ic_refresh.xml" value="0.209" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/ic_settings.xml" value="0.14493243243243242" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/my_img.xml" value="0.1275" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/navigation_back.xml" value="0.14493243243243242" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/on_card.xml" value="0.2234375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/user_img.xml" value="0.1225" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/welcom1.xml" value="0.209" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/welcom2.xml" value="0.1225" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/welcom_card_back.xml" value="0.14493243243243242" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/welcom_card_back2.xml" value="0.14493243243243242" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/welcom_edittext.xml" value="0.14493243243243242" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/welcompointred.xml" value="0.14493243243243242" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/welcompointwhite.xml" value="0.14493243243243242" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/font/poppins_medium.xml" value="0.2375" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/activity_main.xml" value="0.15" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/activity_profile.xml" value="0.2" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/activity_welcom.xml" value="0.12" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/add_category_view.xml" value="0.33" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/card_on.xml" value="1.0" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/category_item_recycler_view.xml" value="0.5" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/fragment_2.xml" value="0.13445945945945945" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/fragment_add_task_.xml" value="0.18" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/fragment_home_.xml" value="0.15" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/fragment_settings_.xml" value="0.17" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/ic_add_actegory.xml" value="0.13445945945945945" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/item_welcom.xml" value="0.13445945945945945" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/task_recycler_view.xml" value="0.2" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/vide.xml" value="0.13445945945945945" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/welcom_card.xml" value="0.14" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/welcom_card1.xml" value="0.13445945945945945" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/welcom_card2.xml" value="0.22" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/welcom_card_item.xml" value="0.13445945945945945" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/menu/items.xml" value="0.13445945945945945" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

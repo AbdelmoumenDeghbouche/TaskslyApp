@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Tasksly</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="txt_category_name">Category</string>
+    <string name="HelloUser">Hello,</string>
+    <string name="text_task_name">Meeting with Alex</string>
+    <string name="Name_of_the_user">Abdelali ichou</string>
+    <string name="Tasks_txt">Tasks</string>
+    <string name="time_of_the_task">02:30 PM - 03:45 PM</string>
+    <string name="description_of_the_task">All illustration design should be handover to Smith today for review.</string>
+    <string name="create_a_task">Create a task</string>
+    <string name="task_title">Task title</string>
+    <string name="task_type">Task type</string>
+    <string name="choose_date_and_time">Choose date and time</string>
+    <string name="get_alert_for_this_task">Get alert for this task</string>
+    <string name="edittext_hint"><font size="16" type="normal">Enter a title!</font></string>
+
+
+</resources>

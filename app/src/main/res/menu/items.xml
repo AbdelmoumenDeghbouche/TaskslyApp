@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_home"
+        android:title="Home"
+        app:cnb_backgroundColor="#000000"
+        app:cnb_iconColor="@color/white"
+        app:cnb_textColor="@color/white" />
+
+    <item
+        android:id="@+id/add"
+        android:icon="@drawable/add_liste"
+        android:title="Add Task"
+        app:cnb_backgroundColor="#FF92A0"
+        app:cnb_iconColor="#000000"
+        app:cnb_textColor="#000000" />
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_settings"
+        android:title="Settings"
+        app:cnb_backgroundColor="#FFFFFF"
+        app:cnb_iconColor="#000000"
+        app:cnb_textColor="#000000" />
+
+
+</menu>
