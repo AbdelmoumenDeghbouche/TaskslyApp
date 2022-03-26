@@ -15,8 +15,16 @@
         <entry key="..\:/Tasksly/app/src/main/res/drawable/googlesvg.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_alarm.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_calendar3svg.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_check_box_oval.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_check_box_oval_not_checked.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_main.xml" value="0.16216216216216217" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_profile.xml" value="0.2" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_welcom.xml" value="0.13125" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/add_category_view.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/category_item_recycler_view.xml" value="0.4" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/fragment_add_task_.xml" value="0.3431022158684775" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/fragment_home_.xml" value="0.16216216216216217" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/fragment_settings_.xml" value="0.16216216216216217" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.209" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/about_user_items_background.xml" value="0.1225" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/add_category.xml" value="0.209" />
@@ -81,12 +89,6 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/welcom_card2.xml" value="0.22" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/welcom_card_item.xml" value="0.13445945945945945" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/menu/items.xml" value="0.13445945945945945" />
-        <entry key="..\:/Users/hamdi/AndroidStudioProjects/TaskslyPApp/app/src/main/res/layout/activity_main.xml" value="0.10989583333333333" />
-        <entry key="..\:/Users/hamdi/AndroidStudioProjects/TaskslyPApp/app/src/main/res/layout/activity_welcom.xml" value="0.10989583333333333" />
-        <entry key="..\:/Users/hamdi/AndroidStudioProjects/TaskslyPApp/app/src/main/res/layout/fragment_2.xml" value="0.10989583333333333" />
-        <entry key="..\:/Users/hamdi/AndroidStudioProjects/TaskslyPApp/app/src/main/res/layout/fragment_add_task_.xml" value="0.2" />
-        <entry key="..\:/Users/hamdi/AndroidStudioProjects/TaskslyPApp/app/src/main/res/layout/fragment_home_.xml" value="0.10989583333333333" />
-        <entry key="..\:/Users/hamdi/AndroidStudioProjects/TaskslyPApp/app/src/main/res/layout/task_recycler_view.xml" value="0.10989583333333333" />
       </map>
     </option>
   </component>
