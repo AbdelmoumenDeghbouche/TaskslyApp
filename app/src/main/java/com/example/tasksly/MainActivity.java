@@ -10,7 +10,10 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.google.gson.Gson;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
-
 
         // changing the color of the status bar
         this.getWindow().setStatusBarColor(this.getColor(R.color.white));
@@ -44,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
         if (!is_clicked) {
             chipNavigationBar.showBadge(R.id.add);
         }
+        Gson gson = new Gson();
+        Task_Model task_element = gson.fromJson(getIntent().getStringExtra("task_element"), Task_Model.class);
+        ArrayList<Task_Model> task_models= Utils.getTasks_list();
+        task_models.add(task_element);
 
 
         // to put the first fragment in the frame layout in the moment that we entered the activity
@@ -51,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
                 //.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                 .replace(R.id.frame, new Home_Fragment())
                 .commit();
-
 
 
 

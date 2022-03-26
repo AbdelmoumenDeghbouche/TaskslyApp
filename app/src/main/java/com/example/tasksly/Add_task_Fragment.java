@@ -3,12 +3,14 @@ package com.example.tasksly;
 import static com.google.android.material.timepicker.TimeFormat.CLOCK_12H;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +20,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
+import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -33,11 +38,18 @@ public class Add_task_Fragment extends Fragment {
 
     EditText TaskTitle ;
     RecyclerView recyclerView ;
-    RelativeLayout relativeLayout, relativeLayout2;
+    RelativeLayout relativeLayout, relativeLayout2,task_done_button;
     Categoty_list_adapter adapter;
     boolean is_clicked;
     TextView select_date_text,select_time_text;
     LinearLayout select_date_button,select_time_button;
+    MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
+            .setTitleText("SELECT A TIME")
+            .setTimeFormat(TimeFormat.CLOCK_12H)
+            .build();
+    MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setTitleText("SELECT A DATE");
+    final MaterialDatePicker materialDatePicker=builder.build();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,6 +72,8 @@ public class Add_task_Fragment extends Fragment {
         // this is a date picker algorithm
         datepicker();
         timepicker();
+        //when done is pressed
+        donepressed();
 
         return  view ;
     }
@@ -71,17 +85,36 @@ public class Add_task_Fragment extends Fragment {
         recyclerView = view.findViewById(R.id.creat_task_recyclerview);
         TaskTitle = view.findViewById(R.id.add_task_title);
         is_clicked = true;
+        task_done_button=view.findViewById(R.id.task_done_button);
         select_date_text=view.findViewById(R.id.select_date_text);
         select_time_text=view.findViewById(R.id.select_time_text);
         select_date_button= view.findViewById(R.id.select_date_button);
         select_time_button=view.findViewById(R.id.select_time_button);
 
     }
+    public void donepressed(){
+        task_done_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String time="",date="";
+                try {
+                    time=materialTimePicker.getHour()+":" +materialTimePicker.getMinute();
+                    date=materialDatePicker.getHeaderText();
+                } catch (NullPointerException e){
+                    Toast.makeText(getActivity(), "Fill the date and time ", Toast.LENGTH_SHORT).show();
+                }
+                Gson gson = new Gson();
+                Task_Model task_model=new Task_Model(TaskTitle.getText().toString(),time,date,null,null,is_clicked);
+                String task_element = gson.toJson(task_model);
+                Intent intent = new Intent(getActivity(),MainActivity.class).putExtra("task_element", task_element);
+                startActivity(intent);
+
+            }
+        });
+
+    }
     public void timepicker(){
-        MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
-                .setTitleText("SELECT A TIME")
-                .setTimeFormat(TimeFormat.CLOCK_12H)
-                .build();
+
         select_time_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,9 +132,7 @@ public class Add_task_Fragment extends Fragment {
 
     }
     public void datepicker(){
-        MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
-        builder.setTitleText("SELECT A DATE");
-        final MaterialDatePicker materialDatePicker=builder.build();
+
         select_date_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
