@@ -1,5 +1,7 @@
 package com.example.tasksly;
 
+import static com.google.android.material.timepicker.TimeFormat.CLOCK_12H;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
@@ -21,8 +23,10 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class Add_task_Fragment extends Fragment {
@@ -32,8 +36,8 @@ public class Add_task_Fragment extends Fragment {
     RelativeLayout relativeLayout, relativeLayout2;
     Categoty_list_adapter adapter;
     boolean is_clicked;
-    TextView select_date_text;
-    LinearLayout select_date_button;
+    TextView select_date_text,select_time_text;
+    LinearLayout select_date_button,select_time_button;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,7 +59,7 @@ public class Add_task_Fragment extends Fragment {
         adapter.setCategories(categories);
         // this is a date picker algorithm
         datepicker();
-
+        timepicker();
 
         return  view ;
     }
@@ -68,12 +72,30 @@ public class Add_task_Fragment extends Fragment {
         TaskTitle = view.findViewById(R.id.add_task_title);
         is_clicked = true;
         select_date_text=view.findViewById(R.id.select_date_text);
+        select_time_text=view.findViewById(R.id.select_time_text);
         select_date_button= view.findViewById(R.id.select_date_button);
+        select_time_button=view.findViewById(R.id.select_time_button);
 
     }
     public void timepicker(){
-        MaterialTimePicker.Builder builder;
-        builder.setTitleText("SELECT A TIME");
+        MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
+                .setTitleText("SELECT A TIME")
+                .setTimeFormat(TimeFormat.CLOCK_12H)
+                .build();
+        select_time_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                materialTimePicker.show(getParentFragmentManager(),"TIME_PICKER");
+            }
+        });
+        materialTimePicker.addOnPositiveButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                select_time_text.setText(materialTimePicker.getHour() +":"+ materialTimePicker.getMinute() );
+            }
+        });
+
+
 
     }
     public void datepicker(){

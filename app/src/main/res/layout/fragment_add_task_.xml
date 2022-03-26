@@ -163,6 +163,7 @@
                     android:layout_weight="1.2"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="Select a Time"
+                    android:id="@+id/select_time_text"
                     android:textColor="#1D1235" />
             </LinearLayout>
 
