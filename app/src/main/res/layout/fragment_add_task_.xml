@@ -127,6 +127,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1.2"
+                    android:id="@+id/select_date_text"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="Select a Date"
                     android:textColor="#1D1235" />
