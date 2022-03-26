@@ -2,6 +2,7 @@ package com.example.tasksly;
 
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -46,10 +47,16 @@ public class MainActivity extends AppCompatActivity {
         if (!is_clicked) {
             chipNavigationBar.showBadge(R.id.add);
         }
-        Gson gson = new Gson();
-        Task_Model task_element = gson.fromJson(getIntent().getStringExtra("task_element"), Task_Model.class);
-        ArrayList<Task_Model> task_models= Utils.getTasks_list();
-        task_models.add(task_element);
+        //add task to list of tasks
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                Utils.AddTaskByTaskModel(new Gson().fromJson(getIntent().getStringExtra("task_element"), Task_Model.class));
+            }
+        });
+
+
 
 
         // to put the first fragment in the frame layout in the moment that we entered the activity
