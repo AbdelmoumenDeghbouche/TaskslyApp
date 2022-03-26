@@ -1,6 +1,8 @@
 package com.example.tasksly;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -24,7 +26,7 @@ public class Home_Fragment extends Fragment {
     private ImageView img_user_profile;
     private TextView txt_name_of_client;
     private MaterialCardView card_view_holding_user_image_profile;
-
+    private Dialog add_category_dialogue;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,4 +70,5 @@ public class Home_Fragment extends Fragment {
         card_view_holding_user_image_profile =view.findViewById(R.id.card_view_holding_user_image_profile);
         txt_name_of_client = view.findViewById(R.id.txt_name_of_client);
     }
+
 }

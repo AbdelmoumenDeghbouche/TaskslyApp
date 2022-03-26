@@ -74,7 +74,6 @@ public class Add_task_Fragment extends Fragment {
         timepicker();
         //when done is pressed
         donepressed();
-
         return  view ;
     }
 

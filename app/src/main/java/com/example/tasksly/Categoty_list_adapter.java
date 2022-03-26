@@ -1,11 +1,13 @@
 package com.example.tasksly;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -61,11 +63,19 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
         if (categories.get(position).getCategory_name().toLowerCase().contains("category")) {
             ViewHolderTwo viewHolderTwo = (ViewHolderTwo) holder;
             viewHolderTwo.txt_has_no_utility.setText("");
+            viewHolderTwo.btn_confirm_adding_category.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "Category added", Toast.LENGTH_SHORT).show();
+                    viewHolderTwo.add_category_dialogue.dismiss();
+                    notifyDataSetChanged();
+                }
+            });
             viewHolderTwo.parent_cardview_layout_of_add_category.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //TODO : WORK ON THE FUNCTIONALITY OF THIS VIEW
-                    Toast.makeText(context, "Category added", Toast.LENGTH_SHORT).show();
+                    viewHolderTwo.add_category_dialogue.show();
                 }
             });
         } else {
@@ -113,13 +123,22 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
         private final RelativeLayout parent_relative_layout_of_add_category;
         private final TextView txt_has_no_utility;
         private final ImageView add_category_image_view;
-
+        private Dialog add_category_dialogue;
+        private Button btn_confirm_adding_category,btn_cancel_adding_category;
         public ViewHolderTwo(@NonNull View itemView) {
             super(itemView);
             parent_cardview_layout_of_add_category = itemView.findViewById(R.id.parent_cardview_layout_of_add_category);
             parent_relative_layout_of_add_category = itemView.findViewById(R.id.parent_relative_layout_of_add_category);
             txt_has_no_utility = itemView.findViewById(R.id.txt_has_no_utility);
             add_category_image_view = itemView.findViewById(R.id.add_category_image_view);
+            add_category_dialogue = new Dialog(itemView.getContext());
+            add_category_dialogue.setContentView(R.layout.add_category_daialogue);
+            add_category_dialogue.getWindow().setBackgroundDrawable(itemView.getContext().getDrawable(R.drawable.background_of_dialogue_add_category));
+            add_category_dialogue.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+            add_category_dialogue.setCancelable(true);
+            add_category_dialogue.getWindow().getAttributes().windowAnimations = R.style.animation_of_add_category;
+            btn_confirm_adding_category = add_category_dialogue.findViewById(R.id.btn_confirm_adding_category);
+            btn_cancel_adding_category= add_category_dialogue.findViewById(R.id.btn_cancel_adding_category);
         }
     }
 

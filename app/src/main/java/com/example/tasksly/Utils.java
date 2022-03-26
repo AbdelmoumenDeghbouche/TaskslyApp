@@ -1,5 +1,10 @@
 package com.example.tasksly;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -10,6 +15,7 @@ import java.util.Calendar;
 public class Utils {
     public static ArrayList<Category_Model> categories_list;
     public static ArrayList<Task_Model> tasks_list;
+
 
     public static void initCategories(){
         if (null== categories_list){
@@ -74,4 +80,5 @@ public class Utils {
             tasks_list.add(task_model);
         }
     }
+
 }
