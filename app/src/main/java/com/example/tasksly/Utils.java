@@ -63,4 +63,9 @@ public class Utils {
     public static ArrayList<Task_Model> getTasks_list() {
         return tasks_list;
     }
+    public static void AddTaskByTaskModel(Task_Model task_model){
+        if (tasks_list != null){
+            tasks_list.add(task_model);
+        }
+    }
 }
