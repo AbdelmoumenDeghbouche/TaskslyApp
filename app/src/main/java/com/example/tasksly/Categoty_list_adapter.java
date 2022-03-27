@@ -68,12 +68,19 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
             viewHolderTwo.btn_confirm_adding_category.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context, "Category added", Toast.LENGTH_SHORT).show();
-                    viewHolderTwo.add_category_dialogue.dismiss();
-                    Name_of_the_category = viewHolderTwo.edit_text_enter_the_name_of_the_category.getText().toString();
-                    Category_Model category_model_coming_from_dialogue = new Category_Model(Name_of_the_category);
-                    categories.add(0,category_model_coming_from_dialogue);
-                    viewHolderTwo.edit_text_enter_the_name_of_the_category.setText("");
+                    if (viewHolderTwo.edit_text_enter_the_name_of_the_category.getText().toString().equals("")){
+                        Toast.makeText(context, "Please Write The name of your category", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        viewHolderTwo.add_category_dialogue.dismiss();
+                        Name_of_the_category = viewHolderTwo.edit_text_enter_the_name_of_the_category.getText().toString();
+                        Category_Model category_model_coming_from_dialogue = new Category_Model(Name_of_the_category);
+                        categories.add(0,category_model_coming_from_dialogue);
+                        viewHolderTwo.edit_text_enter_the_name_of_the_category.setText("");
+                        Toast.makeText(context, "Category added", Toast.LENGTH_SHORT).show();
+                    }
+
+
                 }
             });
             viewHolderTwo.parent_cardview_layout_of_add_category.setOnClickListener(new View.OnClickListener() {
