@@ -23,6 +23,7 @@
         android:layout_below="@+id/txt_enter_name_of_the_category"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="20dp"
+        android:text=""
         android:layout_marginRight="15dp"
         android:hint="Enter the name of your category"
         android:textColorHint="@color/button_cancel" />
