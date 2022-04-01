@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.DifferentTasksListActivity">
+
+
+    <TextView
+        android:id="@+id/txt_private_task_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Private Tasks"
+        android:textColor="@color/black"
+        android:textSize="28dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_of_private_tasks"
+        android:layout_width="match_parent"
+        android:layout_margin="15dp"
+        android:layout_marginBottom="5dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_private_task_title"
+        android:layout_marginLeft="15dp" />
+
+
+
+</RelativeLayout>
