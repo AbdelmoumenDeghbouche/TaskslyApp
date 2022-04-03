@@ -63,7 +63,6 @@ public class Add_task_Fragment extends Fragment {
         ArrayList<Category_Model> categories = Utils.getCategories_list(); // this function is returning the arraylist that we charged in the precedent line
 
         // setting the categories recycler view
-
         adapter = new Categoty_list_adapter(view.getContext());
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL,false);
@@ -104,7 +103,7 @@ public class Add_task_Fragment extends Fragment {
                     Toast.makeText(getActivity(), "Fill the date and time ", Toast.LENGTH_SHORT).show();
                 }
                 Gson gson = new Gson();
-                Task_Model task_model=new Task_Model(TaskTitle.getText().toString(),time,date,null,null,is_clicked);
+                Task_Model task_model=new Task_Model(TaskTitle.getText().toString(),time,date,Utils.getCategories_list().get(adapter.getRow_index()),null,is_clicked);
                 String task_element = gson.toJson(task_model);
                 Intent intent = new Intent(getActivity(),MainActivity.class).putExtra("task_element", task_element);
                 startActivity(intent);
