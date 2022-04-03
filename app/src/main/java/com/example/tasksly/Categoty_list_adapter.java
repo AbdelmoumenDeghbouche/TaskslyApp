@@ -28,6 +28,10 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
     private String Name_of_the_category;
     private int counter;
 
+    public int getRow_index() {
+        return row_index;
+    }
+
     public Categoty_list_adapter(Context context) {
         this.context = context;
     }
