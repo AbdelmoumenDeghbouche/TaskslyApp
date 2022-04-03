@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +43,12 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
         holder.txt_task_name.setText(tasks_list.get(position).getTask_title().toString());
         holder.txt_time_of_task.setText(tasks_list.get(position).getTime());
         holder.txt_description_of_task.setText("description");
+        holder.parent_relative_layout_of_task_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, tasks_list.get(position).getCategory().getCategory_name().toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
         holder.img_view_check_box_oval_not_checked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,10 +78,12 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
     }
     class Viewholder extends RecyclerView.ViewHolder {
         private MaterialCardView card_view_layout_of_task_item;
+        private RelativeLayout parent_relative_layout_of_task_name;
         private TextView txt_time_of_task,txt_description_of_task,txt_task_name;
         private ImageView img_view_clock,img_view_check_box_oval_checked,img_view_check_box_oval_not_checked;
         public Viewholder(@NonNull View itemView) {
             super(itemView);
+            parent_relative_layout_of_task_name = itemView.findViewById(R.id.parent_relative_layout_of_task_name);
             card_view_layout_of_task_item = itemView.findViewById(R.id.card_view_layout_of_task_item);
             txt_time_of_task = itemView.findViewById(R.id.txt_time_of_task);
             img_view_clock =itemView.findViewById(R.id.img_view_clock);
