@@ -103,7 +103,7 @@ public class Add_task_Fragment extends Fragment {
                     Toast.makeText(getActivity(), "Fill the date and time ", Toast.LENGTH_SHORT).show();
                 }
                 Gson gson = new Gson();
-                Task_Model task_model=new Task_Model(TaskTitle.getText().toString(),time,date,Utils.getTasks_list().get(),null,is_clicked);
+                Task_Model task_model=new Task_Model(TaskTitle.getText().toString(),time,date,Utils.getCategories_list().get(adapter.getRow_index()),null,is_clicked);
                 String task_element = gson.toJson(task_model);
                 Intent intent = new Intent(getActivity(),MainActivity.class).putExtra("task_element", task_element);
                 startActivity(intent);
