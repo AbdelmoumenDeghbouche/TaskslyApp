@@ -1,4 +1,4 @@
-package com.example.tasksly;
+package com.example.tasksly.Controller;
 
 
 import android.animation.AnimatorSet;
@@ -13,30 +13,33 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tasksly.Module.welcom_activity_Model;
+import com.example.tasksly.R;
+
 import java.util.ArrayList;
 
 public class welcom_activity_recycler_adapter extends RecyclerView.Adapter<welcom_activity_recycler_adapter.ViewHolder> {
-    ArrayList<welcom_activity_recycler_class> liste;
+    ArrayList<welcom_activity_Model> liste;
     Context context;
     long DURATION = 1000;
     long DURATION1 = 750;
     long DURATION2 = 350;
     boolean ON_ATTACH = true;
 
-    public welcom_activity_recycler_adapter(ArrayList<welcom_activity_recycler_class> liste, Context context) {
+    public welcom_activity_recycler_adapter(ArrayList<welcom_activity_Model> liste, Context context) {
         this.context = context;
         this.liste = liste;
     }
 
     @NonNull
     @Override
-    public welcom_activity_recycler_adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.welcom_card_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull welcom_activity_recycler_adapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.imageView.setImageResource(liste.get(position).getImg());
         holder.maintext.setText(liste.get(position).getMaintext());
         holder.secondtext.setText(liste.get(position).getSecondtext());

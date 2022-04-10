@@ -3,7 +3,7 @@
     android:id="@+id/card_view_layout_of_task_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:backgroundTint="@color/white">
+    android:background="#FFFFFF">
 
     <RelativeLayout
         android:id="@+id/parent_relative_layout_of_task_name"
@@ -24,7 +24,7 @@
             android:layout_marginTop="25dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/text_task_name"
-            android:textColor="@color/black"
+            android:textColor="#32375C"
             android:textSize="18dp" />
 
 

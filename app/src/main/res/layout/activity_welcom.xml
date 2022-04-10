@@ -1,78 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/welcom"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    android:id="@+id/welcom"
     android:orientation="vertical"
     android:padding="25dp"
-    tools:context=".Welcom_activity">
+    tools:context=".View.Welcom_activity">
 
     <Space
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="0.25" />
+        android:layout_weight="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2.4" />
+        android:layout_weight="2.3" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.35">
+
         <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
             android:id="@+id/indicator"
             android:layout_width="wrap_content"
-            app:spi_dotSelectedColor="#FF92A0"
-            app:spi_dotColor="#F8F8F8"
-            app:spi_looped="false"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_height="wrap_content" />
+            app:spi_dotColor="#C3C3C3"
+            app:spi_dotSelectedColor="@color/mainpink"
+            app:spi_looped="false" />
     </RelativeLayout>
 
 
-
     <LinearLayout
+        android:id="@+id/parent1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="14dp"
         android:layout_weight="0.3"
-        android:background="@drawable/welcom_card_back">
+        android:background="@drawable/welcom_card_back2">
 
         <LinearLayout
+            android:id="@+id/login_layout"
             android:layout_width="match_parent"
-            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_height="match_parent"
             android:clickable="true"
             android:focusable="true"
-            android:id="@+id/facebook_layout"
-            android:layout_height="match_parent">
+            android:foreground="?android:attr/selectableItemBackground">
 
-            <ImageView
+            <Space
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.4"
-                android:src="@drawable/facebooksvg" />
+                android:layout_weight="1" />
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="Continue with Facebook"
-                android:textColor="#1D1235"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:text="Login"
+                android:textColor="#000000"
+                android:textSize="19sp" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/parent2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="14dp"
@@ -80,12 +83,50 @@
         android:background="@drawable/welcom_card_back">
 
         <LinearLayout
+            android:id="@+id/signup_layout"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:transitionName="signup"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Sign up"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/google_parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:background="@drawable/welcom_card_back3">
+
+        <LinearLayout
             android:id="@+id/google_layout"
-            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:clickable="true"
             android:focusable="true"
-            android:layout_height="match_parent">
+            android:foreground="?android:attr/selectableItemBackground">
 
             <ImageView
                 android:layout_width="0dp"
@@ -107,44 +148,10 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.3"
-        android:background="@drawable/welcom_card_back2">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:id="@+id/email_layout"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.4"
-                android:src="@drawable/eamilsvg" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="Continue with E-mail"
-                android:textColor="#1D1235"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </LinearLayout>
-
 
     <Space
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="0.2" />
+        android:layout_weight="0.1" />
 
 </LinearLayout>

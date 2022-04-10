@@ -22,5 +22,9 @@
     <color name="sub_title_grey">#756F84</color>
     <color name="mainblue">#E5ECFF</color>
     <color name="darkblue">#3561FF</color>
-    <color name="mainpink">#FF92A0</color>
+    <color name="darkblue2">#97B9F9</color>
+    <color name="darkblue3">#4A5DEE</color>
+    <color name="mainpink">#FF4666</color>
+    <color name="mainyellow">#FFB64A</color>
+    <color name="fontmain">#0D1340</color>
 </resources>

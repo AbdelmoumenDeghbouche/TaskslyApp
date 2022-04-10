@@ -1,20 +1,22 @@
-package com.example.tasksly;
+package com.example.tasksly.View;
 
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.tasksly.R;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 public class MainActivity extends AppCompatActivity {
 
-    ChipNavigationBar chipNavigationBar;
+    public static ChipNavigationBar chipNavigationBar;
     boolean is_clicked;
     Fragment fragment;
 
@@ -32,6 +34,11 @@ public class MainActivity extends AppCompatActivity {
         // to change the color of the icons in status bar to dark
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(APPEARANCE_LIGHT_STATUS_BARS, APPEARANCE_LIGHT_STATUS_BARS);
+        }
+        // to change the color of the icons in the navigation bar to dark
+        getWindow().setNavigationBarColor(ContextCompat.getColor(MainActivity.this, R.color.darkblue3)); //setting bar color
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//            this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS, WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS);
         }
 
 
@@ -66,8 +73,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new Home_Fragment();
                         break;
                     case R.id.add:
-                        fragment = new Add_task_Fragment();
-
+                        startActivity(new Intent(MainActivity.this, Add_task.class));
                         // disabling the red circle in the add icon
                         chipNavigationBar.dismissBadge(R.id.add);
                         is_clicked = false;

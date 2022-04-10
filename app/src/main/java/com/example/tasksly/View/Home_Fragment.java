@@ -1,18 +1,21 @@
-package com.example.tasksly;
+package com.example.tasksly.View;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.tasksly.Controller.Categoty_list_adapter;
+import com.example.tasksly.Module.Category_Model;
+import com.example.tasksly.Module.Utils;
+import com.example.tasksly.R;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
@@ -34,7 +37,7 @@ public class Home_Fragment extends Fragment {
 
         getParentFragmentManager().beginTransaction()
                 //.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                .replace(R.id.fragment2, new Fragment2())
+                .replace(R.id.fragment2, new Tasks_fragment())
                 .commit();
 
 

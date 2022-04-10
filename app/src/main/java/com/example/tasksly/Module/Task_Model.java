@@ -1,4 +1,4 @@
-package com.example.tasksly;
+package com.example.tasksly.Module;
 
 public class Task_Model {
     private String task_title;

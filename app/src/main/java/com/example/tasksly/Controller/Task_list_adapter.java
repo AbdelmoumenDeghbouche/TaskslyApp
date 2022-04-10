@@ -1,4 +1,4 @@
-package com.example.tasksly;
+package com.example.tasksly.Controller;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tasksly.Module.Animations;
+import com.example.tasksly.Module.Task_Model;
+import com.example.tasksly.R;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
@@ -41,6 +44,9 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
         holder.txt_task_name.setText(tasks_list.get(position).getTask_title().toString());
         holder.txt_time_of_task.setText(tasks_list.get(position).getTime());
         holder.txt_description_of_task.setText(tasks_list.get(position).getDescription().toString());
+        Animations.FromLeftToRightCardView(holder.card_view_layout_of_task_item,position);
+
+
         holder.img_view_check_box_oval_not_checked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

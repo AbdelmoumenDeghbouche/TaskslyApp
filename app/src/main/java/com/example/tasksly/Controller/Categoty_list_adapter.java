@@ -1,4 +1,4 @@
-package com.example.tasksly;
+package com.example.tasksly.Controller;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tasksly.Module.Category_Model;
+import com.example.tasksly.R;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
@@ -82,8 +84,8 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
             });
             if (row_index==position){
                 if (row_index==0 && counter==0) {
-                    viewHolderOne.parent_relative_layout_of_category_name.setBackgroundResource(R.drawable.cardview_style);
-                    viewHolderOne.txt_category_name.setTextColor(Color.BLACK);
+                    viewHolderOne.parent_relative_layout_of_category_name.setBackgroundResource(R.drawable.cardview_style2);
+                    viewHolderOne.txt_category_name.setTextColor(Color.WHITE);
                     
                     counter++;
                 }

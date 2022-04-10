@@ -1,19 +1,22 @@
-package com.example.tasksly;
+package com.example.tasksly.View;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import com.example.tasksly.Controller.Task_list_adapter;
+import com.example.tasksly.Module.Task_Model;
+import com.example.tasksly.Module.Utils;
+import com.example.tasksly.R;
 
 import java.util.ArrayList;
 
-public class Fragment2 extends Fragment {
+public class Tasks_fragment extends Fragment {
     private RecyclerView tasks_list_recycler_view;
     private Task_list_adapter adapter;
     @Override

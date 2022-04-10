@@ -19,4 +19,7 @@
         <item name="android:fontFamily">@font/poppins_medium</item>
         <item name="android:textSize">13sp</item>
     </style>
+    <style name="one">
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

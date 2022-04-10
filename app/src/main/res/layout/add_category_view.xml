@@ -8,7 +8,6 @@
     android:foreground="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
-    app:strokeWidth="0.5dp"
     app:cardElevation="0dp"
     app:cardCornerRadius="16dp"
     android:layout_marginRight="11dp">
