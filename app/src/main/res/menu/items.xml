@@ -5,25 +5,25 @@
         android:id="@+id/home"
         android:icon="@drawable/ic_home"
         android:title="Home"
-        app:cnb_backgroundColor="@color/mainyellow"
-        app:cnb_iconColor="@color/black"
-        app:cnb_textColor="@color/black" />
+        app:cnb_backgroundColor="@color/darkblue3"
+        app:cnb_iconColor="@color/white"
+        app:cnb_textColor="@color/white" />
 
     <item
         android:id="@+id/add"
         android:icon="@drawable/add_liste"
         android:title="Add Task"
-        app:cnb_backgroundColor="@color/mainyellow"
-        app:cnb_iconColor="@color/black"
-        app:cnb_textColor="@color/black" />
+        app:cnb_backgroundColor="@color/darkblue3"
+        app:cnb_iconColor="@color/white"
+        app:cnb_textColor="@color/white" />
 
     <item
         android:id="@+id/settings"
         android:icon="@drawable/ic_settings"
         android:title="Settings"
-        app:cnb_backgroundColor="@color/mainyellow"
-        app:cnb_iconColor="@color/black"
-        app:cnb_textColor="@color/black" />
+        app:cnb_backgroundColor="@color/darkblue3"
+        app:cnb_iconColor="@color/white"
+        app:cnb_textColor="@color/white" />
 
 
 </menu>

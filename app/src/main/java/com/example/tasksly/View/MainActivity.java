@@ -5,6 +5,7 @@ import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.WindowInsetsController;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
             this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(APPEARANCE_LIGHT_STATUS_BARS, APPEARANCE_LIGHT_STATUS_BARS);
         }
         // to change the color of the icons in the navigation bar to dark
-        getWindow().setNavigationBarColor(ContextCompat.getColor(MainActivity.this, R.color.darkblue3)); //setting bar color
+        getWindow().setNavigationBarColor(ContextCompat.getColor(MainActivity.this, R.color.white)); //setting bar color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//            this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS, WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS);
+           this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS, WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS);
         }
 
 

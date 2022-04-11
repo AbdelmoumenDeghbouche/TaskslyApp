@@ -31,6 +31,6 @@
         android:windowSoftInputMode="adjustPan"
         app:cnb_menuResource="@menu/items"
         app:cnb_textAppearance="@style/CustomText"
-        app:cnb_unselectedColor="#E4E4E4" />
+        app:cnb_unselectedColor="#686868" />
 
 </RelativeLayout>
