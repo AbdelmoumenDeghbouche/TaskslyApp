@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-
+import java.util.HashMap;
 
 
 // the 2 first functions are for the categories arraylist
@@ -15,7 +15,7 @@ import java.util.Calendar;
 public class Utils {
     public static ArrayList<Category_Model> categories_list;
     public static ArrayList<Task_Model> tasks_list;
-
+    public static HashMap<String,ArrayList<Task_Model>> category_map;
 
     public static void initCategories(){
         if (null== categories_list){
@@ -75,8 +75,31 @@ public class Utils {
 
         return tasks_list;
     }
+    public static boolean categoryIsExist(String s){
+        //check if category already exists in the hashmap
+        for (String i :category_map.keySet()){
+            if (i==s){
+                return true;
+            }
+
+        }
+        return false;
+    }
     public static void AddTaskByTaskModel(Task_Model task_model){
         if (tasks_list != null){
+            String category_name=task_model.getCategory().getCategory_name();
+            if (categoryIsExist(category_name)){
+                //we update the tasks list corresponding to the category
+                ArrayList<Task_Model> r=category_map.get(category_name);
+                r.add(task_model);
+                category_map.put(category_name,r);
+            }
+            else{
+                //we make a new tasks list for the category
+                ArrayList<Task_Model> r =new ArrayList<>();
+                r.add(task_model);
+                category_map.put(category_name,r);
+            }
             tasks_list.add(task_model);
         }
     }
