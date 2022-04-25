@@ -10,41 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tasksly">
         <activity
-            android:name=".View.change_password_succes"
+            android:name="com.DifferentTasksListActivity"
             android:exported="false" />
         <activity
-            android:name=".View.Phone_number_activity"
+            android:name=".Profile_activity"
             android:exported="false" />
         <activity
-            android:name=".View.OTP_verification_activity"
-            android:exported="false" />
-        <activity
-            android:name=".View.Reset_password_activity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".View.Forget_password_activity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".View.Signup_activity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".View.Login_activity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".View.Add_task"
-            android:exported="false" />
-        <activity
-            android:name=".View.Profile_activity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".View.Welcom_activity"
-            android:exported="true"
-            android:screenOrientation="portrait">
+            android:name=".Welcom_activity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,14 +25,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".View.MainActivity"
-            android:exported="true"
-            android:screenOrientation="portrait" />
+            android:name=".MainActivity"
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-
 
 </manifest>

@@ -1,17 +1,20 @@
 package com.example.tasksly.Module;
 
+import com.google.android.material.timepicker.MaterialTimePicker;
+
 public class Task_Model {
     private String task_title;
     private String time;
     private String date;
     private Category_Model category;
-    private boolean is_finished;
+    private boolean is_finished,is_notified;
     private String description;
 
-    public Task_Model(String task_title, String time, String date, Category_Model category, String description) {
+    public Task_Model(String task_title, String time, String date, Category_Model category, String description,Boolean is_notified) {
         this.task_title = task_title;
         this.time = time;
         this.date = date;
+        this.is_notified=is_notified;
         this.category = category;
         this.is_finished = false;
         this.description = description;
