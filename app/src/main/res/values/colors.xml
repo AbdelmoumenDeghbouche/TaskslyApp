@@ -20,7 +20,8 @@
     <color name="title_black">#3d3d3d</color>
     <color name="edit_text_grey">#F2F2F2</color>
     <color name="sub_title_grey">#756F84</color>
-    <color name="mainblue">#E5ECFF</color>
+    <color name="mainblue">#F2F2F2</color>
+    <color name="button_cancel">#464646</color>
     <color name="darkblue">#3561FF</color>
     <color name="mainpink">#FF92A0</color>
 </resources>
