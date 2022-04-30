@@ -5,6 +5,7 @@ import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
@@ -30,7 +31,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
+        //this is a must for asynctask to work
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
+        StrictMode.setThreadPolicy(policy);
         // changing the color of the status bar
         this.getWindow().setStatusBarColor(this.getColor(R.color.white));
 
@@ -52,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         //add task to list of tasks
 
         AsyncTask.execute(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void run() {
                 Utils.AddTaskByTaskModel(new Gson().fromJson(getIntent().getStringExtra("task_element"), Task_Model.class));
