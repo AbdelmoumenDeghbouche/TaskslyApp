@@ -35,9 +35,7 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
     public Categoty_list_adapter(Context context) {
         this.context = context;
     }
-    public int getRow_index() {
-        return row_index;
-    }
+   
 
 
     public void setCategories(ArrayList<Category_Model> categories) {
