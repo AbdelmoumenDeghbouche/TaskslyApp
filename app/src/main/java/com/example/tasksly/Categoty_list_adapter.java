@@ -1,4 +1,4 @@
-package com.example.tasksly.Controller;
+package com.example.tasksly;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,8 +14,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.tasksly.Module.Category_Model;
-import com.example.tasksly.R;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;

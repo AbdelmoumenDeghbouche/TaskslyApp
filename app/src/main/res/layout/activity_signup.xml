@@ -11,7 +11,7 @@
     android:paddingLeft="25dp"
     android:paddingBottom="10dp"
     android:paddingTop="10dp"
-    tools:context=".View.Login_activity">
+    tools:context=".Login_activity">
 
     <!--    <Space-->
     <!--        android:layout_width="wrap_content"-->

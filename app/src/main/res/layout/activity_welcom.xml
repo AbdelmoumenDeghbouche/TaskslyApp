@@ -8,7 +8,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:padding="25dp"
-    tools:context=".View.Welcom_activity">
+    tools:context=".Welcom_activity">
 
     <Space
         android:layout_width="wrap_content"

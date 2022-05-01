@@ -9,7 +9,7 @@
     android:background="@color/white"
     android:paddingRight="20dp"
     android:paddingBottom="70dp"
-    tools:context=".View.Add_task">
+    tools:context=".Add_task">
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"

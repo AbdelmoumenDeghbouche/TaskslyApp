@@ -1,4 +1,4 @@
-package com.example.tasksly.View;
+package com.example.tasksly;
 
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.tasksly.R;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 public class MainActivity extends AppCompatActivity {
@@ -71,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = null;
                 switch (i) {
                     case R.id.home:
+
                         fragment = new Home_Fragment();
                         break;
                     case R.id.add:

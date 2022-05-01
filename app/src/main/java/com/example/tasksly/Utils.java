@@ -1,9 +1,7 @@
-package com.example.tasksly.Module;
+package com.example.tasksly;
 
 import android.app.Activity;
 import android.view.inputmethod.InputMethodManager;
-
-import com.example.tasksly.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;

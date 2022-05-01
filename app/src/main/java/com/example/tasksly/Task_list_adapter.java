@@ -1,4 +1,4 @@
-package com.example.tasksly.Controller;
+package com.example.tasksly;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,9 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.tasksly.Module.Animations;
-import com.example.tasksly.Module.Task_Model;
-import com.example.tasksly.R;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.tasksly.View;
+package com.example.tasksly;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

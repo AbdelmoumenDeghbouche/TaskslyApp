@@ -1,4 +1,4 @@
-package com.example.tasksly.View;
+package com.example.tasksly;
 
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
@@ -17,21 +17,18 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.example.tasksly.Module.Animations;
-import com.example.tasksly.Module.Utils;
-import com.example.tasksly.R;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class Reset_password_activity extends AppCompatActivity {
+public class Phone_number_activity extends AppCompatActivity {
 
     RelativeLayout SubmitButton;
     TextView maintext , secondtext ;
     ImageView mainImage;
-    TextInputLayout passwordlayout , confirmpasswordlayout;
+    TextInputLayout PhoneNumberLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reset_password);
+        setContentView(R.layout.activity_phone_number);
         // setting the keyboard
         setupUI(findViewById(R.id.parent));
 
@@ -43,7 +40,7 @@ public class Reset_password_activity extends AppCompatActivity {
             this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(APPEARANCE_LIGHT_STATUS_BARS, APPEARANCE_LIGHT_STATUS_BARS);
         }
         // to change the color of the icons in the navigation bar to dark
-        getWindow().setNavigationBarColor(ContextCompat.getColor(Reset_password_activity.this, R.color.white)); //setting bar color
+        getWindow().setNavigationBarColor(ContextCompat.getColor(Phone_number_activity.this, R.color.white)); //setting bar color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS, WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS);
         }
@@ -52,40 +49,37 @@ public class Reset_password_activity extends AppCompatActivity {
         handlingAnimation();
         hadlingOnClicks();
     }
-
-    private void hadlingOnClicks() {
-        SubmitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Reset_password_activity.this, change_password_succes.class));
-            }
-        });
-    }
-
     private void handlingAnimation() {
         Animations.FromUpToDown(mainImage);
         Animations.FromeLeftToRight(maintext);
         Animations.FromeLeftToRight1(secondtext);
-        Animations.FromeRightToLeftEditetext(passwordlayout);
-        Animations.FromeRightToLeftEditetext1(confirmpasswordlayout);
+        Animations.FromeRightToLeftEditetext2(PhoneNumberLayout);
         Animations.FromeRightToLeft(SubmitButton);
     }
 
+
     public void initialisation() {
-        SubmitButton = findViewById(R.id.reset_password_submit_button);
-        maintext = findViewById(R.id.reset_password_main_text);
-        secondtext = findViewById(R.id.reset_password_second_text);
-        mainImage = findViewById(R.id.reset_password_image);
-        passwordlayout = findViewById(R.id.reset_password_layout);
-        confirmpasswordlayout = findViewById(R.id.reset_confirm_password_layout);
+        SubmitButton = findViewById(R.id.forget_password_phonenumber_submit_button);
+        maintext = findViewById(R.id.forget_password_phonenumber_main_text);
+        mainImage = findViewById(R.id.forget_password_phonenumber_image);
+        PhoneNumberLayout = findViewById(R.id.forget_password_phonenumber_layout);
+        secondtext = findViewById(R.id.forget_password_phonenumber_second_text);
     }
 
+    public void hadlingOnClicks(){
+        SubmitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Phone_number_activity.this, OTP_verification_activity.class));
+            }
+        });
+    }
     public void setupUI(View view) {
         // Set up touch listener for non-text box views to hide keyboard.
         if (!(view instanceof EditText)) {
             view.setOnTouchListener(new View.OnTouchListener() {
                 public boolean onTouch(View v, MotionEvent event) {
-                    Utils.hideSoftKeyboard(Reset_password_activity.this);
+                    Utils.hideSoftKeyboard(Phone_number_activity.this);
                     return false;
                 }
             });

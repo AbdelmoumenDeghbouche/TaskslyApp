@@ -1,4 +1,4 @@
-package com.example.tasksly.View;
+package com.example.tasksly;
 
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
@@ -16,10 +16,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-
-import com.example.tasksly.Module.Animations;
-import com.example.tasksly.Module.Utils;
-import com.example.tasksly.R;
 
 public class change_password_succes extends AppCompatActivity {
 
