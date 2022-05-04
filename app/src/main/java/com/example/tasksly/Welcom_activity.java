@@ -1,4 +1,4 @@
-package com.example.tasksly.View;
+package com.example.tasksly;
 
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
@@ -14,12 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.tasksly.Controller.welcom_activity_recycler_adapter;
-import com.example.tasksly.Module.Animations;
-import com.example.tasksly.Module.Utils;
-import com.example.tasksly.Module.welcom_activity_Model;
-import com.example.tasksly.R;
 
 import java.util.ArrayList;
 

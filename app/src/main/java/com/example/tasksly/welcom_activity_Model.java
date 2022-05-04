@@ -1,4 +1,4 @@
-package com.example.tasksly.Module;
+package com.example.tasksly;
 
 public class welcom_activity_Model {
     int img ;

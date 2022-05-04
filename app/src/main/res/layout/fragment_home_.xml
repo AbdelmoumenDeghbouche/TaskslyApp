@@ -4,18 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".Home_Fragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="#FFFFFF"
         android:paddingBottom="0dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.235"
+            android:layout_weight="0.218"
             android:paddingLeft="20dp"
             android:paddingTop="30dp"
             android:paddingRight="20dp">
@@ -32,11 +34,11 @@
                     android:fontFamily="@font/poppins_medium"
                     android:text="@string/HelloUser"
                     android:textColor="#1D1235"
-                    android:textSize="28dp" />
+                    android:textSize="24dp" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/card_view_holding_user_image_profile"
-                    android:layout_width="45dp"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
@@ -48,7 +50,7 @@
                     <ImageView
                         android:id="@+id/img_user_profile"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="50dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/user_img" />
                 </com.google.android.material.card.MaterialCardView>
@@ -60,32 +62,47 @@
                     android:layout_alignParentBottom="true"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@string/Name_of_the_user"
-                    android:textColor="#1D1235"
+                    android:textColor="@color/fontmain"
                     android:textSize="28dp" />
             </RelativeLayout>
 
         </RelativeLayout>
 
+<!--        <TextView-->
+<!--            android:id="@+id/txt_Tasks"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/poppins_semibold"-->
+<!--            android:paddingLeft="20dp"-->
+<!--            android:layout_marginTop="7dp"-->
+<!--            android:text="Choose category"-->
+<!--            android:textColor="#8A8A8A"-->
+<!--            android:textSize="16dp" />-->
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/category_recyclerview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="10dp"
+            android:layout_weight="0.11"
             android:background="@color/white"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp">
+            android:paddingTop="3dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="3dp">
 
         </androidx.recyclerview.widget.RecyclerView>
 
         <FrameLayout
             android:id="@+id/fragment2"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="5dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="#fff"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" />
 
     </LinearLayout>
 

@@ -1,4 +1,4 @@
-package com.example.tasksly.View;
+package com.example.tasksly;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -14,10 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.tasksly.Controller.Categoty_list_adapter;
-import com.example.tasksly.Module.Category_Model;
-import com.example.tasksly.Module.Utils;
-import com.example.tasksly.R;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;

@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view_layout_of_task_item"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF">
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
+    android:layout_marginBottom="10dp"
+    android:background="#FFFFFF"
+    app:cardCornerRadius="16dp">
 
     <RelativeLayout
         android:id="@+id/parent_relative_layout_of_task_name"
         android:layout_width="match_parent"
-        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_height="wrap_content"
+        android:background="@drawable/cardview_style"
         android:clickable="true"
         android:focusable="true"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/cardview_style">
+        android:foreground="?android:attr/selectableItemBackground">
 
 
         <TextView

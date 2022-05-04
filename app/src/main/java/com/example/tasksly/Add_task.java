@@ -1,8 +1,9 @@
-package com.example.tasksly.View;
+package com.example.tasksly;
 
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -15,17 +16,12 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.tasksly.Controller.Categoty_list_adapter;
-import com.example.tasksly.Module.Category_Model;
-import com.example.tasksly.Module.Utils;
-import com.example.tasksly.R;
-
 import java.util.ArrayList;
 
 public class Add_task extends AppCompatActivity {
     EditText TaskTitle ;
     RecyclerView recyclerView ;
-    RelativeLayout relativeLayout, relativeLayout2;
+    RelativeLayout relativeLayout, relativeLayout2 , donebutton;
     Categoty_list_adapter adapter;
     boolean is_clicked;
 
@@ -70,6 +66,7 @@ public class Add_task extends AppCompatActivity {
         relativeLayout2 = findViewById(R.id.Off_relalive_layout);
         recyclerView = findViewById(R.id.creat_task_recyclerview);
         TaskTitle = findViewById(R.id.add_task_title);
+        donebutton = findViewById(R.id.task_done_button);
         is_clicked = true;
 
     }
@@ -89,6 +86,13 @@ public class Add_task extends AppCompatActivity {
                     relativeLayout2.setVisibility(View.GONE);
                 }
                 is_clicked = !is_clicked;
+            }
+        });
+
+        donebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Add_task.this,MainActivity.class));
             }
         });
 

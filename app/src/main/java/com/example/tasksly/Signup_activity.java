@@ -1,4 +1,4 @@
-package com.example.tasksly.View;
+package com.example.tasksly;
 
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
@@ -18,23 +18,22 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.example.tasksly.Module.Animations;
-import com.example.tasksly.Module.Utils;
-import com.example.tasksly.R;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class Login_activity extends AppCompatActivity {
+public class Signup_activity extends AppCompatActivity {
 
-    RelativeLayout LoginginButton;
-    TextView creat_new_account_text, maintext , forgotpassword , secondtext ;
-    ImageView mainImage;
-    LinearLayout SupportLinearLayout , orLoginLayout;
-    TextInputLayout emaillayout, passwordlayout;
+
+    ImageView mainImage ;
+    TextView Login_text , secondtext , maintext ;
+    RelativeLayout LoginginButton ;
+    LinearLayout supportLinearLayout ;
+    TextInputLayout fullnametext , phonenumbertext ,emailtext , confirmpasswordtext , passwordtext ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_signup);
+
         // setting the keyboard
         setupUI(findViewById(R.id.parent));
 
@@ -46,23 +45,17 @@ public class Login_activity extends AppCompatActivity {
             this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(APPEARANCE_LIGHT_STATUS_BARS, APPEARANCE_LIGHT_STATUS_BARS);
         }
         // to change the color of the icons in the navigation bar to dark
-        getWindow().setNavigationBarColor(ContextCompat.getColor(Login_activity.this, R.color.white)); //setting bar color
+        getWindow().setNavigationBarColor(ContextCompat.getColor(Signup_activity.this, R.color.white)); //setting bar color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS, WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS);
         }
+
 
         initialisation();
         handlingOnClicks();
         handlingAnimation();
 
-
     }
-
-
-
-
-
-
 
 
 
@@ -75,52 +68,49 @@ public class Login_activity extends AppCompatActivity {
 
 
     private void handlingAnimation() {
-        Animations.FromUpToDown(mainImage);
+        Animations.FromUpToDownSignup(mainImage);
+        Animations.FromeRightToLeft(LoginginButton);
+        Animations.FromeDownToUp(supportLinearLayout);
+        Animations.FromeRightToLeftEditetext4(confirmpasswordtext);
+        Animations.FromeRightToLeftEditetext1(emailtext);
+        Animations.FromeRightToLeftEditetext(fullnametext);
+        Animations.FromeRightToLeftEditetext3(passwordtext);
+        Animations.FromeRightToLeftEditetext2(phonenumbertext);
         Animations.FromeLeftToRight(maintext);
         Animations.FromeLeftToRight1(secondtext);
-        Animations.FromeRightToLeft(LoginginButton);
-        Animations.FromeDownToUp(SupportLinearLayout);
-        Animations.FromeRightToLeftEditetext1(emaillayout);
-        Animations.FromeRightToLeftEditetext2(passwordlayout);
-        Animations.FromeDownToUp(orLoginLayout);
     }
 
 
-    public void initialisation() {
-        secondtext = findViewById(R.id.login_second_text);
+    public void initialisation(){
         LoginginButton = findViewById(R.id.login_button);
-        creat_new_account_text = findViewById(R.id.go_to_sign);
-        maintext = findViewById(R.id.main_text);
+        Login_text = findViewById(R.id.go_to_login);
+        secondtext = findViewById(R.id.signup_second_text);
+        maintext = findViewById(R.id.signup_main_text);
         mainImage = findViewById(R.id.main_img);
-        SupportLinearLayout = findViewById(R.id.support_linear_layout);
-        emaillayout = findViewById(R.id.email_parent_login);
-        passwordlayout = findViewById(R.id.password_parent_login);
-        orLoginLayout = findViewById(R.id.or_login_with_layout);
-        forgotpassword = findViewById(R.id.forgot_password_text);
+        supportLinearLayout = findViewById(R.id.support_layout);
+        fullnametext = findViewById(R.id.full_name_parent);
+        phonenumbertext = findViewById(R.id.phone_parent);
+        emailtext = findViewById(R.id.email_parent);
+        confirmpasswordtext = findViewById(R.id.confirm_password_parent);
+        passwordtext = findViewById(R.id.password_parent);
     }
 
-    public void handlingOnClicks() {
+    public void handlingOnClicks(){
         LoginginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Login_activity.this, MainActivity.class));
+                startActivity(new Intent(Signup_activity.this, MainActivity.class));
             }
         });
-        creat_new_account_text.setOnClickListener(new View.OnClickListener() {
+        Login_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Login_activity.this, Signup_activity.class));
+                startActivity(new Intent(Signup_activity.this, Login_activity.class));
                 finish();
             }
         });
-
-        forgotpassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Login_activity.this, Forget_password_activity.class));
-            }
-        });
     }
+
 
     // hiding the keyboard when we clicks any where ( better user experience )
 
@@ -129,7 +119,7 @@ public class Login_activity extends AppCompatActivity {
         if (!(view instanceof EditText)) {
             view.setOnTouchListener(new View.OnTouchListener() {
                 public boolean onTouch(View v, MotionEvent event) {
-                    Utils.hideSoftKeyboard(Login_activity.this);
+                    Utils.hideSoftKeyboard(Signup_activity.this);
                     return false;
                 }
             });

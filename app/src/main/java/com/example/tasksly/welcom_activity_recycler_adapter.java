@@ -1,4 +1,4 @@
-package com.example.tasksly.Controller;
+package com.example.tasksly;
 
 
 import android.animation.AnimatorSet;
@@ -12,9 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.tasksly.Module.welcom_activity_Model;
-import com.example.tasksly.R;
 
 import java.util.ArrayList;
 

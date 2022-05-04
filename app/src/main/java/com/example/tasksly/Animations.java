@@ -1,4 +1,4 @@
-package com.example.tasksly.Module;
+package com.example.tasksly;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
