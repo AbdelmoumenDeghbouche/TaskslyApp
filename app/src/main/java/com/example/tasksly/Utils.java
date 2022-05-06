@@ -47,10 +47,10 @@ public class Utils {
 
     }
 
-    public static ArrayList<Category_Model> getCategories_list() {
+   /* public static ArrayList<Category_Model> getCategories_list() {
         return categories_list;
 
-    }
+    }*/
 
 
     // the 2 first functions are for the tasks arraylist
