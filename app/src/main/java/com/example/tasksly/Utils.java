@@ -26,6 +26,13 @@ public class Utils {
     public static ArrayList<Task_Model> tasks_list;
     public static HashMap<String,ArrayList<Task_Model>> category_map = new HashMap<>();
 
+
+    public static ArrayList<welcom_activity_Model> getWelcomPageList() {
+        Welcomlist = new ArrayList<>();
+        Welcomlist.add(new welcom_activity_Model(R.drawable.welcom2, "Welcome to Tasksly", "Create an account to save all schedules\n and  access them from"));
+        Welcomlist.add(new welcom_activity_Model(R.drawable.welcom1, "Organize your works", "Let’s organize your works with priority and \n do everything without stress."));
+        return Welcomlist;
+    }
     public static void initCategories(){
         if (null== categories_list){
             categories_list=new ArrayList<>();
