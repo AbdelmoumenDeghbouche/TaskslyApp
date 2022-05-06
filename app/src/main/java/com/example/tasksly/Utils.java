@@ -58,11 +58,11 @@ public class Utils {
 
         Task_Model first_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE),
                 //just test i tried to get first category from categories list (General)
-                sport, "All illustration design should be handover to Smith today for review.");
-        Task_Model sec_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), sport, "All illustration design should be handover to Smith today for review.");
-        Task_Model third_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), sport, "All illustration design should be handover to Smith today for review.");
-        Task_Model fourth_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), sport, "All illustration design should be handover to Smith today for review.");
-        Task_Model five_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), sport, "All illustration design should be handover to Smith today for review.");
+                sport, "All illustration design should be handover to Smith today for review.",Boolean.TRUE);
+        Task_Model sec_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), sport, "All illustration design should be handover to Smith today for review.",Boolean.TRUE);
+        Task_Model third_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), sport, "All illustration design should be handover to Smith today for review.",Boolean.TRUE);
+        Task_Model fourth_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), sport, "All illustration design should be handover to Smith today for review.",Boolean.TRUE);
+        Task_Model five_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), sport, "All illustration design should be handover to Smith today for review.",Boolean.TRUE);
         tasks_list.add(first_task);
         tasks_list.add(sec_task);
         tasks_list.add(third_task);
@@ -75,7 +75,6 @@ public class Utils {
     }
 
     // hide the keyboard when we clicks any where(better user experience )
-
     public static void hideSoftKeyboard(Activity activity) {
         InputMethodManager inputMethodManager =
                 (InputMethodManager) activity.getSystemService(
@@ -88,5 +87,6 @@ public class Utils {
         }
     }
 }
+
 
 
