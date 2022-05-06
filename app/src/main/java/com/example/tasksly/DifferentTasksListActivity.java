@@ -1,4 +1,4 @@
-package com;
+package com.example.tasksly;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
