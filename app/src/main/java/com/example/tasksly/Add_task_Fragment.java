@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +36,6 @@ import java.util.Calendar;
 
 public class Add_task_Fragment extends Fragment {
 
-    private static final String TAG = "Add_task_fragment";
     EditText TaskTitle ;
     RecyclerView recyclerView ;
     RelativeLayout relativeLayout, relativeLayout2,task_done_button;
@@ -65,7 +63,6 @@ public class Add_task_Fragment extends Fragment {
         ArrayList<Category_Model> categories = Utils.getCategories_list(); // this function is returning the arraylist that we charged in the precedent line
 
         // setting the categories recycler view
-
         adapter = new Categoty_list_adapter(view.getContext());
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL,false);
@@ -76,8 +73,8 @@ public class Add_task_Fragment extends Fragment {
         timepicker();
         //when done is pressed
         donepressed();
-        return  view ;
 
+        return  view ;
     }
 
     public void AssingElements(View view){
@@ -106,10 +103,7 @@ public class Add_task_Fragment extends Fragment {
                     Toast.makeText(getActivity(), "Fill the date and time ", Toast.LENGTH_SHORT).show();
                 }
                 Gson gson = new Gson();
-                Task_Model task_model=new Task_Model(TaskTitle.getText().toString(),
-                        //getRowindex is method that return as int the last selected item in the recycler view we need it to get the selected category when the client create his /her task
-                        time,date,Utils.categories_list.get(adapter.getRow_index())
-                        ,null,is_clicked);
+                Task_Model task_model=new Task_Model(TaskTitle.getText().toString(),time,date,Utils.getCategories_list().get(adapter.getRow_index()),null,is_clicked);
                 String task_element = gson.toJson(task_model);
                 Intent intent = new Intent(getActivity(),MainActivity.class).putExtra("task_element", task_element);
                 startActivity(intent);

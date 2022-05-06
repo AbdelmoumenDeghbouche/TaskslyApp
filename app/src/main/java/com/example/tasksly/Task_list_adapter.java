@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Viewholder> {
     private ArrayList<Task_Model> tasks_list = new ArrayList<>();
-    private Context context ;
+    private Context context;
 
     public Task_list_adapter(Context context) {
         this.context = context;
@@ -33,8 +33,8 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
     @Override
     public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view ;
-        view = layoutInflater.inflate(R.layout.task_recycler_view,parent,false);
+        View view;
+        view = layoutInflater.inflate(R.layout.task_recycler_view, parent, false);
         return new Viewholder(view);
     }
 
@@ -52,7 +52,7 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
         holder.img_view_check_box_oval_not_checked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (holder.img_view_check_box_oval_not_checked.getVisibility()==View.VISIBLE){
+                if (holder.img_view_check_box_oval_not_checked.getVisibility() == View.VISIBLE) {
                     holder.img_view_check_box_oval_not_checked.setVisibility(View.GONE);
                     holder.img_view_check_box_oval_checked.setVisibility(View.VISIBLE);
                 }
@@ -62,10 +62,10 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
         holder.img_view_check_box_oval_checked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              if ( holder.img_view_check_box_oval_checked.getVisibility()==View.VISIBLE) {
-                  holder.img_view_check_box_oval_checked.setVisibility(View.GONE);
-                  holder.img_view_check_box_oval_not_checked.setVisibility(View.VISIBLE);
-              }
+                if (holder.img_view_check_box_oval_checked.getVisibility() == View.VISIBLE) {
+                    holder.img_view_check_box_oval_checked.setVisibility(View.GONE);
+                    holder.img_view_check_box_oval_not_checked.setVisibility(View.VISIBLE);
+                }
 
             }
         });
@@ -76,21 +76,23 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
     public int getItemCount() {
         return tasks_list.size();
     }
+
     class Viewholder extends RecyclerView.ViewHolder {
         private MaterialCardView card_view_layout_of_task_item;
         private RelativeLayout parent_relative_layout_of_task_name;
-        private TextView txt_time_of_task,txt_description_of_task,txt_task_name;
-        private ImageView img_view_clock,img_view_check_box_oval_checked,img_view_check_box_oval_not_checked;
+        private TextView txt_time_of_task, txt_description_of_task, txt_task_name;
+        private ImageView img_view_clock, img_view_check_box_oval_checked, img_view_check_box_oval_not_checked;
+
         public Viewholder(@NonNull View itemView) {
             super(itemView);
             parent_relative_layout_of_task_name = itemView.findViewById(R.id.parent_relative_layout_of_task_name);
             card_view_layout_of_task_item = itemView.findViewById(R.id.card_view_layout_of_task_item);
             txt_time_of_task = itemView.findViewById(R.id.txt_time_of_task);
-            img_view_clock =itemView.findViewById(R.id.img_view_clock);
+            img_view_clock = itemView.findViewById(R.id.img_view_clock);
             img_view_check_box_oval_checked = itemView.findViewById(R.id.img_view_check_box_oval_checked);
             img_view_check_box_oval_not_checked = itemView.findViewById(R.id.img_view_check_box_oval_not_checked);
             txt_description_of_task = itemView.findViewById(R.id.txt_description_of_task);
-            txt_task_name= itemView.findViewById(R.id.txt_task_name);
+            txt_task_name = itemView.findViewById(R.id.txt_task_name);
 
         }
     }
