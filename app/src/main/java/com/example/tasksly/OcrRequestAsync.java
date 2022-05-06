@@ -3,15 +3,21 @@ package com.example.tasksly;
 import static android.content.ContentValues.TAG;
 
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.SystemClock;
 import android.util.Log;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import okhttp3.Credentials;
@@ -25,6 +31,7 @@ import okhttp3.Response;
 public class OcrRequestAsync extends AsyncTask<String,Void, Response> {
 
     String url;
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onPostExecute(Response response) {
         Log.d(TAG, "onPostExecute: Nice Nice");
@@ -73,6 +80,28 @@ public class OcrRequestAsync extends AsyncTask<String,Void, Response> {
             row4..
             those are tasks in sunday
              */
+//            DateFormat dateFormat = new SimpleDateFormat("hh:mm:");
+
+            int j;
+            int row;
+            for (int i=1;i<colsize;i++){
+                j=i+colsize;
+
+                if (Math.floorDiv(j+1,colsize)*colsize<j+1){
+                    row=Math.floorDiv(j+1,colsize)+1;
+                }
+                else{
+                    row=Math.floorDiv(j+1,colsize);
+                }
+
+                while(j<=cells.size() && row<=rowsize){
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        Utils.AddTaskByTaskModel(new Task_Model(cells.get(j).text,cells.get((row-1)*colsize).text,Utils.nextDayDate(cells.get(i).text),new Category_Model("general"),"",true));
+                        j+=colsize;
+                        row+=1;
+                    }
+                }
+            }
 
 
         } catch (IOException e) {
