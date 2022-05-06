@@ -25,6 +25,8 @@ public class Utils {
     public static ArrayList<Category_Model> categories_list;
     public static ArrayList<Task_Model> tasks_list;
     public static HashMap<String,ArrayList<Task_Model>> category_map = new HashMap<>();
+    public static ArrayList<welcom_activity_Model> Welcomlist;
+
 
 
     public static ArrayList<welcom_activity_Model> getWelcomPageList() {
