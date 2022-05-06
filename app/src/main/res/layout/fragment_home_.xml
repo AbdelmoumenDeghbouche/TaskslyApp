@@ -83,9 +83,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/category_recyclerview"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_weight="0.11"
             android:background="@color/white"
             android:paddingLeft="10dp"
             android:paddingTop="3dp"

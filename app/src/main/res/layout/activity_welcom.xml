@@ -80,7 +80,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="14dp"
         android:layout_weight="0.3"
-        android:background="@drawable/welcom_card_back">
+        android:background="@drawable/darkbleubackgeound">
 
         <LinearLayout
             android:id="@+id/signup_layout"

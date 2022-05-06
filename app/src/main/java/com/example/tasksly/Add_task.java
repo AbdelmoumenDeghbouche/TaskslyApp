@@ -9,22 +9,38 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowInsetsController;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 public class Add_task extends AppCompatActivity {
     EditText TaskTitle ;
     RecyclerView recyclerView ;
-    RelativeLayout relativeLayout, relativeLayout2 , donebutton;
+    RelativeLayout relativeLayout, relativeLayout2,task_done_button;
     Categoty_list_adapter adapter;
     boolean is_clicked;
-
+    TextView select_date_text,select_time_text;
+    LinearLayout select_date_button,select_time_button;
+    MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
+            .setTitleText("SELECT A TIME")
+            .setTimeFormat(TimeFormat.CLOCK_12H)
+            .build();
+    MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setTitleText("SELECT A DATE");
+    final MaterialDatePicker materialDatePicker=builder.build();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +74,11 @@ public class Add_task extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter.setCategories(categories);
-
+        // this is a date picker algorithm
+        datepicker();
+        timepicker();
+        //when done is pressed
+        donepressed();
     }
     public void AssingElements(){
 
@@ -66,8 +86,13 @@ public class Add_task extends AppCompatActivity {
         relativeLayout2 = findViewById(R.id.Off_relalive_layout);
         recyclerView = findViewById(R.id.creat_task_recyclerview);
         TaskTitle = findViewById(R.id.add_task_title);
-        donebutton = findViewById(R.id.task_done_button);
+        task_done_button=findViewById(R.id.task_done_button);
         is_clicked = true;
+        task_done_button=findViewById(R.id.task_done_button);
+        select_date_text=findViewById(R.id.select_date_text);
+        select_time_text=findViewById(R.id.select_time_text);
+        select_date_button=findViewById(R.id.select_date_button);
+        select_time_button=findViewById(R.id.select_time_button);
 
     }
     public void Handlingonoffclicks(){
@@ -89,7 +114,7 @@ public class Add_task extends AppCompatActivity {
             }
         });
 
-        donebutton.setOnClickListener(new View.OnClickListener() {
+        task_done_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Add_task.this,MainActivity.class));
@@ -97,7 +122,87 @@ public class Add_task extends AppCompatActivity {
         });
 
     }
+    public void donepressed(){
+        task_done_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (TaskTitle.equals("")){
+                    Toast.makeText(Add_task.this, "Please Fill The title of your task", Toast.LENGTH_SHORT).show();
 
+                }
+                else {
+                    String time="",date="";
+                    try {
+                        time=materialTimePicker.getHour()+":" +materialTimePicker.getMinute();
+                        date=materialDatePicker.getHeaderText();
+                    } catch (NullPointerException e){
+                        Toast.makeText(Add_task.this, "Fill the date and time", Toast.LENGTH_SHORT).show();
+                    }
+                    Gson gson = new Gson();
+                    Task_Model task_model=new Task_Model(TaskTitle.getText().toString(),time,date,Utils.getCategories_list().get(adapter.getRow_index()),null,is_clicked);
+                    String task_element = gson.toJson(task_model);
+                    Intent intent = new Intent(Add_task.this,MainActivity.class).putExtra("task_element", task_element);
+                    startActivity(intent);
+                }
+
+
+            }
+        });
+
+    }
+    public void timepicker(){
+
+        select_time_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                materialTimePicker.show(getSupportFragmentManager(),"TIME_PICKER");
+            }
+        });
+        materialTimePicker.addOnPositiveButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                select_time_text.setText(materialTimePicker.getHour() +":"+ materialTimePicker.getMinute() );
+            }
+        });
+
+
+
+    }
+    public void datepicker(){
+
+        select_date_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                materialDatePicker.show(getSupportFragmentManager(),"DATE_PICKER");
+            }
+        });
+        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+            @Override
+            public void onPositiveButtonClick(Object selection) {
+                select_date_text.setText(materialDatePicker.getHeaderText());
+            }
+        });
+    }
+    /*public void Handlingonoffclicks(View view){
+
+        // handling on off clicks
+
+        view.findViewById(R.id.parent_layout).setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onClick(View view) {
+                if (is_clicked) {
+                    relativeLayout.setVisibility(View.GONE);
+                    relativeLayout2.setVisibility(View.VISIBLE);
+                } else {
+                    relativeLayout.setVisibility(View.VISIBLE);
+                    relativeLayout2.setVisibility(View.GONE);
+                }
+                is_clicked = !is_clicked;
+            }
+        });
+
+    }*/
     @Override
     public void onBackPressed() {
         super.onBackPressed();
