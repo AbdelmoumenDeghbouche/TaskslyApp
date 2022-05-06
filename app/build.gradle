@@ -48,5 +48,7 @@ dependencies {
     // navigation bar
     implementation "com.github.ismaeldivita:chip-navigation-bar:1.4.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:+"
+    // otp verification
+    implementation "com.chaos.view:pinview:1.4.4"
 
 }

@@ -12,22 +12,24 @@
         android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/buttom">
-    </FrameLayout>
-
+        android:layout_above="@id/buttom"></FrameLayout>
+<!--    <View-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:background="#CFCFCF"-->
+<!--        android:layout_above="@+id/buttom"/>-->
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/buttom"
+        app:cnb_addTopInset="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@drawable/navigation_back"
-        android:elevation="7dp"
-        android:padding="10dp"
-        android:paddingBottom="7dp"
+        android:elevation="40dp"
+        android:padding="9dp"
         android:windowSoftInputMode="adjustPan"
         app:cnb_menuResource="@menu/items"
         app:cnb_textAppearance="@style/CustomText"
-        app:cnb_unselectedColor="#1E1E1E"
-        tools:ignore="MissingClass" />
+        app:cnb_unselectedColor="#686868" />
 
 </RelativeLayout>

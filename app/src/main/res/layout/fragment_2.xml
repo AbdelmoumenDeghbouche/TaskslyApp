@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="@color/white"
-    tools:context=".Fragment2">
+    tools:context=".Tasks_fragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="19dp"
+        android:background="#FFFFFF"
         android:orientation="vertical">
 
         <TextView
@@ -24,6 +25,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/tasks_list_recycler_view"
             android:layout_width="match_parent"
+            android:background="#FFFFFF"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp" />
     </LinearLayout>

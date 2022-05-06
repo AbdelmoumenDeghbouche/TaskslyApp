@@ -1,10 +1,10 @@
 package com.example.tasksly;
 
-public class welcom_activity_recycler_class {
+public class welcom_activity_Model {
     int img ;
     String maintext , secondtext ;
 
-    public welcom_activity_recycler_class(int img, String maintext, String secondtext) {
+    public welcom_activity_Model(int img, String maintext, String secondtext) {
         this.img = img;
         this.maintext = maintext;
         this.secondtext = secondtext;

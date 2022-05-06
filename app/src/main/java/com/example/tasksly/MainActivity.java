@@ -2,6 +2,7 @@ package com.example.tasksly;
 
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new Home_Fragment();
                         break;
                     case R.id.add:
-                        fragment = new Add_task_Fragment();
+                        startActivity(new Intent(MainActivity.this, Add_task.class));
 
                         // disabling the red circle in the add icon
                         chipNavigationBar.dismissBadge(R.id.add);

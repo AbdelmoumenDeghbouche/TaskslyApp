@@ -23,5 +23,9 @@
     <color name="mainblue">#E9E9E9</color>
     <color name="button_cancel">#464646</color>
     <color name="darkblue">#3561FF</color>
-    <color name="mainpink">#FF92A0</color>
+    <color name="darkblue2">#97B9F9</color>
+    <color name="darkblue3">#4A5DEE</color>
+    <color name="mainpink">#FF4666</color>
+    <color name="mainyellow">#FFB64A</color>
+    <color name="fontmain">#0D1340</color>
 </resources>
