@@ -1,11 +1,14 @@
 package com.example.tasksly;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Build;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.RequiresApi;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -139,6 +142,17 @@ public class Utils {
     public static void OcrExtraction(String url) {
         //TODO: We will do this when we complete the ocr extraction functionality in ocrrequestAsync
 
+    }
+
+    public static URL ParseUrl(Uri imageUri){
+        String url = String.valueOf(imageUri);
+        URL myUrl = null ;
+        try {
+            myUrl = new URL(url);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return myUrl;
     }
 
 
