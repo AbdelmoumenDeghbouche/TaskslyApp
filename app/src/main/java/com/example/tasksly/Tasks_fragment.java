@@ -20,6 +20,7 @@ import java.util.Calendar;
 public class Tasks_fragment extends Fragment {
     private RecyclerView tasks_list_recycler_view;
     private Task_list_adapter adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

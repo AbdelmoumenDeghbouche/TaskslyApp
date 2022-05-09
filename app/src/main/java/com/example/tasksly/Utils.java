@@ -1,12 +1,22 @@
 package com.example.tasksly;
 
 import android.app.Activity;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.net.ContentHandler;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,6 +31,7 @@ public class Utils {
     public static ArrayList<Task_Model> tasks_list;
     public static HashMap<String, ArrayList<Task_Model>> category_map = new HashMap<>();
     public static ArrayList<welcom_activity_Model> Welcomlist;
+    public static Context context ;
 
 
     public static ArrayList<welcom_activity_Model> getWelcomPageList() {
@@ -146,6 +157,18 @@ public class Utils {
 
     public static URL ParseUrl(Uri imageUri){
         String url = String.valueOf(imageUri);
+
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+        root.child("OCRImages").push().setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(context, "Images added successfully !", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Can't upload the image !"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         URL myUrl = null ;
         try {
             myUrl = new URL(url);
