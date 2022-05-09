@@ -28,14 +28,13 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
     private String Name_of_the_category;
     private int counter;
 
-    public int getRow_index() {
-        return row_index;
-    }
-
     public Categoty_list_adapter(Context context) {
         this.context = context;
     }
 
+    public int getRow_index() {
+        return row_index;
+    }
 
     public void setCategories(ArrayList<Category_Model> categories) {
         this.categories = categories;
@@ -79,7 +78,7 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
                         viewHolderTwo.add_category_dialogue.dismiss();
                         Name_of_the_category = viewHolderTwo.edit_text_enter_the_name_of_the_category.getText().toString();
                         Category_Model category_model_coming_from_dialogue = new Category_Model(Name_of_the_category);
-                        categories.add(categories.size()-1, category_model_coming_from_dialogue);
+                        categories.add(categories.size() - 1, category_model_coming_from_dialogue);
                         viewHolderTwo.edit_text_enter_the_name_of_the_category.setText("");
                         Toast.makeText(context, "Category added", Toast.LENGTH_SHORT).show();
                     }
@@ -96,7 +95,6 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
             viewHolderTwo.parent_cardview_layout_of_add_category.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO : WORK ON THE FUNCTIONALITY OF THIS VIEW
                     viewHolderTwo.add_category_dialogue.show();
 
 

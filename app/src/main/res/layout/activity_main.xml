@@ -20,7 +20,6 @@
 <!--        android:layout_above="@+id/buttom"/>-->
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/buttom"
-        app:cnb_addTopInset="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -28,8 +27,12 @@
         android:elevation="40dp"
         android:padding="9dp"
         android:windowSoftInputMode="adjustPan"
+        app:cnb_addTopInset="true"
         app:cnb_menuResource="@menu/items"
         app:cnb_textAppearance="@style/CustomText"
         app:cnb_unselectedColor="#686868" />
+
+
+
 
 </RelativeLayout>
