@@ -6,13 +6,10 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.RequiresApi;
 
-<<<<<<<<< Temporary merge branch 1
-=========
 import java.net.URI;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
->>>>>>>>> Temporary merge branch 2
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -129,7 +126,6 @@ public class Utils {
             }
             tasks_list.add(task_model);
 
-<<<<<<<<< Temporary merge branch 1
         }
     }
     // hide the keyboard when we clicks any where(better user experience )
@@ -144,10 +140,7 @@ public class Utils {
             );
         }
     }
-    public static void OcrExtraction(String url) {
-        //TODO: We will do this when we complete the ocr extraction functionality in ocrrequestAsync
-=========
-        }}
+
     //this function is for getting the next day's date used in ocrextraction's ocrrequest call
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static String nextDayDate(String day){
@@ -160,7 +153,7 @@ public class Utils {
     public static void OcrExtraction(String url){
     OcrRequestAsync ocrRequestAsync = new OcrRequestAsync();
     ocrRequestAsync.execute(url);
->>>>>>>>> Temporary merge branch 2
+
 
     }
 

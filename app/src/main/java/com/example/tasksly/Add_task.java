@@ -117,6 +117,7 @@ public class Add_task extends AppCompatActivity {
         task_done_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(Add_task.this,MainActivity.class));
             }
         });
@@ -126,7 +127,7 @@ public class Add_task extends AppCompatActivity {
         task_done_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TaskTitle.equals("")){
+                 if (TaskTitle.equals("")){
                     Toast.makeText(Add_task.this, "Please Fill The title of your task", Toast.LENGTH_SHORT).show();
 
                 }

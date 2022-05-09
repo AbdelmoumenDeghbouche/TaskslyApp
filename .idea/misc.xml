@@ -27,7 +27,6 @@
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_main.xml" value="0.16216216216216217" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_profile.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_signup.xml" value="0.1" />
-        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_task.xml" value="0.16" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_welcom.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/add_category_daialogue.xml" value="0.16216216216216217" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/add_category_view.xml" value="0.16" />
@@ -100,6 +99,13 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/welcom_card2.xml" value="0.22" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/layout/welcom_card_item.xml" value="0.13445945945945945" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/menu/items.xml" value="0.13445945945945945" />
+        <entry key="..\:/Users/hamdi/AndroidStudioProjects/TaskslyPApp/app/src/main/res/layout/activity_add_task.xml" value="0.136" />
+        <entry key="..\:/Users/hamdi/AndroidStudioProjects/TaskslyPApp/app/src/main/res/layout/activity_congrats_membership.xml" value="0.25" />
+        <entry key="..\:/Users/hamdi/AndroidStudioProjects/TaskslyPApp/app/src/main/res/layout/activity_crypto_pay.xml" value="0.25" />
+        <entry key="..\:/Users/hamdi/AndroidStudioProjects/TaskslyPApp/app/src/main/res/layout/activity_main.xml" value="0.10989583333333333" />
+        <entry key="..\:/Users/hamdi/AndroidStudioProjects/TaskslyPApp/app/src/main/res/layout/activity_pay.xml" value="0.2" />
+        <entry key="..\:/Users/hamdi/AndroidStudioProjects/TaskslyPApp/app/src/main/res/layout/activity_pay2.xml" value="0.25" />
+        <entry key="..\:/Users/hamdi/AndroidStudioProjects/TaskslyPApp/app/src/main/res/layout/activity_profile.xml" value="0.10989583333333333" />
       </map>
     </option>
   </component>

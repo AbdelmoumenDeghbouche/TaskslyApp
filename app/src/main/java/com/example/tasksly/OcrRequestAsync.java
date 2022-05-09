@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,11 +31,9 @@ import okhttp3.Response;
 public class OcrRequestAsync extends AsyncTask<String, Void, Response> {
 
     String url;
-<<<<<<<<< Temporary merge branch 1
 
-=========
     @RequiresApi(api = Build.VERSION_CODES.N)
->>>>>>>>> Temporary merge branch 2
+
     @Override
     protected void onPostExecute(Response response) {
         Log.d(TAG, "onPostExecute: Nice Nice");
@@ -44,7 +43,13 @@ public class OcrRequestAsync extends AsyncTask<String, Void, Response> {
             String s = response.body().string();
             //make s a json object
             JSONObject jsonObject = new JSONObject(s);
-            JSONArray jsonArray = jsonObject.optJSONArray("result").optJSONObject(0).optJSONArray("prediction").optJSONObject(1).getJSONArray("cells");
+
+            Log.d(TAG, "onPostExecute: "+jsonObject);
+
+          JSONArray jsonArray = jsonObject.optJSONArray("result").optJSONObject(0).optJSONArray("prediction").optJSONObject(0).getJSONArray("cells");
+          System.out.println(jsonArray);
+
+
             /*
             Explanation:
             we iterate the jsonArray which has cells, so we are getting cells!
@@ -63,6 +68,7 @@ public class OcrRequestAsync extends AsyncTask<String, Void, Response> {
             // Now we have the cells arraylist filled with the cells
             // we need to know the size of the array (col and rows)
             int colsize = 0;
+
             for (TaskCell cell : cells) {
                 if (cell.col > colsize) {
                     colsize = cell.col;
@@ -136,9 +142,9 @@ public class OcrRequestAsync extends AsyncTask<String, Void, Response> {
                 .add("urls", url).build();
 
         Request request = new Request.Builder()
-                .url("https://app.nanonets.com/api/v2/OCR/Model/be7000b1-9b15-492b-aa19-7eaa9875f220/LabelUrls/")
+                .url("https://app.nanonets.com/api/v2/OCR/Model/00a8c75a-7b17-45db-b3ab-ac967d253fa5/LabelUrls/")
                 .post(requestBody)
-                .addHeader("Authorization", Credentials.basic("2N3zzNh1ctAtE8z2jL0JoAxQlmvBHt7C", ""))
+                .addHeader("Authorization", Credentials.basic("Ckw7XtVJvjai7nfdkJzDm6saaDgWBXLT", ""))
                 .build();
 
         Response response = null;
