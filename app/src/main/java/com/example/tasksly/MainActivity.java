@@ -3,17 +3,14 @@ package com.example.tasksly;
 import static android.content.ContentValues.TAG;
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
@@ -21,13 +18,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.github.drjacky.imagepicker.ImagePicker;
@@ -49,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout Linear_layout_add_task, Linear_layout_import_image, Linear_layout_Take_photo_by_camera;
     ImageView img_view_close_dialogue_of_add_new_task;
     Dialog add_task_dialogue;
+    public static Uri uri ;
     private RelativeLayout Main_activity_layout_parent;
-    private ImageView img_user_profile2;
 
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -188,18 +182,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void handlepermission() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            opencamera();
-        } else {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-                showsnackbar();
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
-            }
-        }
-
-    }
 
     private void showsnackbar() {
         Snackbar.make(Main_activity_layout_parent, "This Feature needs the camera permission", Snackbar.LENGTH_INDEFINITE)
@@ -215,10 +197,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void opencamera() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, CAMERA_INTENT_CODE);
-    }
 
     private void initviews() {
         chipNavigationBar = findViewById(R.id.buttom);
@@ -229,25 +207,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Uri uri = data.getData();
-        img_user_profile2.setImageURI(uri);
-
+        uri = data.getData();
 
     }
 
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case CAMERA_PERMISSION_CODE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    opencamera();
-                } else {
-                    Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
-                }
-
-                break;
-        }
-    }
 }
+
