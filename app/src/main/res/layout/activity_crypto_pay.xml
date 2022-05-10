@@ -7,7 +7,7 @@
 
 
     <Button
-        android:visibility="invisible"
+
         android:id="@+id/Sent_crypto_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
-        android:text="pay 0.00039 ETH "
+        android:text="pay 0.037 ETH \n pay 89$"
         android:textSize="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:visibility="invisible"
+
         android:id="@+id/copy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,19 +44,9 @@
         app:layout_constraintTop_toBottomOf="@+id/wallet_hash"
         app:layout_constraintVertical_bias="0.371" />
 
-    <ProgressBar
-        android:id="@+id/progressBar_cyclic"
-        android:layout_width="170dp"
-        android:layout_height="173dp"
-
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:visibility="invisible"
+
         android:id="@+id/wallet_hash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
