@@ -1,53 +1,113 @@
 package com.example.tasksly;
 
+import static android.content.ContentValues.TAG;
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.MediaStore;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.github.drjacky.imagepicker.ImagePicker;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 public class MainActivity extends AppCompatActivity {
 
-    ChipNavigationBar chipNavigationBar;
+    private static final int CAMERA_PERMISSION_CODE = 170;
+    private static final int CAMERA_INTENT_CODE = 270;
+    private static final int SETTINGS_PERMISSION_CODE = 171;
+    private static final int SETTINGS_INTENT_CODE = 271;
+
+
+    public static ChipNavigationBar chipNavigationBar;
     boolean is_clicked;
     Fragment fragment;
-    LinearLayout Linear_layout_add_task, Linear_layout_import_image;
+    LinearLayout Linear_layout_add_task, Linear_layout_import_image, Linear_layout_Take_photo_by_camera;
     ImageView img_view_close_dialogue_of_add_new_task;
-    private Dialog add_task_dialogue;
+    Dialog add_task_dialogue;
+    private RelativeLayout Main_activity_layout_parent;
+    private ImageView img_user_profile2;
 
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
-        add_task_dialogue = new Dialog(getApplicationContext());
+        add_task_dialogue = new Dialog(MainActivity.this);
         add_task_dialogue.setContentView(R.layout.add_task_or_imort_image_dialogue);
         add_task_dialogue.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_of_dialogue_add_category));
         add_task_dialogue.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         add_task_dialogue.setCancelable(true);
         add_task_dialogue.getWindow().getAttributes().windowAnimations = R.style.animation_of_add_category;
         ImageView img_view_close_dialogue_of_add_new_task = add_task_dialogue.findViewById(R.id.img_view_close_dialogue_of_add_new_task);
+        Linear_layout_add_task = add_task_dialogue.findViewById(R.id.Linear_layout_add_task);
+        Linear_layout_import_image = add_task_dialogue.findViewById(R.id.Linear_layout_import_image);
+        Linear_layout_Take_photo_by_camera = add_task_dialogue.findViewById(R.id.Linear_layout_Take_photo_by_camera);
+        Main_activity_layout_parent = findViewById(R.id.Main_activity_layout_parent);
         img_view_close_dialogue_of_add_new_task.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 add_task_dialogue.dismiss();
             }
         });
+        Linear_layout_add_task.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Add_task.class));
+            }
+        });
+        Linear_layout_Take_photo_by_camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                add_task_dialogue.dismiss();
+                ImagePicker.Companion.with(MainActivity.this)
+                        .crop()
+                        .cameraOnly()
+                        .start();
+
+            }
+
+        });
+
+        Linear_layout_import_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                add_task_dialogue.dismiss();
+                ImagePicker.Companion.with(MainActivity.this)
+                        .crop()
+                        .galleryOnly()
+                        .start();
+            }
+        });
+
+
         //this is a must for asynctask to work
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
@@ -99,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.add:
                         add_task_dialogue.show();
+                        chipNavigationBar.setItemSelected(R.id.home, true);
 
 
                         break;
@@ -115,14 +176,48 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            private void ShowDialogueMain() {
-
-            }
-
 
         });
+        if (Categoty_list_adapter.row_index == 0) {
+            Log.d(TAG, "onCreate: row" + Categoty_list_adapter.row_index);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frame, new Home_Fragment())
+                    .commit();
+        }
 
 
+    }
+
+    private void handlepermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            opencamera();
+        } else {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+                showsnackbar();
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
+            }
+        }
+
+    }
+
+    private void showsnackbar() {
+        Snackbar.make(Main_activity_layout_parent, "This Feature needs the camera permission", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Grant Permission", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        intent.setData(Uri.parse("package:" + getPackageName()));
+                        startActivityForResult(intent, SETTINGS_PERMISSION_CODE);
+                    }
+                }).show();
+
+
+    }
+
+    private void opencamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, CAMERA_INTENT_CODE);
     }
 
     private void initviews() {
@@ -131,5 +226,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Uri uri = data.getData();
+        img_user_profile2.setImageURI(uri);
 
+
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case CAMERA_PERMISSION_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    opencamera();
+                } else {
+                    Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+                }
+
+                break;
+        }
+    }
 }

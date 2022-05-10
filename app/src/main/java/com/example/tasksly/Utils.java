@@ -1,7 +1,10 @@
 package com.example.tasksly;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Activity;
 import android.os.Build;
+import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.RequiresApi;
@@ -39,11 +42,12 @@ public class Utils {
             categories_list = new ArrayList<>();
         }
         if (categories_list.isEmpty()) {
+            Category_Model General = new Category_Model("General");
+
             Category_Model sport = new Category_Model("Sport");
             Category_Model education = new Category_Model("Education");
             Category_Model Health = new Category_Model("Health");
             Category_Model Gaming = new Category_Model("Gaming");
-            Category_Model General = new Category_Model("General");
             Category_Model personal = new Category_Model("Personal");
             Category_Model add_category = new Category_Model("add_category");
             categories_list.add(General);
@@ -70,20 +74,30 @@ public class Utils {
             tasks_list = new ArrayList<>();
         }
         if (tasks_list.isEmpty()) {
-            Category_Model sport = new Category_Model("Sport");
+            Category_Model general = new Category_Model("General");
 
             Task_Model first_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE),
                     //just test i tried to get first category from categories list (General)
-                    sport, "All illustration design should be handover to Smith today for review.", false);
-            Task_Model sec_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), sport, "All illustration design should be handover to Smith today for review.", true);
-            Task_Model third_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), sport, "All illustration design should be handover to Smith today for review.", true);
-            Task_Model fourth_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), sport, "All illustration design should be handover to Smith today for review.", true);
-            Task_Model five_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), sport, "All illustration design should be handover to Smith today for review.", true);
+                    general, "All illustration design should be handover to Smith today for review.", false);
+            Task_Model sec_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
+            Task_Model third_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
+            Task_Model fourth_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
+            Task_Model five_task = new Task_Model("Meetooo Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
             tasks_list.add(first_task);
             tasks_list.add(sec_task);
             tasks_list.add(third_task);
             tasks_list.add(fourth_task);
             tasks_list.add(five_task);
+            category_map.put("General",tasks_list);
+            category_map.put("Education",new ArrayList<>());
+            category_map.put("Health",new ArrayList<>());
+            category_map.put("Gaming",new ArrayList<>());
+            category_map.put("Sport",new ArrayList<>());
+            category_map.put("Personal",new ArrayList<>());
+
+
+
+
         }
 
     }
@@ -109,8 +123,11 @@ public class Utils {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public static void AddTaskByTaskModel(Task_Model task_model) {
         if (tasks_list != null) {
+            Log.d(TAG, "AddTaskByTaskModel: Niccce");
             Category_Model category_model = task_model.getCategory();
             if (category_model != null) {
+                Log.d(TAG, "AddTaskByTaskModel: Niccce2");
+
                 String category_name = category_model.getCategory_name();
                 if (categoryIsExist(category_name)) {
                     //we update the tasks list corresponding to the category

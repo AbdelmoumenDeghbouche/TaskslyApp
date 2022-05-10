@@ -143,6 +143,7 @@ public class Add_task extends AppCompatActivity {
                     String task_element = gson.toJson(task_model);
                     Intent intent = new Intent(Add_task.this,MainActivity.class).putExtra("task_element", task_element);
                     startActivity(intent);
+
                 }
 
 

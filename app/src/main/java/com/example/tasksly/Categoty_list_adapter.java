@@ -1,9 +1,12 @@
 package com.example.tasksly;
 
+import static android.content.ContentValues.TAG;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +25,9 @@ import com.google.android.material.card.MaterialCardView;
 import java.util.ArrayList;
 
 public class Categoty_list_adapter extends RecyclerView.Adapter {
+    public static int row_index;
     private final Context context;
     private ArrayList<Category_Model> categories = new ArrayList<>();
-    private int row_index;
     private String Name_of_the_category;
     private int counter;
 
@@ -77,6 +80,9 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
                     } else {
                         viewHolderTwo.add_category_dialogue.dismiss();
                         Name_of_the_category = viewHolderTwo.edit_text_enter_the_name_of_the_category.getText().toString();
+                        Utils.category_map.put(viewHolderTwo.edit_text_enter_the_name_of_the_category.getText().toString(), new ArrayList<>());
+
+
                         Category_Model category_model_coming_from_dialogue = new Category_Model(Name_of_the_category);
                         categories.add(categories.size() - 1, category_model_coming_from_dialogue);
                         viewHolderTwo.edit_text_enter_the_name_of_the_category.setText("");
@@ -109,6 +115,8 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
                 public void onClick(View view) {
                     row_index = position;
                     notifyDataSetChanged();
+                    Log.d(TAG, "category map: " + Categoty_list_adapter.row_index);
+
 
                 }
             });

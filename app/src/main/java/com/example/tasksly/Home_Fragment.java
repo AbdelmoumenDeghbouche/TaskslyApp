@@ -2,7 +2,6 @@ package com.example.tasksly;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,17 +18,19 @@ import com.google.android.material.card.MaterialCardView;
 import java.util.ArrayList;
 
 public class Home_Fragment extends Fragment {
-    private RecyclerView category_recyclerview;
-    private Categoty_list_adapter adapter;
+    public static Categoty_list_adapter adapter;
+    public static int selected_category_now;
+    public static RecyclerView category_recyclerview;
     private TextView txt_hello_name;
     private ImageView img_user_profile;
     private TextView txt_name_of_client;
     private MaterialCardView card_view_holding_user_image_profile;
     private Dialog add_category_dialogue;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home_, container, false) ;
+        View view = inflater.inflate(R.layout.fragment_home_, container, false);
 
         // set the fragment2 (list of tasks that will appear when we click on a specific category )  when we entered the mainactivity
 
@@ -47,9 +48,21 @@ public class Home_Fragment extends Fragment {
 
         adapter = new Categoty_list_adapter(view.getContext());
         category_recyclerview.setAdapter(adapter);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
         category_recyclerview.setLayoutManager(linearLayoutManager);
         adapter.setCategories(categories);
+        category_recyclerview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("rowIndex",adapter.getRow_index());
+                Tasks_fragment tasks_fragment = new Tasks_fragment();
+                tasks_fragment.setArguments(bundle);
+
+            }
+        });
+
+
 
         // goes to Profile activity when clicking
         img_user_profile.setOnClickListener(new View.OnClickListener() {
@@ -59,14 +72,15 @@ public class Home_Fragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-        return view ;
+        selected_category_now = adapter.getRow_index();
+        return view;
     }
+
     private void initViewsOfMainActivity(View view) {
         category_recyclerview = view.findViewById(R.id.category_recyclerview);
         img_user_profile = view.findViewById(R.id.img_user_profile);
         txt_hello_name = view.findViewById(R.id.txt_hello_name);
-        card_view_holding_user_image_profile =view.findViewById(R.id.card_view_holding_user_image_profile);
+        card_view_holding_user_image_profile = view.findViewById(R.id.card_view_holding_user_image_profile);
         txt_name_of_client = view.findViewById(R.id.txt_name_of_client);
     }
 
