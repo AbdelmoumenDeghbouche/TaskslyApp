@@ -155,7 +155,7 @@ public class Add_task extends AppCompatActivity {
         select_time_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                materialTimePicker.show(getSupportFragmentManager(),"TIME_PICKER");
+                    materialTimePicker.show(Add_task.this.getSupportFragmentManager(),"TIME_PICKER");
             }
         });
         materialTimePicker.addOnPositiveButtonClickListener(new View.OnClickListener() {
@@ -173,7 +173,7 @@ public class Add_task extends AppCompatActivity {
         select_date_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                materialDatePicker.show(getSupportFragmentManager(),"DATE_PICKER");
+                materialDatePicker.show(Add_task.this.getSupportFragmentManager(),"DATE_PICKER");
             }
         });
         materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
