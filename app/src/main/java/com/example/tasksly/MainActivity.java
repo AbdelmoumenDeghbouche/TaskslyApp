@@ -3,11 +3,13 @@ package com.example.tasksly;
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
+import android.view.WindowInsetsController;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
+        Setting_Action_Bar_Status_Bar();
+
         //this is a must for asynctask to work
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
@@ -56,13 +59,13 @@ public class MainActivity extends AppCompatActivity {
         }
         //add task to list of tasks
 
-        AsyncTask.execute(new Runnable() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void run() {
-                Utils.AddTaskByTaskModel(new Gson().fromJson(getIntent().getStringExtra("task_element"), Task_Model.class));
-            }
-        });
+//        AsyncTask.execute(new Runnable() {
+//            @RequiresApi(api = Build.VERSION_CODES.N)
+//            @Override
+//            public void run() {
+//                Utils.AddTaskByTaskModel(new Gson().fromJson(getIntent().getStringExtra("task_element"), Task_Model.class));
+//            }
+//        });
 
 
 
@@ -107,6 +110,27 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void Setting_Action_Bar_Status_Bar() {
+
+        //Hiding action bar
+        getSupportActionBar().hide();
+        // setting the keyboard
+        //Utils.setUpKeybaord(findViewById(R.id.parent), Login_activity.this);
+
+        this.getWindow().setStatusBarColor(Color.WHITE);
+
+        // to change the color of the icons in status bar to dark
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(APPEARANCE_LIGHT_STATUS_BARS, APPEARANCE_LIGHT_STATUS_BARS);
+        }
+        // to change the color of the icons in the navigation bar to dark
+        this.getWindow().setNavigationBarColor(Color.WHITE); //setting bar color
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS, WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS);
+        }
     }
 
 
