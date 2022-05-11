@@ -38,12 +38,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static ChipNavigationBar chipNavigationBar;
+    public static Uri uri;
     boolean is_clicked;
     Fragment fragment;
     LinearLayout Linear_layout_add_task, Linear_layout_import_image, Linear_layout_Take_photo_by_camera;
     ImageView img_view_close_dialogue_of_add_new_task;
     Dialog add_task_dialogue;
-    public static Uri uri ;
     private RelativeLayout Main_activity_layout_parent;
 
 
