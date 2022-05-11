@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         add_task_dialogue.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_of_dialogue_add_category));
         add_task_dialogue.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         add_task_dialogue.setCancelable(true);
+
         add_task_dialogue.getWindow().getAttributes().windowAnimations = R.style.animation_of_add_category;
         ImageView img_view_close_dialogue_of_add_new_task = add_task_dialogue.findViewById(R.id.img_view_close_dialogue_of_add_new_task);
         Linear_layout_add_task = add_task_dialogue.findViewById(R.id.Linear_layout_add_task);
