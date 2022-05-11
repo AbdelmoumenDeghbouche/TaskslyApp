@@ -7,13 +7,17 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -184,6 +188,7 @@ public class Utils {
                 } else {
                     Toast.makeText(context, "Can't upload the image !"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
         URL myUrl = null ;
