@@ -2,22 +2,33 @@ package com.example.tasksly;
 
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowInsetsController;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 public class Profile_activity extends AppCompatActivity {
-
+    Button join_membership;
     LinearLayout PlanningLayout, PendingLayout, CompletedLayout, CancelledLayout, TotalLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        join_membership=findViewById(R.id.join_membership);
+        join_membership.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Profile_activity.this,PayActivity.class);
+                startActivity(intent);
+            }
+        });
         getSupportActionBar().hide();
 
         // changing the color of the status bar
