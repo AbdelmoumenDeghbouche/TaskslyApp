@@ -82,7 +82,7 @@ public class CryptoPay extends AppCompatActivity {
                 }
 
 
-//enter your own infura api key below
+//enter your own infura api  key below
                 web3 = Web3j.build(new HttpService("cb4257826d1242d09847c75e4523fc1b"));
 
                 setupBouncyCastle();
