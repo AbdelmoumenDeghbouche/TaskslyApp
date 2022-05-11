@@ -48,6 +48,11 @@ dependencies {
     // navigation bar
     implementation "com.github.ismaeldivita:chip-navigation-bar:1.4.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:+"
+    implementation 'com.google.firebase:firebase-appcheck-safetynet:16.0.0'
+    implementation 'com.google.firebase:firebase-database:20.0.5'
+
+
+
     // otp verification
     implementation "com.chaos.view:pinview:1.4.4"
     //web3j

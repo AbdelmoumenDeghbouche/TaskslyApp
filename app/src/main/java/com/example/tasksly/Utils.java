@@ -3,12 +3,18 @@ package com.example.tasksly;
 import static android.content.ContentValues.TAG;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.RequiresApi;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
@@ -166,13 +172,35 @@ public class Utils {
         return String.valueOf(dt.with(TemporalAdjusters.next(DayOfWeek.of(DayOfWeek.valueOf(day.toUpperCase()).getValue()))));
 
     }
+    public static URL ParseUrl(Uri imageUri){
+        String url = String.valueOf(imageUri);
 
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+        root.child("OCRImages").push().setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(context, "Images added successfully !", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Can't upload the image !"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        URL myUrl = null ;
+        try {
+            myUrl = new URL(url);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return myUrl;
+    }
     public static void OcrExtraction(String url) {
         OcrRequestAsync ocrRequestAsync = new OcrRequestAsync();
         ocrRequestAsync.execute(url);
 
 
     }
+
 
 
 }
