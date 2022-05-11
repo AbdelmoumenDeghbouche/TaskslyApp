@@ -72,6 +72,7 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
         if (categories.get(position).getCategory_name().toLowerCase().contains("category")) {
             ViewHolderTwo viewHolderTwo = (ViewHolderTwo) holder;
             viewHolderTwo.txt_has_no_utility.setText("");
+
             viewHolderTwo.btn_confirm_adding_category.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -119,11 +120,13 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
 
 
                 }
+
             });
+
             if (row_index == position) {
                 if (row_index == 0 && counter == 0) {
-                    viewHolderOne.parent_relative_layout_of_category_name.setBackgroundResource(R.drawable.cardview_style);
-                    viewHolderOne.txt_category_name.setTextColor(Color.BLACK);
+                    viewHolderOne.parent_relative_layout_of_category_name.setBackgroundResource(R.drawable.cardview_style2);
+                    viewHolderOne.txt_category_name.setTextColor(Color.WHITE);
 
                     counter++;
                 } else if (row_index == position) {
