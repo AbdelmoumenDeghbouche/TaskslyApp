@@ -22,9 +22,10 @@ import com.google.android.material.textfield.TextInputLayout;
 public class Phone_number_activity extends AppCompatActivity {
 
     RelativeLayout SubmitButton;
-    TextView maintext , secondtext ;
+    TextView maintext, secondtext;
     ImageView mainImage;
     TextInputLayout PhoneNumberLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +50,7 @@ public class Phone_number_activity extends AppCompatActivity {
         handlingAnimation();
         hadlingOnClicks();
     }
+
     private void handlingAnimation() {
         Animations.FromUpToDown(mainImage);
         Animations.FromeLeftToRight(maintext);
@@ -66,7 +68,7 @@ public class Phone_number_activity extends AppCompatActivity {
         secondtext = findViewById(R.id.forget_password_phonenumber_second_text);
     }
 
-    public void hadlingOnClicks(){
+    public void hadlingOnClicks() {
         SubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +76,7 @@ public class Phone_number_activity extends AppCompatActivity {
             }
         });
     }
+
     public void setupUI(View view) {
         // Set up touch listener for non-text box views to hide keyboard.
         if (!(view instanceof EditText)) {

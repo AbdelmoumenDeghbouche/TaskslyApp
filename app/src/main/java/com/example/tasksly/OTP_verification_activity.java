@@ -21,10 +21,11 @@ import com.chaos.view.PinView;
 
 public class OTP_verification_activity extends AppCompatActivity {
 
-    ImageView mainImage ;
-    TextView  secondtext , maintext ;
-    RelativeLayout LoginginButton ;
+    ImageView mainImage;
+    TextView secondtext, maintext;
+    RelativeLayout LoginginButton;
     PinView pinview;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,10 +54,6 @@ public class OTP_verification_activity extends AppCompatActivity {
     }
 
 
-
-
-
-
     private void handlingAnimation() {
         Animations.FromUpToDown(mainImage);
         Animations.FromeRightToLeft(LoginginButton);
@@ -65,7 +62,7 @@ public class OTP_verification_activity extends AppCompatActivity {
         Animations.FromeLeftToRight1(secondtext);
     }
 
-    public void initialisation(){
+    public void initialisation() {
         LoginginButton = findViewById(R.id.otp_submit);
         secondtext = findViewById(R.id.otp_second_text);
         maintext = findViewById(R.id.otp_main_text);
@@ -73,7 +70,7 @@ public class OTP_verification_activity extends AppCompatActivity {
         pinview = findViewById(R.id.otp_number);
     }
 
-    public void handlingOnClicks(){
+    public void handlingOnClicks() {
         LoginginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +78,6 @@ public class OTP_verification_activity extends AppCompatActivity {
             }
         });
     }
-
 
 
     // hiding the keyboard when we clicks any where ( better user experience )

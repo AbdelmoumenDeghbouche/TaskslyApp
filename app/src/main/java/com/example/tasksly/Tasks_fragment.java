@@ -34,8 +34,8 @@ public class Tasks_fragment extends Fragment {
         Utils.initTasksList();
         ArrayList<Task_Model> tasks_list = Utils.category_map.get(Utils.getCategories_list().get(Categoty_list_adapter.row_index).getCategory_name());
         Bundle bundle = this.getArguments();
-        if (null!=bundle){
-             roww = bundle.getInt("rowIndex");
+        if (null != bundle) {
+            roww = bundle.getInt("rowIndex");
 
         }
         Log.d(TAG, "onCreateView: row index" + roww);

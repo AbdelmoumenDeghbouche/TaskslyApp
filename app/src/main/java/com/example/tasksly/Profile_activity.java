@@ -21,11 +21,11 @@ public class Profile_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        join_membership=findViewById(R.id.join_membership);
+        join_membership = findViewById(R.id.join_membership);
         join_membership.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Profile_activity.this,PayActivity.class);
+                Intent intent = new Intent(Profile_activity.this, PayActivity.class);
                 startActivity(intent);
             }
         });
@@ -57,7 +57,7 @@ public class Profile_activity extends AppCompatActivity {
         TotalLayout = findViewById(R.id.total_tasks_layout);
     }
 
-    public void handelingAnimations(){
+    public void handelingAnimations() {
         Animations.FromeLeftToRightLinear(PlanningLayout);
         Animations.FromeLeftToRightLinear1(PendingLayout);
         Animations.FromeLeftToRightLinear2(CompletedLayout);

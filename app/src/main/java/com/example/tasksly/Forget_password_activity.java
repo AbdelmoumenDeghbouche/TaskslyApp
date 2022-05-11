@@ -22,9 +22,10 @@ import com.google.android.material.textfield.TextInputLayout;
 public class Forget_password_activity extends AppCompatActivity {
 
     RelativeLayout SubmitButton;
-    TextView maintext , secondtext ;
+    TextView maintext, secondtext;
     ImageView mainImage;
     TextInputLayout emaillayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +52,6 @@ public class Forget_password_activity extends AppCompatActivity {
     }
 
 
-
     private void handlingAnimation() {
         Animations.FromUpToDown(mainImage);
         Animations.FromeLeftToRight(maintext);
@@ -69,7 +69,7 @@ public class Forget_password_activity extends AppCompatActivity {
         secondtext = findViewById(R.id.signup_second_text);
     }
 
-    public void hadlingOnClicks(){
+    public void hadlingOnClicks() {
         SubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

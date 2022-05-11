@@ -23,11 +23,11 @@ import com.google.android.material.textfield.TextInputLayout;
 public class Signup_activity extends AppCompatActivity {
 
 
-    ImageView mainImage ;
-    TextView Login_text , secondtext , maintext ;
-    RelativeLayout LoginginButton ;
-    LinearLayout supportLinearLayout ;
-    TextInputLayout fullnametext , phonenumbertext ,emailtext , confirmpasswordtext , passwordtext ;
+    ImageView mainImage;
+    TextView Login_text, secondtext, maintext;
+    RelativeLayout LoginginButton;
+    LinearLayout supportLinearLayout;
+    TextInputLayout fullnametext, phonenumbertext, emailtext, confirmpasswordtext, passwordtext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +58,6 @@ public class Signup_activity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
-
-
     private void handlingAnimation() {
         Animations.FromUpToDownSignup(mainImage);
         Animations.FromeRightToLeft(LoginginButton);
@@ -81,7 +72,7 @@ public class Signup_activity extends AppCompatActivity {
     }
 
 
-    public void initialisation(){
+    public void initialisation() {
         LoginginButton = findViewById(R.id.login_button);
         Login_text = findViewById(R.id.go_to_login);
         secondtext = findViewById(R.id.signup_second_text);
@@ -95,7 +86,7 @@ public class Signup_activity extends AppCompatActivity {
         passwordtext = findViewById(R.id.password_parent);
     }
 
-    public void handlingOnClicks(){
+    public void handlingOnClicks() {
         LoginginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

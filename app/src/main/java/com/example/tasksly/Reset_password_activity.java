@@ -22,9 +22,10 @@ import com.google.android.material.textfield.TextInputLayout;
 public class Reset_password_activity extends AppCompatActivity {
 
     RelativeLayout SubmitButton;
-    TextView maintext , secondtext ;
+    TextView maintext, secondtext;
     ImageView mainImage;
-    TextInputLayout passwordlayout , confirmpasswordlayout;
+    TextInputLayout passwordlayout, confirmpasswordlayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

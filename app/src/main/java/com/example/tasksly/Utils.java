@@ -9,11 +9,6 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.RequiresApi;
 
-import org.web3j.tx.Transfer;
-import org.web3j.utils.Convert;
-
-import java.math.BigDecimal;
-import java.net.URI;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
@@ -31,15 +26,12 @@ public class Utils {
     public static ArrayList<welcom_activity_Model> Welcomlist;
 
 
-
-
     public static ArrayList<welcom_activity_Model> getWelcomPageList() {
         Welcomlist = new ArrayList<>();
         Welcomlist.add(new welcom_activity_Model(R.drawable.welcom2, "Welcome to Tasksly", "Create an account to save all schedules\n and  access them from"));
         Welcomlist.add(new welcom_activity_Model(R.drawable.welcom1, "Organize your works", "Let’s organize your works with priority and \n do everything without stress."));
         return Welcomlist;
     }
-
 
 
     public static void initCategories() {
@@ -93,14 +85,12 @@ public class Utils {
             tasks_list.add(third_task);
             tasks_list.add(fourth_task);
             tasks_list.add(five_task);
-            category_map.put("General",tasks_list);
-            category_map.put("Education",new ArrayList<>());
-            category_map.put("Health",new ArrayList<>());
-            category_map.put("Gaming",new ArrayList<>());
-            category_map.put("Sport",new ArrayList<>());
-            category_map.put("Personal",new ArrayList<>());
-
-
+            category_map.put("General", tasks_list);
+            category_map.put("Education", new ArrayList<>());
+            category_map.put("Health", new ArrayList<>());
+            category_map.put("Gaming", new ArrayList<>());
+            category_map.put("Sport", new ArrayList<>());
+            category_map.put("Personal", new ArrayList<>());
 
 
         }
@@ -154,6 +144,7 @@ public class Utils {
 
         }
     }
+
     // hide the keyboard when we clicks any where(better user experience )
     public static void hideSoftKeyboard(Activity activity) {
         InputMethodManager inputMethodManager =
@@ -169,20 +160,19 @@ public class Utils {
 
     //this function is for getting the next day's date used in ocrextraction's ocrrequest call
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public static String nextDayDate(String day){
+    public static String nextDayDate(String day) {
         LocalDate dt = LocalDate.now();
 
-        return String.valueOf(dt.with(TemporalAdjusters.next(DayOfWeek.of(DayOfWeek.valueOf( day.toUpperCase() ).getValue()))));
+        return String.valueOf(dt.with(TemporalAdjusters.next(DayOfWeek.of(DayOfWeek.valueOf(day.toUpperCase()).getValue()))));
 
     }
 
-    public static void OcrExtraction(String url){
-    OcrRequestAsync ocrRequestAsync = new OcrRequestAsync();
-    ocrRequestAsync.execute(url);
+    public static void OcrExtraction(String url) {
+        OcrRequestAsync ocrRequestAsync = new OcrRequestAsync();
+        ocrRequestAsync.execute(url);
 
 
     }
-
 
 
 }

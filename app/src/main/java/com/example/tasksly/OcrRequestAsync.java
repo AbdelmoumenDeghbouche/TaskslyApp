@@ -14,10 +14,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.sql.SQLOutput;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import okhttp3.Credentials;
@@ -44,10 +40,10 @@ public class OcrRequestAsync extends AsyncTask<String, Void, Response> {
             //make s a json object
             JSONObject jsonObject = new JSONObject(s);
 
-            Log.d(TAG, "onPostExecute: "+jsonObject);
+            Log.d(TAG, "onPostExecute: " + jsonObject);
 
-          JSONArray jsonArray = jsonObject.optJSONArray("result").optJSONObject(0).optJSONArray("prediction").optJSONObject(0).getJSONArray("cells");
-          System.out.println(jsonArray);
+            JSONArray jsonArray = jsonObject.optJSONArray("result").optJSONObject(0).optJSONArray("prediction").optJSONObject(0).getJSONArray("cells");
+            System.out.println(jsonArray);
 
 
             /*
@@ -92,21 +88,20 @@ public class OcrRequestAsync extends AsyncTask<String, Void, Response> {
 
             int j;
             int row;
-            for (int i=1;i<colsize;i++){
-                j=i+colsize;
+            for (int i = 1; i < colsize; i++) {
+                j = i + colsize;
 
-                if (Math.floorDiv(j+1,colsize)*colsize<j+1){
-                    row=Math.floorDiv(j+1,colsize)+1;
-                }
-                else{
-                    row=Math.floorDiv(j+1,colsize);
+                if (Math.floorDiv(j + 1, colsize) * colsize < j + 1) {
+                    row = Math.floorDiv(j + 1, colsize) + 1;
+                } else {
+                    row = Math.floorDiv(j + 1, colsize);
                 }
 
-                while(j<=cells.size() && row<=rowsize){
+                while (j <= cells.size() && row <= rowsize) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        Utils.AddTaskByTaskModel(new Task_Model(cells.get(j).text,cells.get((row-1)*colsize).text,Utils.nextDayDate(cells.get(i).text),new Category_Model("general"),"",true));
-                        j+=colsize;
-                        row+=1;
+                        Utils.AddTaskByTaskModel(new Task_Model(cells.get(j).text, cells.get((row - 1) * colsize).text, Utils.nextDayDate(cells.get(i).text), new Category_Model("general"), "", true));
+                        j += colsize;
+                        row += 1;
                     }
                 }
             }

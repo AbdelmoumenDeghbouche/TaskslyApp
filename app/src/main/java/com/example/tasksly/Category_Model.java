@@ -5,9 +5,10 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 
 public class Category_Model {
-  private ArrayList<Task_Model> arrayList = new ArrayList<>();
+    private ArrayList<Task_Model> arrayList = new ArrayList<>();
     private String category_name;
     private RelativeLayout parent_relative_layout;
+
     public Category_Model(String category_name) {
         this.category_name = category_name;
     }

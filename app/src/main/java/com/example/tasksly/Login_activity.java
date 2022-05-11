@@ -23,9 +23,9 @@ import com.google.android.material.textfield.TextInputLayout;
 public class Login_activity extends AppCompatActivity {
 
     RelativeLayout LoginginButton;
-    TextView creat_new_account_text, maintext , forgotpassword , secondtext ;
+    TextView creat_new_account_text, maintext, forgotpassword, secondtext;
     ImageView mainImage;
-    LinearLayout SupportLinearLayout , orLoginLayout;
+    LinearLayout SupportLinearLayout, orLoginLayout;
     TextInputLayout emaillayout, passwordlayout;
 
     @Override
@@ -54,21 +54,6 @@ public class Login_activity extends AppCompatActivity {
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     private void handlingAnimation() {

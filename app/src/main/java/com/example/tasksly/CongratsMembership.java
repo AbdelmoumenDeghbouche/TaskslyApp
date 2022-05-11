@@ -1,9 +1,9 @@
 package com.example.tasksly;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class CongratsMembership extends AppCompatActivity {
 
@@ -16,7 +16,7 @@ public class CongratsMembership extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent=new Intent(CongratsMembership.this,MainActivity.class);
+        Intent intent = new Intent(CongratsMembership.this, MainActivity.class);
         startActivity(intent);
     }
 }

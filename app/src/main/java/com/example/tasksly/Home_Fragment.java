@@ -55,13 +55,12 @@ public class Home_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("rowIndex",adapter.getRow_index());
+                bundle.putInt("rowIndex", adapter.getRow_index());
                 Tasks_fragment tasks_fragment = new Tasks_fragment();
                 tasks_fragment.setArguments(bundle);
 
             }
         });
-
 
 
         // goes to Profile activity when clicking

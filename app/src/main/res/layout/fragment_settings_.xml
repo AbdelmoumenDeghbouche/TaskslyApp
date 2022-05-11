@@ -6,156 +6,213 @@
     tools:context=".Settings_Fragment">
 
     <!-- TODO: Update blank fragment layout -->
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:background="@color/white"
-      android:orientation="vertical"
-      android:paddingLeft="25dp"
-      android:paddingTop="30dp"
-      android:paddingRight="25dp"
-      android:paddingBottom="25dp">
- <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_medium"
-        android:paddingBottom="48sp"
-        android:text="Settings"
-        android:textColor="#1D1235"
-        android:textSize="28sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_medium"
-        android:text="Login Option"
-        android:textColor="#1D1235"
-        android:textSize="16sp" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="7dp">
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="27dp"
-            android:layout_weight="1.2"
-            android:src="@drawable/google" />
-
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="27dp"
-            android:layout_weight="1.2"
-            android:src="@drawable/facebook" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="27dp"
-            android:layout_weight="1.2"
-            android:src="@drawable/email" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="11.5" />
-
-
-    </LinearLayout>
-
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="0.5" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="2dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="Alerts"
-        android:textColor="#756f84"
-        android:textSize="14sp" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.62"
-        android:padding="1dp">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="25dp"
+        android:paddingTop="30dp"
+        android:paddingRight="25dp"
+        android:paddingBottom="25dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="Sound"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingBottom="48sp"
+            android:text="Settings"
             android:textColor="#1D1235"
-            android:textSize="16sp"
+            android:textSize="28sp"
             android:textStyle="bold" />
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Login Option"
+            android:textColor="#1D1235"
+            android:textSize="16sp" />
 
-        <RelativeLayout
-            android:id="@+id/parent_layout"
-            android:layout_width="55dp"
-            android:layout_height="25dp"
-            android:layout_margin="6dp"
-            android:clickable="true"
-            android:layout_gravity="center_vertical"
-            android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="7dp">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="27dp"
+                android:layout_weight="1.2"
+                android:src="@drawable/google" />
+
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="27dp"
+                android:layout_weight="1.2"
+                android:src="@drawable/facebook" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="27dp"
+                android:layout_weight="1.2"
+                android:src="@drawable/email" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="11.5" />
+
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Alerts"
+            android:textColor="#756f84"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.62"
+            android:padding="1dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Sound"
+                android:textColor="#1D1235"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <RelativeLayout
-                android:id="@+id/On_relalive_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/parent_layout"
+                android:layout_width="55dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="6dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground">
 
-                android:background="@drawable/card_on_back">
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:id="@+id/On_relalive_layout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:fontFamily="@font/prima_sans_bold_bt"
-                    android:paddingLeft="7dp"
-                    android:paddingBottom="5dp"
-                    android:text="On"
-                    android:textColor="@color/white"
-                    android:textSize="12dp" />
 
-                <View
-                    android:layout_width="2dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginRight="7dp"
-                    android:layout_marginBottom="7dp"
-                    android:background="@color/white" />
+                    android:background="@drawable/card_on_back">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:fontFamily="@font/prima_sans_bold_bt"
+                        android:paddingLeft="7dp"
+                        android:paddingBottom="5dp"
+                        android:text="On"
+                        android:textColor="@color/white"
+                        android:textSize="12dp" />
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginRight="7dp"
+                        android:layout_marginBottom="7dp"
+                        android:background="@color/white" />
 
 
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/Off_relalive_layout"
+                    android:layout_width="55dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/card_off_back"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:fontFamily="@font/prima_sans_bold_bt"
+                        android:paddingRight="7dp"
+                        android:paddingBottom="5dp"
+                        android:text="Off"
+                        android:textColor="@color/black"
+                        android:textSize="12dp" />
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="7dp"
+                        android:background="@color/black" />
+
+                </RelativeLayout>
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/Off_relalive_layout"
-                android:layout_width="55dp"
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.62"
+            android:padding="1dp">
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/card_off_back"
-                android:visibility="gone">
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Vibration"
+                android:textColor="#1D1235"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <RelativeLayout
+                android:layout_width="55dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="6dp"
+                android:background="@drawable/card_off_back">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -180,245 +237,189 @@
                     android:background="@color/black" />
 
             </RelativeLayout>
-        </RelativeLayout>
 
 
-    </LinearLayout>
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.62"
-        android:padding="1dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="Vibration"
-            android:textColor="#1D1235"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <Space
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <RelativeLayout
-            android:layout_width="55dp"
-            android:layout_height="25dp"
-            android:layout_margin="6dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/card_off_back">
+            android:layout_weight="0.62"
+            android:padding="1dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:fontFamily="@font/prima_sans_bold_bt"
-                android:paddingRight="7dp"
-                android:paddingBottom="5dp"
-                android:text="Off"
-                android:textColor="@color/black"
-                android:textSize="12dp" />
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Vibrate on mute"
+                android:textColor="#1D1235"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="7dp"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginEnd="7dp"
-                android:layout_marginBottom="7dp"
-                android:background="@color/black" />
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="55dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="6dp"
+                android:background="@drawable/card_off_back">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/prima_sans_bold_bt"
+                    android:paddingRight="7dp"
+                    android:paddingBottom="5dp"
+                    android:text="Off"
+                    android:textColor="@color/black"
+                    android:textSize="12dp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginBottom="7dp"
+                    android:background="@color/black" />
+
+            </RelativeLayout>
 
 
-    </LinearLayout>
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.62"
-        android:padding="1dp">
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.4" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_margin="2dp"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Vibrate on mute"
-            android:textColor="#1D1235"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:text="Notifications"
+            android:textColor="#756f84"
+            android:textSize="14sp" />
 
-        <Space
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <RelativeLayout
-            android:layout_width="55dp"
-            android:layout_height="25dp"
-            android:layout_margin="6dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/card_off_back">
+            android:layout_weight="0.62"
+            android:padding="1dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:fontFamily="@font/prima_sans_bold_bt"
-                android:paddingRight="7dp"
-                android:paddingBottom="5dp"
-                android:text="Off"
-                android:textColor="@color/black"
-                android:textSize="12dp" />
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Notify me before 5 mins"
+                android:textColor="#1D1235"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="7dp"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginEnd="7dp"
-                android:layout_marginBottom="7dp"
-                android:background="@color/black" />
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="55dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="6dp"
+                android:background="@drawable/card_on_back">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/prima_sans_bold_bt"
+                    android:paddingLeft="7dp"
+                    android:paddingBottom="5dp"
+                    android:text="On"
+                    android:textColor="@color/white"
+                    android:textSize="12dp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_marginBottom="7dp"
+                    android:background="@color/white" />
 
 
-    </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
 
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="0.4" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="2dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="Notifications"
-        android:textColor="#756f84"
-        android:textSize="14sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.62"
+            android:padding="1dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.62"
-        android:padding="1dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Email Notification"
+                android:textColor="#1D1235"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-        <TextView
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <RelativeLayout
+                android:layout_width="55dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="6dp"
+                android:background="@drawable/card_off_back">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/prima_sans_bold_bt"
+                    android:paddingRight="7dp"
+                    android:paddingBottom="5dp"
+                    android:text="Off"
+                    android:textColor="@color/black"
+                    android:textSize="12dp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="7dp"
+                    android:layout_marginBottom="7dp"
+                    android:background="@color/black" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <Space
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="Notify me before 5 mins"
-            android:textColor="#1D1235"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <Space
-            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <RelativeLayout
-            android:layout_width="55dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="6dp"
-            android:background="@drawable/card_on_back">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:fontFamily="@font/prima_sans_bold_bt"
-                android:paddingLeft="7dp"
-                android:paddingBottom="5dp"
-                android:text="On"
-                android:textColor="@color/white"
-                android:textSize="12dp" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="7dp"
-                android:layout_marginRight="7dp"
-                android:layout_marginBottom="7dp"
-                android:background="@color/white" />
-
-
-        </RelativeLayout>
+            android:layout_weight="3.4" />
     </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.62"
-        android:padding="1dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="Email Notification"
-            android:textColor="#1D1235"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <RelativeLayout
-            android:layout_width="55dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="6dp"
-            android:background="@drawable/card_off_back">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:fontFamily="@font/prima_sans_bold_bt"
-                android:paddingRight="7dp"
-                android:paddingBottom="5dp"
-                android:text="Off"
-                android:textColor="@color/black"
-                android:textSize="12dp" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="7dp"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginEnd="7dp"
-                android:layout_marginBottom="7dp"
-                android:background="@color/black" />
-        </RelativeLayout>
-
-
-    </LinearLayout>
-
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="3.4" />
-  </LinearLayout>
 </FrameLayout>
