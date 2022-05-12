@@ -3,6 +3,8 @@ package com.example.tasksly;
 import static android.content.ContentValues.TAG;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
@@ -34,6 +36,10 @@ public class Utils {
     public static ArrayList<Task_Model> tasks_list;
     public static HashMap<String, ArrayList<Task_Model>> category_map = new HashMap<>();
     public static ArrayList<welcom_activity_Model> Welcomlist;
+    public static Context context ;
+    public  static Dialog add_task_dialogue;
+
+
 
 
     public static ArrayList<welcom_activity_Model> getWelcomPageList() {
@@ -202,6 +208,7 @@ public class Utils {
     public static void OcrExtraction(String url) {
         OcrRequestAsync ocrRequestAsync = new OcrRequestAsync();
         ocrRequestAsync.execute(url);
+
 
 
     }

@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     Fragment fragment;
     LinearLayout Linear_layout_add_task, Linear_layout_import_image, Linear_layout_Take_photo_by_camera;
     ImageView img_view_close_dialogue_of_add_new_task;
-    Dialog add_task_dialogue;
+    public  static Dialog add_task_dialogue;
     private RelativeLayout Main_activity_layout_parent;
 
 
@@ -72,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
                 add_task_dialogue.dismiss();
             }
         });
+        Linear_layout_add_task.setClickable(true);
+        Linear_layout_add_task.setVisibility(View.VISIBLE);
+        Linear_layout_add_task.setFocusable(true);
         Linear_layout_add_task.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Utils.AddTaskByTaskModel(new Gson().fromJson(getIntent().getStringExtra("task_element"), Task_Model.class));
+
             }
         });
 
@@ -140,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
                 //.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                 .replace(R.id.frame, new Home_Fragment())
                 .commit();
-
 
         // navigation bar clicking interaction
         chipNavigationBar.setItemSelected(R.id.home, true);
@@ -209,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         uri = data.getData();
+        //Utils.OcrExtraction(Utils.ParseUrl(uri).toString());
 
     }
 
