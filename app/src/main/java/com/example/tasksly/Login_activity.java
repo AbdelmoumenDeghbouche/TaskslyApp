@@ -52,7 +52,6 @@ public class Login_activity extends AppCompatActivity {
         handlingOnClicks();
         handlingAnimation();
 
-
     }
 
 
