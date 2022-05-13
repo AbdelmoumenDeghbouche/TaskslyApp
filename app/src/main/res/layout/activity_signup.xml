@@ -106,6 +106,7 @@
             android:fontFamily="@font/poppins_medium"
             android:hint="Full name "
             android:inputType="textEmailAddress"
+            android:maxLength="25"
             android:textColor="@color/fontmain"
             android:textSize="14dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -138,6 +139,7 @@
             android:fontFamily="@font/poppins_medium"
             android:hint="Email "
             android:inputType="textEmailAddress"
+            android:maxLength="25"
             android:textColor="@color/fontmain"
             android:textSize="14dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -170,6 +172,7 @@
             android:fontFamily="@font/poppins_medium"
             android:hint="Phone number "
             android:inputType="textEmailAddress"
+            android:maxLength="25"
             android:textColor="@color/fontmain"
             android:textSize="14dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -203,6 +206,7 @@
             android:fontFamily="@font/poppins_medium"
             android:hint="Password "
             android:inputType="textEmailAddress"
+            android:maxLength="30"
             android:textColor="@color/fontmain"
             android:textSize="14dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -234,6 +238,7 @@
             android:fontFamily="@font/poppins_medium"
             android:hint="Confirm Password "
             android:inputType="textEmailAddress"
+            android:maxLength="30"
             android:textColor="@color/fontmain"
             android:textSize="14dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -258,7 +263,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Sign up"
+            android:text="Login"
             android:textColor="#1D1235"
             android:textSize="18dp" />
     </RelativeLayout>

@@ -83,6 +83,7 @@
             android:fontFamily="@font/poppins_medium"
             android:hint="Email "
             android:inputType="textEmailAddress"
+            android:maxLength="25"
             android:textColor="@color/fontmain"
             android:textSize="15dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -114,41 +115,24 @@
             android:fontFamily="@font/poppins_medium"
             android:hint="Password "
             android:inputType="textEmailAddress"
+            android:maxLength="30"
             android:textColor="@color/fontmain"
             android:textSize="15dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <CheckBox
-            android:id="@+id/remember_me"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:backgroundTint="@color/mainyellow"
-            android:text="Remember me"
-            android:textAppearance="@style/Text"
-            android:textColor="#757575"
-            android:textSize="11dp" />
-
-        <TextView
-            android:id="@+id/forgot_password_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="right"
-            android:layout_margin="5dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:fontFamily="@font/poppins_medium"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:text="forget Password ?"
-            android:textColor="@color/mainpink"
-            android:textSize="12sp" />
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/forgot_password_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_margin="5dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="forget Password ?"
+        android:textColor="@color/mainpink"
+        android:textSize="12sp" />
 
     <Space
         android:layout_width="wrap_content"

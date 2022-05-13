@@ -26,8 +26,4 @@
     <style name="one">
         <item name="cornerSize">50%</item>
     </style>
-    <style name="Text">
-        <item name="fontFamily">@font/poppins_semibold</item>
-        <item name="android:textStyle">bold</item>
-    </style>
 </resources>
