@@ -1,5 +1,8 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
+
+
 }
 
 android {
@@ -54,6 +57,11 @@ dependencies {
     // firebase
     implementation platform('com.google.firebase:firebase-bom:29.3.1')
     // paper database
+    implementation 'io.github.pilgr:paperdb:2.7.2'
+
+
+
+
     implementation platform('com.google.firebase:firebase-bom:29.3.1')
     implementation 'com.google.firebase:firebase-appcheck-safetynet:16.0.0'
     implementation 'com.firebaseui:firebase-ui-auth:8.0.1'
@@ -61,6 +69,9 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-database:8.0.1'
     implementation 'com.google.firebase:firebase-firestore:24.1.2'
     implementation platform('com.google.firebase:firebase-bom:29.3.1')
+    implementation 'com.google.firebase:firebase-auth'
+
+
 
 
 

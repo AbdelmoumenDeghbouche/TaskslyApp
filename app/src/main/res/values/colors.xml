@@ -26,6 +26,8 @@
     #
     <color name="button_cancel">#464646</color>
     <color name="darkblue">#3561FF</color>
+    <color name="colorfirst">#1a1a1a</color>
+    <color name="colorforth">#d3cde6</color>
 
     <color name="darkblue2">#97B9F9</color>
     <color name="darkblue3">#4A5DEE</color>
