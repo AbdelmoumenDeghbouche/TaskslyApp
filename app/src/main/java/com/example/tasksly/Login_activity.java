@@ -39,7 +39,6 @@ import io.paperdb.Paper;
 
 public class Login_activity extends AppCompatActivity {
 
-    private int RC_SIGN_IN = 123;
     RelativeLayout LoginginButton;
     TextView creat_new_account_text, maintext, forgotpassword, secondtext;
     ImageView mainImage, googleimage, facebookimage;
@@ -54,6 +53,7 @@ public class Login_activity extends AppCompatActivity {
     FirebaseAuth auth = FirebaseAuth.getInstance();
     CheckBox SaveStateBox;
     ProgressBar progressBar;
+    private int RC_SIGN_IN = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,6 @@ public class Login_activity extends AppCompatActivity {
         RememberMeUser();
         //GoogelAuthentification.CreatGoogleSignInRequest();
         SettingUserEmail_Password_AfterUpdatingTheme();
-
 
     }
 

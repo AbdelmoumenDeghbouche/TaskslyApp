@@ -28,19 +28,20 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 public class Add_task extends AppCompatActivity {
-    EditText TaskTitle ;
-    RecyclerView recyclerView ;
-    RelativeLayout relativeLayout, relativeLayout2,task_done_button;
+    EditText TaskTitle;
+    RecyclerView recyclerView;
+    RelativeLayout relativeLayout, relativeLayout2, task_done_button;
     Categoty_list_adapter adapter;
     boolean is_clicked;
-    TextView select_date_text,select_time_text;
-    LinearLayout select_date_button,select_time_button;
+    TextView select_date_text, select_time_text;
+    LinearLayout select_date_button, select_time_button;
     MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
             .setTitleText("SELECT A TIME")
             .setTimeFormat(TimeFormat.CLOCK_12H)
             .build();
     MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setTitleText("SELECT A DATE");
-    final MaterialDatePicker materialDatePicker=builder.build();
+    final MaterialDatePicker materialDatePicker = builder.build();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +72,7 @@ public class Add_task extends AppCompatActivity {
 
         adapter = new Categoty_list_adapter(getApplicationContext());
         recyclerView.setAdapter(adapter);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter.setCategories(categories);
         // this is a date picker algorithm
@@ -80,22 +81,24 @@ public class Add_task extends AppCompatActivity {
         //when done is pressed
         donepressed();
     }
-    public void AssingElements(){
+
+    public void AssingElements() {
 
         relativeLayout = findViewById(R.id.On_relalive_layout);
         relativeLayout2 = findViewById(R.id.Off_relalive_layout);
         recyclerView = findViewById(R.id.creat_task_recyclerview);
         TaskTitle = findViewById(R.id.add_task_title);
-        task_done_button=findViewById(R.id.task_done_button);
+        task_done_button = findViewById(R.id.task_done_button);
         is_clicked = true;
-        task_done_button=findViewById(R.id.task_done_button);
-        select_date_text=findViewById(R.id.select_date_text);
-        select_time_text=findViewById(R.id.select_time_text);
-        select_date_button=findViewById(R.id.select_date_button);
-        select_time_button=findViewById(R.id.select_time_button);
+        task_done_button = findViewById(R.id.task_done_button);
+        select_date_text = findViewById(R.id.select_date_text);
+        select_time_text = findViewById(R.id.select_time_text);
+        select_date_button = findViewById(R.id.select_date_button);
+        select_time_button = findViewById(R.id.select_time_button);
 
     }
-    public void Handlingonoffclicks(){
+
+    public void Handlingonoffclicks() {
 
         // handling on off clicks
 
@@ -117,32 +120,33 @@ public class Add_task extends AppCompatActivity {
         task_done_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Add_task.this,MainActivity.class));
+
+                startActivity(new Intent(Add_task.this, MainActivity.class));
             }
         });
 
     }
-    public void donepressed(){
+
+    public void donepressed() {
         task_done_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TaskTitle.equals("")){
+                if (TaskTitle.equals("")) {
                     Toast.makeText(Add_task.this, "Please Fill The title of your task", Toast.LENGTH_SHORT).show();
-
-                }
-                else {
-                    String time="",date="";
+                } else {
+                    String time = "", date = "";
                     try {
-                        time=materialTimePicker.getHour()+":" +materialTimePicker.getMinute();
-                        date=materialDatePicker.getHeaderText();
-                    } catch (NullPointerException e){
+                        time = materialTimePicker.getHour() + ":" + materialTimePicker.getMinute();
+                        date = materialDatePicker.getHeaderText();
+                    } catch (NullPointerException e) {
                         Toast.makeText(Add_task.this, "Fill the date and time", Toast.LENGTH_SHORT).show();
                     }
                     Gson gson = new Gson();
-                    Task_Model task_model=new Task_Model(TaskTitle.getText().toString(),time,date,Utils.getCategories_list().get(adapter.getRow_index()),null,is_clicked);
+                    Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), null, is_clicked);
                     String task_element = gson.toJson(task_model);
-                    Intent intent = new Intent(Add_task.this,MainActivity.class).putExtra("task_element", task_element);
+                    Intent intent = new Intent(Add_task.this, MainActivity.class).putExtra("task_element", task_element);
                     startActivity(intent);
+
                 }
 
 
@@ -150,30 +154,31 @@ public class Add_task extends AppCompatActivity {
         });
 
     }
-    public void timepicker(){
+
+    public void timepicker() {
 
         select_time_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                materialTimePicker.show(getSupportFragmentManager(),"TIME_PICKER");
+                materialTimePicker.show(Add_task.this.getSupportFragmentManager(), "TIME_PICKER");
             }
         });
         materialTimePicker.addOnPositiveButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                select_time_text.setText(materialTimePicker.getHour() +":"+ materialTimePicker.getMinute() );
+                select_time_text.setText(materialTimePicker.getHour() + ":" + materialTimePicker.getMinute());
             }
         });
 
 
-
     }
-    public void datepicker(){
+
+    public void datepicker() {
 
         select_date_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                materialDatePicker.show(getSupportFragmentManager(),"DATE_PICKER");
+                materialDatePicker.show(Add_task.this.getSupportFragmentManager(), "DATE_PICKER");
             }
         });
         materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
@@ -183,6 +188,7 @@ public class Add_task extends AppCompatActivity {
             }
         });
     }
+
     /*public void Handlingonoffclicks(View view){
 
         // handling on off clicks

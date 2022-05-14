@@ -9,8 +9,6 @@ import android.widget.RelativeLayout;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.tasksly.R;
-
 public class Settings_Fragment extends Fragment {
 
     RelativeLayout relativeLayout, relativeLayout2;
@@ -19,13 +17,14 @@ public class Settings_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_settings_, container, false) ;
+        View view = inflater.inflate(R.layout.fragment_settings_, container, false);
         AssingElements(view);
         Handlingonoffclicks(view);
 
-        return view ;
+        return view;
     }
-    public void AssingElements(View view){
+
+    public void AssingElements(View view) {
 
         relativeLayout = view.findViewById(R.id.On_relalive_layout);
         relativeLayout2 = view.findViewById(R.id.Off_relalive_layout);
@@ -33,7 +32,7 @@ public class Settings_Fragment extends Fragment {
 
     }
 
-    public void Handlingonoffclicks(View view){
+    public void Handlingonoffclicks(View view) {
 
         // handling on off clicks
 
@@ -51,6 +50,7 @@ public class Settings_Fragment extends Fragment {
                 is_clicked = !is_clicked;
             }
         });
+
 
     }
 }

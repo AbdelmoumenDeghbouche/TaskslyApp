@@ -1,9 +1,12 @@
 package com.example.tasksly;
 
+import static android.content.ContentValues.TAG;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,20 +25,19 @@ import com.google.android.material.card.MaterialCardView;
 import java.util.ArrayList;
 
 public class Categoty_list_adapter extends RecyclerView.Adapter {
+    public static int row_index;
     private final Context context;
     private ArrayList<Category_Model> categories = new ArrayList<>();
-    private int row_index = 0;
     private String Name_of_the_category;
     private int counter;
-
-    public int getRow_index() {
-        return row_index;
-    }
 
     public Categoty_list_adapter(Context context) {
         this.context = context;
     }
 
+    public int getRow_index() {
+        return row_index;
+    }
 
     public void setCategories(ArrayList<Category_Model> categories) {
         this.categories = categories;
@@ -70,6 +72,7 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
         if (categories.get(position).getCategory_name().toLowerCase().contains("category")) {
             ViewHolderTwo viewHolderTwo = (ViewHolderTwo) holder;
             viewHolderTwo.txt_has_no_utility.setText("");
+
             viewHolderTwo.btn_confirm_adding_category.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -78,8 +81,11 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
                     } else {
                         viewHolderTwo.add_category_dialogue.dismiss();
                         Name_of_the_category = viewHolderTwo.edit_text_enter_the_name_of_the_category.getText().toString();
+                        Utils.category_map.put(viewHolderTwo.edit_text_enter_the_name_of_the_category.getText().toString(), new ArrayList<>());
+
+
                         Category_Model category_model_coming_from_dialogue = new Category_Model(Name_of_the_category);
-                        categories.add(categories.size()-1, category_model_coming_from_dialogue);
+                        categories.add(categories.size() - 1, category_model_coming_from_dialogue);
                         viewHolderTwo.edit_text_enter_the_name_of_the_category.setText("");
                         Toast.makeText(context, "Category added", Toast.LENGTH_SHORT).show();
                     }
@@ -96,7 +102,6 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
             viewHolderTwo.parent_cardview_layout_of_add_category.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO : WORK ON THE FUNCTIONALITY OF THIS VIEW
                     viewHolderTwo.add_category_dialogue.show();
 
 
@@ -111,13 +116,17 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
                 public void onClick(View view) {
                     row_index = position;
                     notifyDataSetChanged();
+                    Log.d(TAG, "category map: " + Categoty_list_adapter.row_index);
+
 
                 }
+
             });
+
             if (row_index == position) {
                 if (row_index == 0 && counter == 0) {
-                    viewHolderOne.parent_relative_layout_of_category_name.setBackgroundResource(R.drawable.cardview_style);
-                    viewHolderOne.txt_category_name.setTextColor(Color.BLACK);
+                    viewHolderOne.parent_relative_layout_of_category_name.setBackgroundResource(R.drawable.cardview_style2);
+                    viewHolderOne.txt_category_name.setTextColor(Color.WHITE);
 
                     counter++;
                 } else if (row_index == position) {
@@ -183,6 +192,8 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
             parent_cardview_layout_of_category_name = itemView.findViewById(R.id.parent_cardview_layout_of_category_name);
             parent_relative_layout_of_category_name = itemView.findViewById(R.id.parent_relative_layout_of_category_name);
             txt_category_name = itemView.findViewById(R.id.txt_category_name);
+
+
         }
     }
 }

@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     tools:context=".Profile_activity">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Be member"
+        android:id="@+id/join_membership"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -91,12 +96,12 @@
                         android:textSize="14dp" />
 
                     <LinearLayout
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?attr/selectableItemBackground"
                         android:id="@+id/Edite_profile"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
 
                         <TextView
                             android:layout_width="wrap_content"
