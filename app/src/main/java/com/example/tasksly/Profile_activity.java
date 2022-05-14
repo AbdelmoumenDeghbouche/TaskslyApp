@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowInsetsController;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ public class Profile_activity extends AppCompatActivity {
     LinearLayout PlanningLayout, PendingLayout, CompletedLayout, CancelledLayout, TotalLayout ,edit;
     TextView user_name , user_email ;
     ImageView user_image ;
+    Button join_membership;
     DatabaseReference root = FirebaseDatabase.getInstance().getReference();
 
     @Override
@@ -35,7 +37,14 @@ public class Profile_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         getSupportActionBar().hide();
-
+        join_membership=findViewById(R.id.join_membership);
+        join_membership.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Profile_activity.this,PayActivity.class);
+                startActivity(intent);
+            }
+        });
         // changing the color of the status bar
         this.getWindow().setStatusBarColor(this.getColor(R.color.white));
 
