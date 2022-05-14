@@ -1,14 +1,16 @@
 package com.example.tasksly;
 
 public class UserModel {
-    private String name , email , password ;
+    private String name , email , password , image ;
     private int phonenumber ;
 
-    public UserModel(String name, String email, String password, int phonenumber) {
+    public UserModel(String name, String email, String password, int phonenumber , String image) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.phonenumber = phonenumber;
+        this.image = image ;
+
     }
 
     public UserModel() {
@@ -44,5 +46,13 @@ public class UserModel {
 
     public void setPhonenumber(int phonenumber) {
         this.phonenumber = phonenumber;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
     }
 }

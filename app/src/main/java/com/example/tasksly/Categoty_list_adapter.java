@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class Categoty_list_adapter extends RecyclerView.Adapter {
     private final Context context;
     private ArrayList<Category_Model> categories = new ArrayList<>();
-    private int row_index;
+    private int row_index = 0;
     private String Name_of_the_category;
     private int counter;
 
@@ -183,8 +183,6 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
             parent_cardview_layout_of_category_name = itemView.findViewById(R.id.parent_cardview_layout_of_category_name);
             parent_relative_layout_of_category_name = itemView.findViewById(R.id.parent_relative_layout_of_category_name);
             txt_category_name = itemView.findViewById(R.id.txt_category_name);
-
-
         }
     }
 }
