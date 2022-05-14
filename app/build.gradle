@@ -59,6 +59,9 @@ dependencies {
     // paper database
     implementation 'io.github.pilgr:paperdb:2.7.2'
 
+    implementation 'androidx.browser:browser:1.4.0'
+    implementation 'com.squareup.picasso:picasso:2.8'
+
 
     implementation 'com.google.firebase:firebase-storage:20.0.1'
 
