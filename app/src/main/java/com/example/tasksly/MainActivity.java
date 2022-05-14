@@ -144,7 +144,9 @@ public class MainActivity extends AppCompatActivity {
                 //.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                 .replace(R.id.frame, new Home_Fragment())
                 .commit();
+        if (Categoty_list_adapter.row_index != 1){
 
+        }
         // navigation bar clicking interaction
         chipNavigationBar.setItemSelected(R.id.home, true);
         chipNavigationBar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
@@ -212,6 +214,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         uri = data.getData();
+        Log.d(TAG, "OCr: " + Utils.ParseUrl(uri));
+//          if (uri!= null){
+//        Utils.OcrExtraction(Utils.ParseUrl(uri).toString());
+//     }
         //Utils.OcrExtraction(Utils.ParseUrl(uri).toString());
 
     }
