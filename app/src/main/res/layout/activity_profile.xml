@@ -60,7 +60,7 @@
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.3"/>
+                    android:layout_weight="0.3" />
 
 
                 <LinearLayout
@@ -76,33 +76,49 @@
 
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/user_name"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/poppins_semibold"
-                        android:text="Abdelali ichou"
+                        android:text="ichou"
                         android:textColor="#1D1235"
                         android:textSize="18dp" />
 
                     <TextView
-                        android:id="@+id/textView"
+                        android:id="@+id/user_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins"
-                        android:text="a.ichou@esi-sba.dz"
+                        android:text="gmail"
                         android:textColor="#3D3D3D"
                         android:textSize="14dp" />
 
-                    <TextView
-                        android:id="@+id/textView3"
+                    <LinearLayout
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:id="@+id/Edite_profile"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_medium"
-                        android:text="Edit details"
-                        android:textColor="@color/mainpink"
-                        android:textSize="12dp"
-                        android:textStyle="normal" />
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="Edit details"
+                            android:textColor="@color/mainpink"
+                            android:textSize="12dp"
+                            android:textStyle="normal" />
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/ic_edit" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>

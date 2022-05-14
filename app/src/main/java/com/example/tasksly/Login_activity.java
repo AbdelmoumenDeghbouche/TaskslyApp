@@ -69,7 +69,6 @@ public class Login_activity extends AppCompatActivity {
         //GoogelAuthentification.CreatGoogleSignInRequest();
         SettingUserEmail_Password_AfterUpdatingTheme();
 
-
     }
 
     private void handlingAnimation() {

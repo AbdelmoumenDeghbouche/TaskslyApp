@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1077626365712",
+    "firebase_url": "https://tasksly-ab5f9-default-rtdb.firebaseio.com",
     "project_id": "tasksly-ab5f9",
     "storage_bucket": "tasksly-ab5f9.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "1077626365712-j2k31ftuqolola219drshgedn1irts56.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tasksly",
+            "certificate_hash": "da8ec1274ae0ae1a4e36a8a5827024e0ac1456cf"
+          }
+        },
         {
           "client_id": "1077626365712-ef4vdls5vtduagvt0681qk84mi16hvvc.apps.googleusercontent.com",
           "client_type": 3
