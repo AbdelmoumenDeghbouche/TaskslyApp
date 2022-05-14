@@ -21,8 +21,6 @@ import androidx.annotation.RequiresApi;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -47,6 +45,8 @@ public class Utils {
     public static ArrayList<welcom_activity_Model> Welcomlist;
     public static Context context ;
     public  static Dialog add_task_dialogue;
+    public static URL myUrl = null ;
+
 
 
 
@@ -208,6 +208,7 @@ public class Utils {
                         public void onSuccess(Uri uri) {
                             // this uri makes us able to charge the image in the imageview every time ( its like url )
                             try {
+                                Log.d(TAG, "onSuccess: ");
                                 myUrl = new URL(uri.toString());
                             } catch (MalformedURLException e) {
                                 e.printStackTrace();

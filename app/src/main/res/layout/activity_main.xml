@@ -20,6 +20,7 @@
 <!--        android:background="#CFCFCF"-->
 <!--        android:layout_above="@+id/buttom"/>-->
 
+
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/buttom"
         android:layout_width="match_parent"
