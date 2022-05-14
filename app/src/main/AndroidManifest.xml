@@ -19,11 +19,15 @@
         <activity
             android:name=".CongratsMembership"
             android:exported="false" />
+
         <activity
             android:name=".CryptoPay"
             android:exported="false" />
         <activity
             android:name=".PayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Confirme_password_email_Activity"
             android:exported="false" />
         <activity
             android:name=".TaskActivity"

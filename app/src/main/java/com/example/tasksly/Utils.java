@@ -3,12 +3,28 @@ package com.example.tasksly;
 import static android.content.ContentValues.TAG;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
@@ -24,6 +40,10 @@ public class Utils {
     public static ArrayList<Task_Model> tasks_list;
     public static HashMap<String, ArrayList<Task_Model>> category_map = new HashMap<>();
     public static ArrayList<welcom_activity_Model> Welcomlist;
+    public static Context context ;
+    public  static Dialog add_task_dialogue;
+
+
 
 
     public static ArrayList<welcom_activity_Model> getWelcomPageList() {
@@ -166,13 +186,69 @@ public class Utils {
         return String.valueOf(dt.with(TemporalAdjusters.next(DayOfWeek.of(DayOfWeek.valueOf(day.toUpperCase()).getValue()))));
 
     }
+    public static URL ParseUrl(Uri imageUri){
+        String url = String.valueOf(imageUri);
 
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+        root.child("OCRImages").push().setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(context, "Images added successfully !", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Can't upload the image !"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+        URL myUrl = null ;
+        try {
+            myUrl = new URL(url);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return myUrl;
+    }
     public static void OcrExtraction(String url) {
         OcrRequestAsync ocrRequestAsync = new OcrRequestAsync();
         ocrRequestAsync.execute(url);
 
 
+
     }
+    public static void SettingKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        if (inputMethodManager.isAcceptingText()) {
+            inputMethodManager.hideSoftInputFromWindow(
+                    activity.getCurrentFocus().getWindowToken(),
+                    0
+            );
+        }
+    }
+
+    // hiding the keyboard when we clicks any where ( better user experience )
+
+    public static void setUpKeybaord(View view, Activity activity) {
+        // Set up touch listener for non-text box views to hide keyboard.
+        if (!(view instanceof EditText)) {
+            view.setOnTouchListener(new View.OnTouchListener() {
+                public boolean onTouch(View v, MotionEvent event) {
+                    Utils.SettingKeyboard(activity);
+                    return false;
+                }
+            });
+        }
+        //If a layout container, iterate over children and seed recursion.
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                View innerView = ((ViewGroup) view).getChildAt(i);
+                setUpKeybaord(innerView, activity);
+            }
+        }
+    }
+
 
 
 }

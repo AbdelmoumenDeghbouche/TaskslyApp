@@ -24,6 +24,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="20dp"
         android:text=""
+        android:maxLines="1"
         android:layout_marginRight="15dp"
         android:hint="Enter the name of your category"
         android:textColorHint="@color/button_cancel" />

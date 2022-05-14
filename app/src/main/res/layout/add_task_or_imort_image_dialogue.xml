@@ -10,13 +10,15 @@
         android:id="@+id/Linear_layout_add_task"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:layout_centerInParent="false"
         android:layout_marginTop="65dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginBottom="20dp"
-        android:clickable="true"
-        android:focusable="true"
+        android:clickable="false"
+        android:focusable="false"
+        android:visibility="gone"
         android:orientation="horizontal">
 
         <ImageView
