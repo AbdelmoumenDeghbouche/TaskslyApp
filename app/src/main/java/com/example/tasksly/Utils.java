@@ -19,12 +19,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
@@ -186,27 +191,34 @@ public class Utils {
         return String.valueOf(dt.with(TemporalAdjusters.next(DayOfWeek.of(DayOfWeek.valueOf(day.toUpperCase()).getValue()))));
 
     }
+
     public static URL ParseUrl(Uri imageUri){
-        String url = String.valueOf(imageUri);
-
-        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-        root.child("OCRImages").push().setValue(url).addOnCompleteListener(new OnCompleteListener<Void>() {
+        // this date and time variables are used just to create a different parent fir very child
+        String date = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
+        String time = new SimpleDateFormat("HH:mm:ss a").format(Calendar.getInstance().getTime());
+        StorageReference storage = FirebaseStorage.getInstance().getReference().child("OCRImages").child(date+"//"+time);
+        storage.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                // which means that we have uploaded the image to the firebase
+                // and now we are going to get our image uri as a string
                 if (task.isSuccessful()){
-                    Toast.makeText(context, "Images added successfully !", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(context, "Can't upload the image !"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    storage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            // this uri makes us able to charge the image in the imageview every time ( its like url )
+                            try {
+                                myUrl = new URL(uri.toString());
+                            } catch (MalformedURLException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }else {
+                    Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
-        URL myUrl = null ;
-        try {
-            myUrl = new URL(url);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
         return myUrl;
     }
     public static void OcrExtraction(String url) {
