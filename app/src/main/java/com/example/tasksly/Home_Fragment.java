@@ -3,6 +3,7 @@ package com.example.tasksly;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +11,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.auth.User;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -25,7 +33,9 @@ public class Home_Fragment extends Fragment {
     private Categoty_list_adapter adapter;
     private TextView UserNameText , txt_hello_name;
     private ImageView img_user_profile;
+    String image ;
     private TextView txt_name_of_client;
+    DatabaseReference Root ;
     private MaterialCardView card_view_holding_user_image_profile;
     private Dialog add_category_dialogue;
     @Override
@@ -62,14 +72,14 @@ public class Home_Fragment extends Fragment {
         img_user_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity().getApplication(), Profile_activity.class);
-                startActivity(intent);
+                startActivity(new Intent(getActivity().getApplication(), Profile_activity.class));
             }
         });
 
         return view ;
     }
     private void initViewsOfMainActivity(View view) {
+        Root = FirebaseDatabase.getInstance().getReference() ;
         UserNameText = view.findViewById(R.id.txt_name_of_client);
         category_recyclerview = view.findViewById(R.id.category_recyclerview);
         img_user_profile = view.findViewById(R.id.img_user_profile);
@@ -79,11 +89,26 @@ public class Home_Fragment extends Fragment {
     }
 
     public void settingInitialUserName(){
-        if (!FirebaseAuth.getInstance().getCurrentUser().getEmail().isEmpty()){
-            UserNameText.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail().substring(0,FirebaseAuth.getInstance().getCurrentUser().getEmail().length()-10));
-        } else {
-            UserNameText.setText("User");
-        }
+        Root.child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    UserModel model = snapshot.getValue(UserModel.class);
+                    UserNameText.setText(model.getName());
+                    if (!model.getImage().equals("")){
+                        image = model.getImage() ;
+                        Picasso.get().load(model.getImage()).into(img_user_profile);
+                    } else {
+                        img_user_profile.setImageResource(R.drawable.ic_avataaars);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 }

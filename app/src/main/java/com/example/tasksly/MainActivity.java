@@ -39,14 +39,6 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
         StrictMode.setThreadPolicy(policy);
-        // changing the color of the status bar
-        this.getWindow().setStatusBarColor(this.getColor(R.color.white));
-
-        // to change the color of the icons in status bar to dark
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(APPEARANCE_LIGHT_STATUS_BARS, APPEARANCE_LIGHT_STATUS_BARS);
-        }
-
 
         //declaration navigation bar
         chipNavigationBar = findViewById(R.id.buttom);

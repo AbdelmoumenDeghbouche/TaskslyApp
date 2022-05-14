@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingTop="10dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="10dp"
+    tools:context=".Login_activity">
+
+    <!--    <Space-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_weight="0.25" />-->
+<TextView
+    android:id="@+id/textViewd"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:fontFamily="@font/poppins_medium"
+    android:text="Edite profile "
+    android:textColor="#1D1235"
+    android:textSize="28sp"
+    android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            app:cardCornerRadius="60dp"
+            app:strokeColor="@color/mainblue"
+            app:strokeWidth="3dp">
+
+            <ImageView
+                android:id="@+id/user_picture"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_avataaars" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/email_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:maxLines="1"
+                android:text="email"
+                android:textColor="#1D1235"
+                android:textSize="16dp" />
+            <TextView
+                android:id="@+id/name_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:fontFamily="@font/poppins_medium"
+                android:maxLines="1"
+                android:text="name"
+                android:textColor="#3D3D3D"
+                android:textSize="15dp" />
+
+            <LinearLayout
+                android:id="@+id/select_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="left"
+                android:background="@drawable/darkbleubackgeound"
+                android:backgroundTint="@color/mainpink"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Select picture"
+                    android:textColor="@color/white"
+                    android:textSize="12dp" />
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_flesh" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progrres"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Name"
+        android:textColor="#676767"
+        android:textSize="15dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/name_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:textColorHint="#676767"
+        app:boxBackgroundColor="@color/mainblue"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeColor="@color/darkblue3"
+        app:boxStrokeWidth="0dp"
+        app:endIconMode="clear_text"
+        app:endIconTint="#636363"
+        app:hintTextColor="@color/black"
+        app:startIconDrawable="@drawable/ic_user"
+        app:startIconTint="@color/darkblue3">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:inputType="textEmailAddress"
+            android:textColor="#B90D1340"
+            android:textSize="14dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Phone number"
+        android:textColor="#676767"
+        android:textSize="15dp" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/phone_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:textColorHint="#676767"
+        app:boxBackgroundColor="@color/mainblue"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeColor="@color/darkblue3"
+        app:boxStrokeWidth="0dp"
+        app:endIconMode="clear_text"
+        app:endIconTint="#636363"
+        app:hintTextColor="@color/black"
+        app:startIconDrawable="@drawable/ic_phone"
+        app:startIconTint="@color/darkblue3">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/user_phonenumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:inputType="textEmailAddress"
+            android:textColor="#B90D1340"
+            android:textSize="14dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:fontFamily="@font/poppins_semibold"-->
+    <!--        android:text="New Password"-->
+    <!--        android:textColor="#1D1235"-->
+    <!--        android:textSize="19dp" />-->
+
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:id="@+id/password_parent"-->
+    <!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_marginBottom="10dp"-->
+    <!--        android:layout_weight="0.4"-->
+    <!--        android:textColorHint="#676767"-->
+    <!--        app:boxBackgroundColor="@color/mainblue"-->
+    <!--        app:boxCornerRadiusBottomEnd="10dp"-->
+    <!--        app:boxCornerRadiusBottomStart="10dp"-->
+    <!--        app:boxCornerRadiusTopEnd="10dp"-->
+    <!--        app:boxCornerRadiusTopStart="10dp"-->
+    <!--        app:boxStrokeColor="@color/darkblue3"-->
+    <!--        app:boxStrokeWidth="0dp"-->
+    <!--        app:endIconMode="password_toggle"-->
+    <!--        app:endIconTint="#636363"-->
+    <!--        app:hintTextColor="@color/black"-->
+    <!--        app:startIconDrawable="@drawable/ic_password"-->
+    <!--        app:startIconTint="@color/darkblue3">-->
+
+    <!--        <com.google.android.material.textfield.TextInputEditText-->
+    <!--            android:id="@+id/userpassword"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:fontFamily="@font/poppins_medium"-->
+    <!--            android:hint="Password "-->
+    <!--            android:inputType="textEmailAddress"-->
+    <!--            android:textColor="@color/fontmain"-->
+    <!--            android:textSize="14dp" />-->
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:fontFamily="@font/poppins_semibold"-->
+    <!--        android:text="Confirm new password"-->
+    <!--        android:textColor="#1D1235"-->
+    <!--        android:textSize="19dp" />-->
+
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:id="@+id/confirm_password_parent"-->
+    <!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_weight="0.4"-->
+    <!--        android:textColorHint="#676767"-->
+    <!--        app:boxBackgroundColor="@color/mainblue"-->
+    <!--        app:boxCornerRadiusBottomEnd="10dp"-->
+    <!--        app:boxCornerRadiusBottomStart="10dp"-->
+    <!--        app:boxCornerRadiusTopEnd="10dp"-->
+    <!--        app:boxCornerRadiusTopStart="10dp"-->
+    <!--        app:boxStrokeColor="@color/darkblue3"-->
+    <!--        app:boxStrokeWidth="0dp"-->
+    <!--        app:endIconMode="password_toggle"-->
+    <!--        app:endIconTint="#636363"-->
+    <!--        app:hintTextColor="@color/black"-->
+    <!--        app:startIconDrawable="@drawable/ic_confirm_password"-->
+    <!--        app:startIconTint="@color/darkblue3">-->
+
+    <!--        <com.google.android.material.textfield.TextInputEditText-->
+    <!--            android:id="@+id/user_confirm_password"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:fontFamily="@font/poppins_medium"-->
+    <!--            android:hint="Confirm Password "-->
+    <!--            android:inputType="textEmailAddress"-->
+    <!--            android:textColor="@color/fontmain"-->
+    <!--            android:textSize="14dp" />-->
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.2" />
+
+    <RelativeLayout
+        android:id="@+id/Done"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/done_creating_task_button_back"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Save changes"
+            android:textColor="#000000"
+            android:textSize="18dp" />
+    </RelativeLayout>
+
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.5" />
+
+
+</LinearLayout>

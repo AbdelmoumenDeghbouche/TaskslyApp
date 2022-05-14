@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -227,6 +228,7 @@ public class Utils {
                 }
             }
         });
+        Log.d("urlllllllllllllll",myUrl.toString());
         return myUrl;
     }
 
