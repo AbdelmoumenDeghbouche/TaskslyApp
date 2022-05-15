@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -28,6 +29,8 @@ import com.github.drjacky.imagepicker.ImagePicker;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
+
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         add_task_dialogue.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_of_dialogue_add_category));
         add_task_dialogue.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         add_task_dialogue.setCancelable(true);
-
         add_task_dialogue.getWindow().getAttributes().windowAnimations = R.style.animation_of_add_category;
         ImageView img_view_close_dialogue_of_add_new_task = add_task_dialogue.findViewById(R.id.img_view_close_dialogue_of_add_new_task);
         Linear_layout_add_task = add_task_dialogue.findViewById(R.id.Linear_layout_add_task);
@@ -81,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, Add_task.class));
             }
         });
-        Linear_layout_Take_photo_by_camera.setOnClickListener(new View.OnClickListener() {
+      Linear_layout_Take_photo_by_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 add_task_dialogue.dismiss();
@@ -214,7 +216,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         uri = data.getData();
-        Log.d(TAG, "OCr: " + Utils.ParseUrl(uri));
+        if (uri != null){
+            URL url = Utils.ParseUrl(uri);
+
+            if (null != url){
+                Utils.OcrExtraction(url.toString());
+                Toast.makeText(this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
+
+            }
+            else {
+                Toast.makeText(this, "Operation Failed Please Upload the Image Again", Toast.LENGTH_LONG).show();
+
+
+            }
+        }
+        else {
+            Toast.makeText(this, "Please Upload Your Photo", Toast.LENGTH_LONG).show();
+        }
+      
+//        Log.d(TAG, "OCr: " + Utils.ParseUrl(uri).toString());
 //          if (uri!= null){
 //        Utils.OcrExtraction(Utils.ParseUrl(uri).toString());
 //     }

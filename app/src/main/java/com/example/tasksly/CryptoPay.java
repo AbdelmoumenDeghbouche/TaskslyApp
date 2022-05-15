@@ -47,7 +47,6 @@ public class CryptoPay extends AppCompatActivity {
         setContentView(R.layout.activity_crypto_pay);
 
 
-        textView = findViewById(R.id.textView);
         Sent_crypto_button = findViewById(R.id.Sent_crypto_button);
         addresslistener = findViewById(R.id.wallet_hash);
         copy = findViewById(R.id.copy);
