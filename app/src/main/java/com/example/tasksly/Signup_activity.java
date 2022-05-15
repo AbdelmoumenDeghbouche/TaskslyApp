@@ -153,7 +153,11 @@ public class Signup_activity extends AppCompatActivity {
     public void gettingUserData() {
         userName = fullnametext.getEditText().getText().toString().trim();
         userEmail = emailtext.getEditText().getText().toString().trim();
-        userNumber = Integer.parseInt(phonenumbertext.getEditText().getText().toString().trim());
+        if (!phonenumbertext.getEditText().getText().toString().trim().equals("")) {
+            userNumber = Integer.parseInt(phonenumbertext.getEditText().getText().toString().trim());
+        } else {
+            userNumber = 0 ;
+        }
         userPassword = passwordtext.getEditText().getText().toString().trim();
         userConfirmPassword = confirmpasswordtext.getEditText().getText().toString().trim();
     }
