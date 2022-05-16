@@ -47,8 +47,10 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
         holder.parent_relative_layout_of_task_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, tasks_list.get(position).getCategory().getCategory_name().toString(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context.getApplicationContext(),TaskActivity.class);
+                intent.putExtra("TaskModel",tasks_list.get(position));
+                intent.putExtra("selected_task",position);
+                intent.putExtra("category_name",tasks_list.get(position).getCategory().getCategory_name());
                 context.startActivity(intent);
             }
         });

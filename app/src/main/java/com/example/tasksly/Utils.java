@@ -43,13 +43,20 @@ public class Utils {
     public static ArrayList<Task_Model> tasks_list;
     public static HashMap<String, ArrayList<Task_Model>> category_map = new HashMap<>();
     public static ArrayList<welcom_activity_Model> Welcomlist;
-    public static Context context ;
-    public  static Dialog add_task_dialogue;
-    public static URL myUrl = null ;
+    public static Context context;
+    public static Dialog add_task_dialogue;
+    public static URL myUrl = null;
 
 
+    public static int getIndexOfCategoryModelByCategoryName(String CategoryName) {
+        for (int i = 0; i < categories_list.size(); i++) {
+            if (categories_list.get(i).getCategory_name().equalsIgnoreCase(CategoryName)) {
+                return i;
+            }
+        }
+        return -1;
 
-
+    }
 
     public static ArrayList<welcom_activity_Model> getWelcomPageList() {
         Welcomlist = new ArrayList<>();
@@ -97,19 +104,18 @@ public class Utils {
         }
         if (tasks_list.isEmpty()) {
             Category_Model general = new Category_Model("General");
+            Category_Model Gaming = new Category_Model("Gaming");
 
             Task_Model first_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE),
                     //just test i tried to get first category from categories list (General)
                     general, "All illustration design should be handover to Smith today for review.", false);
             Task_Model sec_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
             Task_Model third_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
-            Task_Model fourth_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
-            Task_Model five_task = new Task_Model("Meetooo Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
+            Task_Model fourth_task = new Task_Model("Meet Mr Khaldixxxxx", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
             tasks_list.add(first_task);
             tasks_list.add(sec_task);
             tasks_list.add(third_task);
             tasks_list.add(fourth_task);
-            tasks_list.add(five_task);
             category_map.put("General", tasks_list);
             category_map.put("Education", new ArrayList<>());
             category_map.put("Health", new ArrayList<>());
@@ -192,17 +198,17 @@ public class Utils {
 
     }
 
-    public static URL ParseUrl(Uri imageUri){
+    public static URL ParseUrl(Uri imageUri) {
         // this date and time variables are used just to create a different parent fir very child
         String date = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
         String time = new SimpleDateFormat("HH:mm:ss a").format(Calendar.getInstance().getTime());
-        StorageReference storage = FirebaseStorage.getInstance().getReference().child("OCRImages").child(date+"//"+time);
+        StorageReference storage = FirebaseStorage.getInstance().getReference().child("OCRImages").child(date + "//" + time);
         storage.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 // which means that we have uploaded the image to the firebase
                 // and now we are going to get our image uri as a string
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     storage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
@@ -215,20 +221,21 @@ public class Utils {
                             }
                         }
                     });
-                }else {
+                } else {
                     Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
         return myUrl;
     }
+
     public static void OcrExtraction(String url) {
         OcrRequestAsync ocrRequestAsync = new OcrRequestAsync();
         ocrRequestAsync.execute(url);
 
 
-
     }
+
     public static void SettingKeyboard(Activity activity) {
         InputMethodManager inputMethodManager =
                 (InputMethodManager) activity.getSystemService(
@@ -261,7 +268,6 @@ public class Utils {
             }
         }
     }
-
 
 
 }

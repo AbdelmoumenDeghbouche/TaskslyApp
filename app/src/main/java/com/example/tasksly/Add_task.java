@@ -37,7 +37,7 @@ public class Add_task extends AppCompatActivity {
     LinearLayout select_date_button, select_time_button;
     MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
             .setTitleText("SELECT A TIME")
-            .setTimeFormat(TimeFormat.CLOCK_12H)
+            .setTimeFormat(TimeFormat.CLOCK_24H)
             .build();
     MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setTitleText("SELECT A DATE");
     final MaterialDatePicker materialDatePicker = builder.build();
@@ -127,34 +127,6 @@ public class Add_task extends AppCompatActivity {
 
     }
 
-    public void donepressed() {
-        task_done_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (TaskTitle.equals("")) {
-                    Toast.makeText(Add_task.this, "Please Fill The title of your task", Toast.LENGTH_SHORT).show();
-                } else {
-                    String time = "", date = "";
-                    try {
-                        time = materialTimePicker.getHour() + ":" + materialTimePicker.getMinute();
-                        date = materialDatePicker.getHeaderText();
-                    } catch (NullPointerException e) {
-                        Toast.makeText(Add_task.this, "Fill the date and time", Toast.LENGTH_SHORT).show();
-                    }
-                    Gson gson = new Gson();
-                    Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), null, is_clicked);
-                    String task_element = gson.toJson(task_model);
-                    Intent intent = new Intent(Add_task.this, MainActivity.class).putExtra("task_element", task_element);
-                    startActivity(intent);
-
-                }
-
-
-            }
-        });
-
-    }
-
     public void timepicker() {
 
         select_time_button.setOnClickListener(new View.OnClickListener() {
@@ -166,12 +138,14 @@ public class Add_task extends AppCompatActivity {
         materialTimePicker.addOnPositiveButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                select_time_text.setText("");
                 select_time_text.setText(materialTimePicker.getHour() + ":" + materialTimePicker.getMinute());
             }
         });
 
 
     }
+
 
     public void datepicker() {
 
@@ -188,6 +162,33 @@ public class Add_task extends AppCompatActivity {
             }
         });
     }
+
+    public void donepressed() {
+        task_done_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (TaskTitle.getText().toString().equals("")) {
+                    Toast.makeText(Add_task.this, "Please Fill The title of your task", Toast.LENGTH_SHORT).show();
+                } else {
+                    String time = "";
+                    String date = "";
+                    time = select_time_text.getText().toString();
+                    date = select_date_text.getText().toString();
+
+                    Gson gson = new Gson();
+                    Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), null, is_clicked);
+                    String task_element = gson.toJson(task_model);
+                    Intent intent = new Intent(Add_task.this, MainActivity.class).putExtra("task_element", task_element);
+                    startActivity(intent);
+
+                }
+
+
+            }
+        });
+
+    }
+
 
     /*public void Handlingonoffclicks(View view){
 
