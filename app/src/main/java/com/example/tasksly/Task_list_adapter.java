@@ -64,6 +64,8 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
 
             }
         });
+        holder.txt_description_of_task.setText(tasks_list.get(position).getDescription());
+        holder.txt_view_date_of_task_in_RV.setText(tasks_list.get(position).getDate());
         holder.img_view_check_box_oval_checked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,7 +87,7 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
     class Viewholder extends RecyclerView.ViewHolder {
         private MaterialCardView card_view_layout_of_task_item;
         private RelativeLayout parent_relative_layout_of_task_name;
-        private TextView txt_time_of_task, txt_description_of_task, txt_task_name;
+        private TextView txt_time_of_task, txt_description_of_task, txt_task_name,txt_view_date_of_task_in_RV;
         private ImageView img_view_clock, img_view_check_box_oval_checked, img_view_check_box_oval_not_checked;
 
         public Viewholder(@NonNull View itemView) {
@@ -98,6 +100,7 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
             img_view_check_box_oval_not_checked = itemView.findViewById(R.id.img_view_check_box_oval_not_checked);
             txt_description_of_task = itemView.findViewById(R.id.txt_description_of_task);
             txt_task_name = itemView.findViewById(R.id.txt_task_name);
+            txt_view_date_of_task_in_RV =itemView.findViewById(R.id.txt_view_date_of_task_in_RV);
 
         }
     }

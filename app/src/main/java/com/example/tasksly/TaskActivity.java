@@ -38,10 +38,10 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class TaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TimePickerDialog.OnTimeSetListener {
-    private Dialog add_task_dialogue;
-    private Dialog add_desc_dialogue;
     MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setTitleText("SELECT A DATE");
     final MaterialDatePicker materialDatePicker = builder.build();
+    private Dialog add_task_dialogue;
+    private Dialog add_desc_dialogue;
     private ImageView back_button_from_task_activity_to_main;
     private String[] categories = new String[Utils.getCategories_list().size() - 1];
     private Spinner spinner_categories;
@@ -85,7 +85,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
         add_desc_dialogue = new Dialog(TaskActivity.this);
         add_desc_dialogue.setContentView(R.layout.editeesctiptioneftaskdialogue);
         add_desc_dialogue.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_of_dialogue_add_category));
-        add_desc_dialogue.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        add_desc_dialogue.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         add_desc_dialogue.setCancelable(true);
         add_desc_dialogue.getWindow().getAttributes().windowAnimations = R.style.animation_of_add_category;
 
@@ -198,6 +198,8 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
         spinner_categories.setSelection(Utils.getIndexOfCategoryModelByCategoryName(category_name));
 
 
+
+
         linear_layout_description_of_task.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -224,7 +226,6 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
                 task_model.setTask_title(edit_text_name_of_the_task.getText().toString());
                 task_model.setDate(txt_date_of_the_task_in_task_activity.getText().toString());
                 task_model.setTime(txt_time_of_task_in_activity_task.getText().toString());
-                task_model.setDescription(edit_text_desc_of_the_task.getText().toString());
                 selected_task_from_RV = intent1.getIntExtra("selected_task", -1);
                 if (spinner_categories.getSelectedItem().toString().equals(category_name)) {
                     Toast.makeText(TaskActivity.this, "Task Updated successfully", Toast.LENGTH_SHORT).show();
