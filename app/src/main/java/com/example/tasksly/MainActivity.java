@@ -6,6 +6,7 @@ import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -15,6 +16,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsetsController;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -115,11 +117,7 @@ public class MainActivity extends AppCompatActivity {
         // changing the color of the status bar
         this.getWindow().setStatusBarColor(this.getColor(R.color.white));
 
-        // to change the color of the icons in status bar to dark
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(APPEARANCE_LIGHT_STATUS_BARS, APPEARANCE_LIGHT_STATUS_BARS);
-        }
-
+        Setting_Action_Bar_Status_Bar();
         //declaration of views
         initviews();
 
@@ -240,6 +238,24 @@ public class MainActivity extends AppCompatActivity {
 //     }
         //Utils.OcrExtraction(Utils.ParseUrl(uri).toString());
 
+    }
+    public void Setting_Action_Bar_Status_Bar() {
+
+        //Hiding action bar
+        getSupportActionBar().hide();
+        // setting the keyboard
+
+        this.getWindow().setStatusBarColor(Color.WHITE);
+
+        // to change the color of the icons in status bar to dark
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(APPEARANCE_LIGHT_STATUS_BARS, APPEARANCE_LIGHT_STATUS_BARS);
+        }
+        // to change the color of the icons in the navigation bar to dark
+        this.getWindow().setNavigationBarColor(Color.WHITE); //setting bar color
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS, WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS);
+        }
     }
 
 }

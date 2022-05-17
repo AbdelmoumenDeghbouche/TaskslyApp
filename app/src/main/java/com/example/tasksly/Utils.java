@@ -117,7 +117,6 @@ public class Utils {
             category_map.put("Sport", new ArrayList<>());
             category_map.put("Personal", new ArrayList<>());
 
-
         }
 
     }
@@ -145,7 +144,10 @@ public class Utils {
     public static void AddTaskByTaskModel(Task_Model task_model) {
         if (tasks_list != null) {
             Log.d(TAG, "AddTaskByTaskModel: Niccce");
-            Category_Model category_model = task_model.getCategory();
+            Category_Model category_model = null ;
+            if (task_model != null){
+                category_model = task_model.getCategory();
+            }
             if (category_model != null) {
                 Log.d(TAG, "AddTaskByTaskModel: Niccce2");
 
