@@ -135,28 +135,17 @@ public class Add_task extends AppCompatActivity {
                     Toast.makeText(Add_task.this, "Please Fill The title of your task", Toast.LENGTH_SHORT).show();
                 } else {
                     String time = "", date = "";
-                        if(materialTimePicker!=null){
-                            time = materialTimePicker.getHour() + ":" + materialTimePicker.getMinute();
-
-                        }else{
-                            Toast.makeText(Add_task.this,"fill Time",Toast.LENGTH_LONG);
-                        }
-                        if(materialDatePicker!=null){
-                            date = materialDatePicker.getHeaderText();
-                        }
-                        else{
-                            Toast.makeText(Add_task.this,"fill date",Toast.LENGTH_LONG);
-
-                        }
-
-                    if (materialDatePicker!=null && materialTimePicker!=null){
-                        Gson gson = new Gson();
-                        Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), null, is_clicked);
-                        String task_element = gson.toJson(task_model);
-                        Intent intent = new Intent(Add_task.this, MainActivity.class).putExtra("task_element", task_element);
-                        startActivity(intent);
+                    try {
+                        time = materialTimePicker.getHour() + ":" + materialTimePicker.getMinute();
+                        date = materialDatePicker.getHeaderText();
+                    } catch (NullPointerException e) {
+                        Toast.makeText(Add_task.this, "Fill the date and time", Toast.LENGTH_SHORT).show();
                     }
-
+                    Gson gson = new Gson();
+                    Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), null, is_clicked);
+                    String task_element = gson.toJson(task_model);
+                    Intent intent = new Intent(Add_task.this, MainActivity.class).putExtra("task_element", task_element);
+                    startActivity(intent);
 
                 }
 

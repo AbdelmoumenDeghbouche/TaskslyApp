@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     Fragment fragment;
     LinearLayout Linear_layout_add_task, Linear_layout_import_image, Linear_layout_Take_photo_by_camera;
     ImageView img_view_close_dialogue_of_add_new_task;
-    public  static Dialog add_task_dialogue;
+    public  Dialog add_task_dialogue;
     private RelativeLayout Main_activity_layout_parent;
 
 
@@ -60,20 +60,13 @@ public class MainActivity extends AppCompatActivity {
         add_task_dialogue = new Dialog(MainActivity.this);
         add_task_dialogue.setContentView(R.layout.add_task_or_imort_image_dialogue);
         add_task_dialogue.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_of_dialogue_add_category));
-        add_task_dialogue.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        add_task_dialogue.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         add_task_dialogue.setCancelable(true);
         add_task_dialogue.getWindow().getAttributes().windowAnimations = R.style.animation_of_add_category;
-        ImageView img_view_close_dialogue_of_add_new_task = add_task_dialogue.findViewById(R.id.img_view_close_dialogue_of_add_new_task);
         Linear_layout_add_task = add_task_dialogue.findViewById(R.id.Linear_layout_add_task);
         Linear_layout_import_image = add_task_dialogue.findViewById(R.id.Linear_layout_import_image);
         Linear_layout_Take_photo_by_camera = add_task_dialogue.findViewById(R.id.Linear_layout_Take_photo_by_camera);
         Main_activity_layout_parent = findViewById(R.id.Main_activity_layout_parent);
-        img_view_close_dialogue_of_add_new_task.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                add_task_dialogue.dismiss();
-            }
-        });
         Linear_layout_add_task.setClickable(true);
         Linear_layout_add_task.setVisibility(View.VISIBLE);
         Linear_layout_add_task.setFocusable(true);

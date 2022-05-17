@@ -37,9 +37,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 public class Edite_profle_activity extends AppCompatActivity {
 
     LinearLayout select_picture;
@@ -112,8 +109,6 @@ public class Edite_profle_activity extends AppCompatActivity {
             public void onClick(View v) {
                 if (namelayout.getEditText().getText().toString().isEmpty() || numberlayout.getEditText().getText().toString().toString().isEmpty()) {
                     Toast.makeText(Edite_profle_activity.this, "All fields must be full !", Toast.LENGTH_SHORT).show();
-                } else if (image_uri == null) {
-                    Toast.makeText(Edite_profle_activity.this, "Please select a picture !", Toast.LENGTH_SHORT).show();
                 } else {
                     progressDialog.setTitle("Wait a minute please !");
                     progressDialog.setMessage("Your profile is being updated  ...");
@@ -173,40 +168,46 @@ public class Edite_profle_activity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                String date = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
-                                StorageReference storage = FirebaseStorage.getInstance().getReference().child("Users pictures").child(name + date);
-                                storage.putFile(image).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                                        // which means that we have uploaded the image to the firebase
-                                        // and now we are going to get our image uri as a string
-                                        if (task.isSuccessful()) {
-                                            storage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                                @Override
-                                                public void onSuccess(Uri uri) {
-                                                    // this uri makes us able to charge the image in the imageview every time ( its like url )
-                                                    root.child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("image").setValue(uri.toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<Void> task) {
-                                                            if (task.isSuccessful()) {
-                                                                Toast.makeText(Edite_profle_activity.this, "Profile updated successfully !", Toast.LENGTH_SHORT).show();
-                                                                dialog.dismiss();
-                                                                startActivity(new Intent(Edite_profle_activity.this, MainActivity.class));
-                                                            } else {
-                                                                Toast.makeText(Edite_profle_activity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                                                dialog.dismiss();
+                                if (image != null) { // the user changed his profile image  , so we will charge his new profile picture
+                                    StorageReference storage = FirebaseStorage.getInstance().getReference().child("Users pictures").child((FirebaseAuth.getInstance().getCurrentUser().getUid()));
+                                    storage.putFile(image).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                        // we charge the new image in the storage firebase after that we charge it in the real time data base
+                                        @Override
+                                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                            // which means that we have uploaded the image to the firebase
+                                            // and now we are going to get our image uri as a string
+                                            if (task.isSuccessful()) {
+                                                storage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                    @Override
+                                                    public void onSuccess(Uri uri) {
+                                                        // this uri makes us able to charge the image in the imageview every time ( its like url )
+                                                        root.child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("image").setValue(uri.toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                if (task.isSuccessful()) {
+                                                                    Toast.makeText(Edite_profle_activity.this, "Profile updated successfully !", Toast.LENGTH_SHORT).show();
+                                                                    dialog.dismiss();
+                                                                    startActivity(new Intent(Edite_profle_activity.this, MainActivity.class));
+                                                                } else {
+                                                                    Toast.makeText(Edite_profle_activity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                                    dialog.dismiss();
+                                                                }
                                                             }
-                                                        }
-                                                    });
-                                                }
-                                            });
-                                        } else {
-                                            Toast.makeText(Edite_profle_activity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                            dialog.dismiss();
+                                                        });
+                                                    }
+                                                });
+                                            } else {
+                                                Toast.makeText(Edite_profle_activity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                dialog.dismiss();
+                                            }
                                         }
-                                    }
-                                });
-                            } else {
+                                    });
+                                } else {
+                                    Toast.makeText(Edite_profle_activity.this, "Profile updated successfully !", Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                    startActivity(new Intent(Edite_profle_activity.this, MainActivity.class));
+                                }
+                            } else { // the user did not change his profile image
                                 Toast.makeText(Edite_profle_activity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
                             }
