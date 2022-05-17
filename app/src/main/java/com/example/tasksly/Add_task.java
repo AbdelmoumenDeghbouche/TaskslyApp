@@ -3,6 +3,7 @@ package com.example.tasksly;
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
 import android.annotation.SuppressLint;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,10 +13,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,7 +30,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-public class Add_task extends AppCompatActivity {
+public class Add_task extends AppCompatActivity{
     EditText TaskTitle;
     RecyclerView recyclerView;
     RelativeLayout relativeLayout, relativeLayout2, task_done_button;
@@ -35,10 +38,7 @@ public class Add_task extends AppCompatActivity {
     boolean is_clicked;
     TextView select_date_text, select_time_text;
     LinearLayout select_date_button, select_time_button;
-    MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
-            .setTitleText("SELECT A TIME")
-            .setTimeFormat(TimeFormat.CLOCK_12H)
-            .build();
+    DialogFragment timepicker=new TimePickerFragment();
     MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setTitleText("SELECT A DATE");
     final MaterialDatePicker materialDatePicker = builder.build();
 
@@ -135,17 +135,28 @@ public class Add_task extends AppCompatActivity {
                     Toast.makeText(Add_task.this, "Please Fill The title of your task", Toast.LENGTH_SHORT).show();
                 } else {
                     String time = "", date = "";
-                    try {
-                        time = materialTimePicker.getHour() + ":" + materialTimePicker.getMinute();
-                        date = materialDatePicker.getHeaderText();
-                    } catch (NullPointerException e) {
-                        Toast.makeText(Add_task.this, "Fill the date and time", Toast.LENGTH_SHORT).show();
+                        if(timepicker!=null){
+                            time = materialTimePicker.getHour() + ":" + materialTimePicker.getMinute();
+
+                        }else{
+                            Toast.makeText(Add_task.this,"fill Time",Toast.LENGTH_LONG);
+                        }
+                        if(materialDatePicker!=null){
+                            date = materialDatePicker.getHeaderText();
+                        }
+                        else{
+                            Toast.makeText(Add_task.this,"fill date",Toast.LENGTH_LONG);
+
+                        }
+
+                    if (materialDatePicker!=null && materialTimePicker!=null){
+                        Gson gson = new Gson();
+                        Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), null, is_clicked);
+                        String task_element = gson.toJson(task_model);
+                        Intent intent = new Intent(Add_task.this, MainActivity.class).putExtra("task_element", task_element);
+                        startActivity(intent);
                     }
-                    Gson gson = new Gson();
-                    Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), null, is_clicked);
-                    String task_element = gson.toJson(task_model);
-                    Intent intent = new Intent(Add_task.this, MainActivity.class).putExtra("task_element", task_element);
-                    startActivity(intent);
+
 
                 }
 
@@ -160,15 +171,11 @@ public class Add_task extends AppCompatActivity {
         select_time_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                materialTimePicker.show(Add_task.this.getSupportFragmentManager(), "TIME_PICKER");
+                timepicker.show(Add_task.this.getSupportFragmentManager(), "TIME_PICKER");
             }
         });
-        materialTimePicker.addOnPositiveButtonClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                select_time_text.setText(materialTimePicker.getHour() + ":" + materialTimePicker.getMinute());
-            }
-        });
+//        select_time_text.setText(materialTimePicker.getHour() + ":" + materialTimePicker.getMinute());
+
 
 
     }
@@ -209,6 +216,8 @@ public class Add_task extends AppCompatActivity {
         });
 
     }*/
+
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

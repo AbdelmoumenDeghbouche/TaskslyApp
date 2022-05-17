@@ -213,7 +213,11 @@ public class MainActivity extends AppCompatActivity {
             URL url = Utils.ParseUrl(uri);
 
             if (null != url){
-                Utils.OcrExtraction(url.toString());
+                try {
+                    Utils.OcrExtraction(url.toString());
+                }catch (Exception e){
+                    Toast.makeText(MainActivity.this, "There is a problem,please try again", Toast.LENGTH_SHORT).show();
+                }
                 Toast.makeText(this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
 
             }

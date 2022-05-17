@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.SystemClock;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -112,6 +113,8 @@ public class OcrRequestAsync extends AsyncTask<String, Void, Response> {
         } catch (JSONException e) {
             e.printStackTrace();
 
+        }catch (Exception e){
+            Log.d(TAG, "onPostExecute: WE ARE VENOM!");
         }
 
 
