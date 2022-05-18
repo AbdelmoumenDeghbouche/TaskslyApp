@@ -200,8 +200,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
 
         linear_layout_description_of_task.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                //TODO: Create Dialogue To write the desc and get the text from it
+            public void onClick (View v) {
                 add_desc_dialogue.show();
                 edit_text_desc_of_the_task.setText(task_model.getDescription().toString());
                 btn_confirm_description.setOnClickListener(new View.OnClickListener() {
@@ -268,6 +267,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
         txt_time_of_task_in_activity_task = findViewById(R.id.txt_time_of_task_in_activity_task);
         txt_time_of_task_in_activity_task.setText(hourOfDay + ":" + minute);
     }
