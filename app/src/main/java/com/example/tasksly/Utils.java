@@ -39,14 +39,14 @@ import java.util.HashMap;
 // the 2 first functions are for the categories arraylist
 
 public class Utils {
+    public static final String COMPLETED_TASKS_KEY = "slqdlmùqssqllqdsldmqslmmlmslqd";
     public static ArrayList<Category_Model> categories_list;
-    public static ArrayList<Task_Model> tasks_list;
+    public static ArrayList<Task_Model> tasks_list, private_tasks, completed_tasks, planing_tasks;
     public static HashMap<String, ArrayList<Task_Model>> category_map = new HashMap<>();
     public static ArrayList<welcom_activity_Model> Welcomlist;
     public static Context context;
     public static Dialog add_task_dialogue;
     public static URL myUrl = null;
-
 
     public static int getIndexOfCategoryModelByCategoryName(String CategoryName) {
         for (int i = 0; i < categories_list.size(); i++) {
@@ -99,29 +99,40 @@ public class Utils {
     // the 2 first functions are for the tasks arraylist
 
     public static void initTasksList() {
+        if (null == private_tasks) {
+            private_tasks = new ArrayList<>();
+        }
         if (null == tasks_list) {
             tasks_list = new ArrayList<>();
+        }
+        if (null == completed_tasks) {
+            completed_tasks = new ArrayList<>();
         }
         if (tasks_list.isEmpty()) {
             Category_Model general = new Category_Model("General");
             Category_Model Gaming = new Category_Model("Gaming");
 
-            Task_Model first_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE),
+            Task_Model first_task = new Task_Model("Meet Mr Khaldi Completed 1", "14:00", String.valueOf(Calendar.DATE),
                     //just test i tried to get first category from categories list (General)
                     general, "All illustration design should be handover to Smith today for review.", false);
             Task_Model sec_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
             Task_Model third_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
-            Task_Model fourth_task = new Task_Model("Meet Mr Khaldixxxxx", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
+            Task_Model fourth_task = new Task_Model("Meet Mr Khaldi Completed", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", false);
+            fourth_task.setIs_finished(true);
+            first_task.setIs_finished(true);
             tasks_list.add(first_task);
             tasks_list.add(sec_task);
             tasks_list.add(third_task);
             tasks_list.add(fourth_task);
-            category_map.put("General", tasks_list);
+            private_tasks.add(first_task);
+            category_map.put("General", new ArrayList<>());
             category_map.put("Education", new ArrayList<>());
             category_map.put("Health", new ArrayList<>());
             category_map.put("Gaming", new ArrayList<>());
             category_map.put("Sport", new ArrayList<>());
             category_map.put("Personal", new ArrayList<>());
+            category_map.put("sqddqsdjqsoidjqsjdsoqidjoqsidjqsoi", private_tasks);
+            category_map.put(COMPLETED_TASKS_KEY, completed_tasks);
 
 
         }
@@ -246,6 +257,31 @@ public class Utils {
                     0
             );
         }
+    }
+
+    public static ArrayList<Task_Model> return_only_not_completed_tasks(ArrayList<Task_Model> task_modelArrayList) {
+        ArrayList<Task_Model> task_modelArrayList1 = new ArrayList<>();
+        for (int i = 0; i < task_modelArrayList.size(); i++) {
+            if (!task_modelArrayList.get(i).isIs_finished()) {
+                task_modelArrayList1.add(task_modelArrayList.get(i));
+
+
+            }
+
+        }
+        return task_modelArrayList1;
+    }
+    public static ArrayList<Task_Model> return_only_completed_tasks(ArrayList<Task_Model> task_modelArrayList) {
+        ArrayList<Task_Model> task_modelArrayList1 = new ArrayList<>();
+        for (int i = 0; i < task_modelArrayList.size(); i++) {
+            if (task_modelArrayList.get(i).isIs_finished()) {
+                task_modelArrayList1.add(task_modelArrayList.get(i));
+
+
+            }
+
+        }
+        return task_modelArrayList1;
     }
 
     // hiding the keyboard when we clicks any where ( better user experience )

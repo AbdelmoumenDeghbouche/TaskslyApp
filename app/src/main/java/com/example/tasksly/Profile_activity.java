@@ -26,7 +26,7 @@ import com.squareup.picasso.Picasso;
 
 public class Profile_activity extends AppCompatActivity {
 
-    LinearLayout PlanningLayout, PendingLayout, CompletedLayout, CancelledLayout, TotalLayout ,edit;
+    LinearLayout PlanningLayout, private_tasks_layout, CompletedLayout, CancelledLayout, TotalLayout ,edit;
     TextView user_name , user_email ;
     ImageView user_image ;
     Button join_membership;
@@ -61,7 +61,30 @@ public class Profile_activity extends AppCompatActivity {
         initialisation();
         handelingAnimations();
         initial_elements();
-
+        private_tasks_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Profile_activity.this,DifferentTasksListActivity.class);
+                intent.putExtra("NameOfActivity","Private Tasks");
+                startActivity(intent);
+            }
+        });
+        CompletedLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Profile_activity.this,DifferentTasksListActivity.class);
+                intent.putExtra("NameOfActivity","Completed Tasks");
+                startActivity(intent);
+            }
+        });
+        TotalLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Profile_activity.this,DifferentTasksListActivity.class);
+                intent.putExtra("NameOfActivity","All Tasks");
+                startActivity(intent);
+            }
+        });
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,7 +100,7 @@ public class Profile_activity extends AppCompatActivity {
         user_image = findViewById(R.id.img_user_profile);
         edit = findViewById(R.id.Edite_profile);
         PlanningLayout = findViewById(R.id.planing_layout);
-        PendingLayout = findViewById(R.id.running_tasks_layout);
+        private_tasks_layout = findViewById(R.id.private_tasks_layout);
         CompletedLayout = findViewById(R.id.completed_tasks_layout);
         CancelledLayout = findViewById(R.id.canceled_tasks_layout);
         TotalLayout = findViewById(R.id.total_tasks_layout);
@@ -85,7 +108,7 @@ public class Profile_activity extends AppCompatActivity {
 
     public void handelingAnimations(){
         Animations.FromeLeftToRightLinear(PlanningLayout);
-        Animations.FromeLeftToRightLinear1(PendingLayout);
+        Animations.FromeLeftToRightLinear1(private_tasks_layout);
         Animations.FromeLeftToRightLinear2(CompletedLayout);
         Animations.FromeLeftToRightLinear3(CancelledLayout);
         Animations.FromeLeftToRightLinear4(TotalLayout);
