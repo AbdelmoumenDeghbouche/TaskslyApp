@@ -67,6 +67,8 @@ public class Edite_profle_activity extends AppCompatActivity {
         this.getWindow().setStatusBarColor(this.getColor(R.color.white));
         getSupportActionBar().hide();
 
+        Utils.setUpKeybaord(findViewById(R.id.parent   ), Edite_profle_activity.this);
+
         // to change the color of the icons in status bar to dark
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(APPEARANCE_LIGHT_STATUS_BARS, APPEARANCE_LIGHT_STATUS_BARS);

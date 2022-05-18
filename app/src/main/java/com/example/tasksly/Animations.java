@@ -15,10 +15,10 @@ public class Animations {
     static int DURATION = 850;
     static int DURATION1 = 750;
     static int DURATION2 = 350;
-    static int DURATION3 = 450 ;
-    static int DURATION4 = 550 ;
-    static int DURATION5 = 650 ;
-    static int DURATION6 = 750 ;
+    static int DURATION3 = 450;
+    static int DURATION4 = 550;
+    static int DURATION5 = 650;
+    static int DURATION6 = 750;
     static boolean ON_ATTACH = true;
 
     public static void FromLeftToRightCardView(MaterialCardView itemView, int i) {
@@ -35,7 +35,7 @@ public class Animations {
         ObjectAnimator animatorAlpha = ObjectAnimator.ofFloat(itemView, "alpha", 1.f);
         ObjectAnimator.ofFloat(itemView, "alpha", 0.f).start();
 //          animatorTranslateX.setStartDelay(not_first_item ? DURATION2 : (i * DURATION));
-        animatorTranslateX.setDuration((true ? 2 : 1) * (DURATION-400));
+        animatorTranslateX.setDuration((true ? 2 : 1) * (DURATION - 400));
         animatorSet.playTogether(animatorTranslateX, animatorAlpha);
         animatorSet.start();
     }
@@ -97,6 +97,7 @@ public class Animations {
         animatorSet.playTogether(animatorTranslateX, animatorAlpha);
         animatorSet.start();
     }
+
     public static void FromUpToDownSignup(ImageView itemView) {
 
         itemView.setTranslationY(itemView.getY() - 710);
@@ -138,6 +139,7 @@ public class Animations {
         animatorSet.playTogether(animatorTranslateX, animatorAlpha);
         animatorSet.start();
     }
+
     public static void FromeLeftToRightLinear(LinearLayout itemView) {
 
         itemView.setTranslationX(itemView.getX() - 800);
@@ -151,6 +153,7 @@ public class Animations {
         animatorSet.playTogether(animatorTranslateX, animatorAlpha);
         animatorSet.start();
     }
+
     public static void FromeLeftToRightLinear1(LinearLayout itemView) {
 
         itemView.setTranslationX(itemView.getX() - 800);
@@ -164,6 +167,7 @@ public class Animations {
         animatorSet.playTogether(animatorTranslateX, animatorAlpha);
         animatorSet.start();
     }
+
     public static void FromeLeftToRightLinear2(LinearLayout itemView) {
 
         itemView.setTranslationX(itemView.getX() - 800);
@@ -177,6 +181,7 @@ public class Animations {
         animatorSet.playTogether(animatorTranslateX, animatorAlpha);
         animatorSet.start();
     }
+
     public static void FromeLeftToRightLinear3(LinearLayout itemView) {
 
         itemView.setTranslationX(itemView.getX() - 800);
@@ -190,6 +195,7 @@ public class Animations {
         animatorSet.playTogether(animatorTranslateX, animatorAlpha);
         animatorSet.start();
     }
+
     public static void FromeLeftToRightLinear4(LinearLayout itemView) {
 
         itemView.setTranslationX(itemView.getX() - 800);
@@ -203,6 +209,7 @@ public class Animations {
         animatorSet.playTogether(animatorTranslateX, animatorAlpha);
         animatorSet.start();
     }
+
     public static void FromeRightToLeftEditetext(TextInputLayout itemView) {
 
         itemView.setTranslationX(itemView.getX() - 800);
@@ -216,6 +223,7 @@ public class Animations {
         animatorSet.playTogether(animatorTranslateX, animatorAlpha);
         animatorSet.start();
     }
+
     public static void FromeRightToLeftEditetext1(TextInputLayout itemView) {
 
         itemView.setTranslationX(itemView.getX() - 800);
@@ -229,6 +237,7 @@ public class Animations {
         animatorSet.playTogether(animatorTranslateX, animatorAlpha);
         animatorSet.start();
     }
+
     public static void FromeRightToLeftEditetext2(TextInputLayout itemView) {
 
         itemView.setTranslationX(itemView.getX() - 800);
@@ -242,6 +251,7 @@ public class Animations {
         animatorSet.playTogether(animatorTranslateX, animatorAlpha);
         animatorSet.start();
     }
+
     public static void FromeRightToLeftEditetext3(TextInputLayout itemView) {
 
         itemView.setTranslationX(itemView.getX() - 800);
@@ -255,6 +265,7 @@ public class Animations {
         animatorSet.playTogether(animatorTranslateX, animatorAlpha);
         animatorSet.start();
     }
+
     public static void FromeRightToLeftEditetext4(TextInputLayout itemView) {
 
         itemView.setTranslationX(itemView.getX() - 800);
@@ -282,6 +293,7 @@ public class Animations {
         animatorSet.playTogether(animatorTranslateX, animatorAlpha);
         animatorSet.start();
     }
+
     public static void FromeRightToLeftLinear1(LinearLayout itemView) {
 
         itemView.setTranslationX(itemView.getX() - 800);
@@ -295,6 +307,7 @@ public class Animations {
         animatorSet.playTogether(animatorTranslateX, animatorAlpha);
         animatorSet.start();
     }
+
     public static void FromeRightToLeftLinear2(LinearLayout itemView) {
 
         itemView.setTranslationX(itemView.getX() - 800);

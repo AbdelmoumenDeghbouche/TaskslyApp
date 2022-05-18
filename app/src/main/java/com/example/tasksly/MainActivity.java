@@ -1,47 +1,125 @@
 package com.example.tasksly;
 
+import static android.content.ContentValues.TAG;
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowInsetsController;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.github.drjacky.imagepicker.ImagePicker;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
-import java.util.ArrayList;
-
-import java.util.Calendar;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    ChipNavigationBar chipNavigationBar;
+    private static final int CAMERA_PERMISSION_CODE = 170;
+    private static final int CAMERA_INTENT_CODE = 270;
+    private static final int SETTINGS_PERMISSION_CODE = 171;
+    private static final int SETTINGS_INTENT_CODE = 271;
+
+
+    public static ChipNavigationBar chipNavigationBar;
+    public static Uri uri;
     boolean is_clicked;
     Fragment fragment;
+    LinearLayout Linear_layout_add_task, Linear_layout_import_image, Linear_layout_Take_photo_by_camera;
+    ImageView img_view_close_dialogue_of_add_new_task;
+    public  static Dialog add_task_dialogue;
+    private RelativeLayout Main_activity_layout_parent;
 
+
+    @SuppressLint("UseCompatLoadingForDrawables")
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Setting_Action_Bar_Status_Bar();
+        getSupportActionBar().hide();
+        add_task_dialogue = new Dialog(MainActivity.this);
+        add_task_dialogue.setContentView(R.layout.add_task_or_imort_image_dialogue);
+        add_task_dialogue.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_of_dialogue_add_category));
+        add_task_dialogue.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        add_task_dialogue.setCancelable(true);
+        add_task_dialogue.getWindow().getAttributes().windowAnimations = R.style.animation_of_add_category;
+        ImageView img_view_close_dialogue_of_add_new_task = add_task_dialogue.findViewById(R.id.img_view_close_dialogue_of_add_new_task);
+        Linear_layout_add_task = add_task_dialogue.findViewById(R.id.Linear_layout_add_task);
+        Linear_layout_import_image = add_task_dialogue.findViewById(R.id.Linear_layout_import_image);
+        Linear_layout_Take_photo_by_camera = add_task_dialogue.findViewById(R.id.Linear_layout_Take_photo_by_camera);
+        Main_activity_layout_parent = findViewById(R.id.Main_activity_layout_parent);
+        img_view_close_dialogue_of_add_new_task.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                add_task_dialogue.dismiss();
+            }
+        });
+        Linear_layout_add_task.setClickable(true);
+        Linear_layout_add_task.setVisibility(View.VISIBLE);
+        Linear_layout_add_task.setFocusable(true);
+        Linear_layout_add_task.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Add_task.class));
+            }
+        });
+      Linear_layout_Take_photo_by_camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                add_task_dialogue.dismiss();
+                ImagePicker.Companion.with(MainActivity.this)
+                        .crop()
+                        .cameraOnly()
+                        .start();
+
+            }
+
+        });
+
+        Linear_layout_import_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                add_task_dialogue.dismiss();
+                ImagePicker.Companion.with(MainActivity.this)
+                        .crop()
+                        .galleryOnly()
+                        .start();
+            }
+        });
+
 
         //this is a must for asynctask to work
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
         StrictMode.setThreadPolicy(policy);
+        // changing the color of the status bar
+        this.getWindow().setStatusBarColor(this.getColor(R.color.white));
 
-        //declaration navigation bar
-        chipNavigationBar = findViewById(R.id.buttom);
+        Setting_Action_Bar_Status_Bar();
+        //declaration of views
+        initviews();
 
 
         // showing a red circle in the app of the plus icon
@@ -51,15 +129,14 @@ public class MainActivity extends AppCompatActivity {
         }
         //add task to list of tasks
 
-//        AsyncTask.execute(new Runnable() {
-//            @RequiresApi(api = Build.VERSION_CODES.N)
-//            @Override
-//            public void run() {
-//                Utils.AddTaskByTaskModel(new Gson().fromJson(getIntent().getStringExtra("task_element"), Task_Model.class));
-//            }
-//        });
+        AsyncTask.execute(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void run() {
+                Utils.AddTaskByTaskModel(new Gson().fromJson(getIntent().getStringExtra("task_element"), Task_Model.class));
 
-
+            }
+        });
 
 
         // to put the first fragment in the frame layout in the moment that we entered the activity
@@ -67,9 +144,9 @@ public class MainActivity extends AppCompatActivity {
                 //.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                 .replace(R.id.frame, new Home_Fragment())
                 .commit();
+        if (Categoty_list_adapter.row_index != 1){
 
-
-
+        }
         // navigation bar clicking interaction
         chipNavigationBar.setItemSelected(R.id.home, true);
         chipNavigationBar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
@@ -81,11 +158,10 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new Home_Fragment();
                         break;
                     case R.id.add:
-                        startActivity(new Intent(MainActivity.this, Add_task.class));
+                        add_task_dialogue.show();
+                        chipNavigationBar.setItemSelected(R.id.home, true);
 
-                        // disabling the red circle in the add icon
-                        chipNavigationBar.dismissBadge(R.id.add);
-                        is_clicked = false;
+
                         break;
                     case R.id.settings:
                         fragment = new Settings_Fragment();
@@ -99,18 +175,75 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             }
+
+
         });
+        if (Categoty_list_adapter.row_index == 0) {
+            Log.d(TAG, "onCreate: row" + Categoty_list_adapter.row_index);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frame, new Home_Fragment())
+                    .commit();
+        }
 
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
+    private void showsnackbar() {
+        Snackbar.make(Main_activity_layout_parent, "This Feature needs the camera permission", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Grant Permission", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        intent.setData(Uri.parse("package:" + getPackageName()));
+                        startActivityForResult(intent, SETTINGS_PERMISSION_CODE);
+                    }
+                }).show();
+
+
+    }
+
+
+    private void initviews() {
+        chipNavigationBar = findViewById(R.id.buttom);
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        uri = data.getData();
+        if (uri != null){
+            URL url = Utils.ParseUrl(uri);
+
+            if (null != url){
+                Utils.OcrExtraction(url.toString());
+                Toast.makeText(this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
+
+            }
+            else {
+                Toast.makeText(this, "Operation Failed Please Upload the Image Again", Toast.LENGTH_LONG).show();
+
+
+            }
+        }
+        else {
+            Toast.makeText(this, "Please Upload Your Photo", Toast.LENGTH_LONG).show();
+        }
+      
+//        Log.d(TAG, "OCr: " + Utils.ParseUrl(uri).toString());
+//          if (uri!= null){
+//        Utils.OcrExtraction(Utils.ParseUrl(uri).toString());
+//     }
+        //Utils.OcrExtraction(Utils.ParseUrl(uri).toString());
+
+    }
     public void Setting_Action_Bar_Status_Bar() {
 
         //Hiding action bar
         getSupportActionBar().hide();
         // setting the keyboard
-        //Utils.setUpKeybaord(findViewById(R.id.parent), Login_activity.this);
 
         this.getWindow().setStatusBarColor(Color.WHITE);
 
@@ -125,8 +258,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
-
-
 }
+

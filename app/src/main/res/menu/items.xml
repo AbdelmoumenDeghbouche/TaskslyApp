@@ -5,12 +5,14 @@
         android:id="@+id/home"
         android:icon="@drawable/ic_home"
         android:title="Home"
+        app:showAsAction="ifRoom"
         app:cnb_backgroundColor="@color/darkblue3"
         app:cnb_iconColor="@color/white"
         app:cnb_textColor="@color/white" />
 
     <item
         android:id="@+id/add"
+        app:showAsAction="ifRoom"
         android:icon="@drawable/add_liste"
         android:title="Add Task"
         app:cnb_backgroundColor="@color/darkblue3"
@@ -19,6 +21,7 @@
 
     <item
         android:id="@+id/settings"
+        app:showAsAction="ifRoom"
         android:icon="@drawable/ic_settings"
         android:title="Settings"
         app:cnb_backgroundColor="@color/darkblue3"

@@ -1,6 +1,7 @@
 package com.example.tasksly;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,8 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, tasks_list.get(position).getCategory().getCategory_name().toString(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context.getApplicationContext(),TaskActivity.class);
+                context.startActivity(intent);
             }
         });
         holder.img_view_check_box_oval_not_checked.setOnClickListener(new View.OnClickListener() {

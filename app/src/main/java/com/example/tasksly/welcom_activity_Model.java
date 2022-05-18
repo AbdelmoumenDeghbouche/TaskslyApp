@@ -1,8 +1,8 @@
 package com.example.tasksly;
 
 public class welcom_activity_Model {
-    int img ;
-    String maintext , secondtext ;
+    int img;
+    String maintext, secondtext;
 
     public welcom_activity_Model(int img, String maintext, String secondtext) {
         this.img = img;

@@ -3,8 +3,11 @@ package com.example.tasksly;
 import static android.content.ContentValues.TAG;
 
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.SystemClock;
 import android.util.Log;
+
+import androidx.annotation.RequiresApi;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +28,8 @@ public class OcrRequestAsync extends AsyncTask<String, Void, Response> {
 
     String url;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+
     @Override
     protected void onPostExecute(Response response) {
         Log.d(TAG, "onPostExecute: Nice Nice");
@@ -34,7 +39,13 @@ public class OcrRequestAsync extends AsyncTask<String, Void, Response> {
             String s = response.body().string();
             //make s a json object
             JSONObject jsonObject = new JSONObject(s);
-            JSONArray jsonArray = jsonObject.optJSONArray("result").optJSONObject(0).optJSONArray("prediction").optJSONObject(1).getJSONArray("cells");
+
+            Log.d(TAG, "onPostExecute: " + jsonObject);
+
+            JSONArray jsonArray = jsonObject.optJSONArray("result").optJSONObject(0).optJSONArray("prediction").optJSONObject(0).getJSONArray("cells");
+            System.out.println(jsonArray);
+
+
             /*
             Explanation:
             we iterate the jsonArray which has cells, so we are getting cells!
@@ -53,6 +64,7 @@ public class OcrRequestAsync extends AsyncTask<String, Void, Response> {
             // Now we have the cells arraylist filled with the cells
             // we need to know the size of the array (col and rows)
             int colsize = 0;
+
             for (TaskCell cell : cells) {
                 if (cell.col > colsize) {
                     colsize = cell.col;
@@ -72,6 +84,27 @@ public class OcrRequestAsync extends AsyncTask<String, Void, Response> {
             row4..
             those are tasks in sunday
              */
+//            DateFormat dateFormat = new SimpleDateFormat("hh:mm:");
+
+            int j;
+            int row;
+            for (int i = 1; i < colsize; i++) {
+                j = i + colsize;
+
+                if (Math.floorDiv(j + 1, colsize) * colsize < j + 1) {
+                    row = Math.floorDiv(j + 1, colsize) + 1;
+                } else {
+                    row = Math.floorDiv(j + 1, colsize);
+                }
+
+                while (j <= cells.size() && row <= rowsize) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        Utils.AddTaskByTaskModel(new Task_Model(cells.get(j).text, cells.get((row - 1) * colsize).text, Utils.nextDayDate(cells.get(i).text), new Category_Model("general"), "", true));
+                        j += colsize;
+                        row += 1;
+                    }
+                }
+            }
 
 
         } catch (IOException e) {
@@ -104,9 +137,9 @@ public class OcrRequestAsync extends AsyncTask<String, Void, Response> {
                 .add("urls", url).build();
 
         Request request = new Request.Builder()
-                .url("https://app.nanonets.com/api/v2/OCR/Model/be7000b1-9b15-492b-aa19-7eaa9875f220/LabelUrls/")
+                .url("https://app.nanonets.com/api/v2/OCR/Model/00a8c75a-7b17-45db-b3ab-ac967d253fa5/LabelUrls/")
                 .post(requestBody)
-                .addHeader("Authorization", Credentials.basic("2N3zzNh1ctAtE8z2jL0JoAxQlmvBHt7C", ""))
+                .addHeader("Authorization", Credentials.basic("Ckw7XtVJvjai7nfdkJzDm6saaDgWBXLT", ""))
                 .build();
 
         Response response = null;
