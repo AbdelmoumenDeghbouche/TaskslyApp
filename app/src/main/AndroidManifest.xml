@@ -24,6 +24,9 @@
             android:name=".CryptoPay"
             android:exported="false" />
         <activity
+            android:name=".DifferentTasksListActivity"
+            android:exported="false" />
+        <activity
             android:name=".Edite_profle_activity"
             android:exported="false" />
         <activity
