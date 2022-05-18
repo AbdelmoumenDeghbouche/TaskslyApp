@@ -136,7 +136,7 @@ public class Add_task extends AppCompatActivity {
                 } else {
                     String time = "", date = "";
                         if(materialTimePicker!=null){
-                            time = materialTimePicker.getHour() + ":" + materialTimePicker.getMinute();
+//                            time = timepicker.getHour() + ":" + timepicker.getm;
 
                         }else{
                             Toast.makeText(Add_task.this,"fill Time",Toast.LENGTH_LONG);
