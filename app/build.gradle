@@ -48,6 +48,7 @@ dependencies {
     // indicateur
     implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.0.6"
     implementation 'com.github.Drjacky:ImagePicker:1.8.4'
+
     // navigation bar
     implementation "com.github.ismaeldivita:chip-navigation-bar:1.4.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:+"

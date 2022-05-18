@@ -39,13 +39,16 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
+        android:background="@drawable/style_spinner_categories"
+        android:backgroundTint="@color/background_of_items"
         android:clickable="true"
         app:cardCornerRadius="15dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:background="@drawable/style_spinner_categories"
             android:clickable="false"
@@ -103,6 +106,64 @@
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
             android:text="Due Date" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txt_date_of_the_task_in_task_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Date Here" />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_time_of_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_baseline_access_alarm_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:text="Due Time" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/txt_time_of_task_in_activity_task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Timeee" />
+        </RelativeLayout>
 
 
     </LinearLayout>

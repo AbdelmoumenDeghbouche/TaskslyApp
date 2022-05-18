@@ -17,16 +17,17 @@
     <!--        android:layout_width="wrap_content"-->
     <!--        android:layout_height="0dp"-->
     <!--        android:layout_weight="0.25" />-->
-<TextView
-    android:id="@+id/textViewd"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    android:fontFamily="@font/poppins_medium"
-    android:text="Edite profile "
-    android:textColor="#1D1235"
-    android:textSize="28sp"
-    android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textViewd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Edit profile "
+        android:textColor="#1D1235"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,7 +39,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="60dp"
+            app:cardElevation="5dp"
             app:strokeColor="@color/mainblue"
             app:strokeWidth="3dp">
 
@@ -65,8 +70,10 @@
                 android:fontFamily="@font/poppins_medium"
                 android:maxLines="1"
                 android:text="email"
+                android:textAllCaps="true"
                 android:textColor="#1D1235"
                 android:textSize="16dp" />
+
             <TextView
                 android:id="@+id/name_text"
                 android:layout_width="wrap_content"
@@ -75,6 +82,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:maxLines="1"
                 android:text="name"
+                android:textAllCaps="true"
                 android:textColor="#3D3D3D"
                 android:textSize="15dp" />
 
@@ -82,10 +90,10 @@
                 android:id="@+id/select_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:layout_gravity="left"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/darkbleubackgeound"
-                android:backgroundTint="@color/mainpink"
+                android:backgroundTint="@color/mainblue"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground">
@@ -97,7 +105,7 @@
                     android:layout_margin="5dp"
                     android:fontFamily="@font/poppins_semibold"
                     android:text="Select picture"
-                    android:textColor="@color/white"
+                    android:textColor="@color/mainpink"
                     android:textSize="12dp" />
 
                 <ImageView
@@ -290,6 +298,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/done_creating_task_button_back"
+        android:backgroundTint="@color/mainpink"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground">
@@ -300,7 +309,7 @@
             android:layout_centerInParent="true"
             android:fontFamily="@font/poppins_semibold"
             android:text="Save changes"
-            android:textColor="#000000"
+            android:textColor="@color/mainblue"
             android:textSize="18dp" />
     </RelativeLayout>
 

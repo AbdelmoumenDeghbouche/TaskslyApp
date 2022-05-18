@@ -107,7 +107,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_medium"
-                            android:text="Edit details"
+                            android:text="Edit profile"
                             android:textColor="@color/mainpink"
                             android:textSize="12dp"
                             android:textStyle="normal" />
@@ -181,7 +181,7 @@
                 android:layout_weight="0.3" />
 
             <LinearLayout
-                android:id="@+id/running_tasks_layout"
+                android:id="@+id/private_tasks_layout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -196,7 +196,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="0.3"
-                    app:srcCompat="@drawable/ic_refresh" />
+                    app:srcCompat="@drawable/ic_baseline_lock_open_24" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -205,7 +205,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_weight="4"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="25 Pending Tasks"
+                    android:text="Private Tasks"
                     android:textColor="#1D1235"
                     android:textSize="17dp" />
 
@@ -242,7 +242,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_weight="4"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="36 Completed This Month"
+                    android:text="Completed Tasks"
                     android:textColor="#1D1235"
                     android:textSize="17dp" />
 
