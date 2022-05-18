@@ -3,17 +3,29 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Tasksly/app/src/main/res/drawable-v24/ic__cloud_upload.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable-v24/ic_emergency_call.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable-v24/ic_forget_password.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable-v24/ic_password.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable-v24/ic_phone.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable-v24/ic_signin.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable-v24/ic_signup.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/about_user_items_background.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/add_category.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/add_task_items_background.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/background_edit_text.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/background_of_dialogue_add_category.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/card_off_back.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/card_on_back.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/cardview_style.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/cardview_style2.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/cursor_drawable.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/done_creating_task_button_back.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/eamilsvg.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/googlesvg.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/ic__copy.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/ic__star.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_alarm.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_baseline_access_alarm_24.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.1" />
@@ -25,7 +37,16 @@
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_calendar3svg.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_check_box_oval.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_check_box_oval_not_checked.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_edit.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_home.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_icon.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_mobile_payment.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_playlist.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_refresh.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_reward.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_symbol_scatter_haikei.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_task_create_icon_calendar.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/font/poppins_medium.xml" value="0.12361111111111112" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_congrats_membership.xml" value="0.1605351170568562" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_crypto_pay.xml" value="0.1" />
