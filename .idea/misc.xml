@@ -26,9 +26,14 @@
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_check_box_oval.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_check_box_oval_not_checked.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_refresh.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/font/poppins_medium.xml" value="0.12361111111111112" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_congrats_membership.xml" value="0.1605351170568562" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_crypto_pay.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_description.xml" value="0.264" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_different_tasks_list.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_edite_profle.xml" value="0.1605351170568562" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_main.xml" value="0.16216216216216217" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_pay.xml" value="0.1605351170568562" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_profile.xml" value="0.1572769953051643" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_signup.xml" value="0.12013888888888889" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_task.xml" value="0.16" />
