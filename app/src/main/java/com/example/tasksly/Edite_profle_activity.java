@@ -60,7 +60,6 @@ public class Edite_profle_activity extends AppCompatActivity {
         initialise_text_views();
         handelingOnClicks();
 
-
     }
 
     public void setting_ui() {

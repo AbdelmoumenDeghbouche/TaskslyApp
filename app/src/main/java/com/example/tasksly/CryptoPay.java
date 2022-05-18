@@ -1,24 +1,18 @@
 package com.example.tasksly;
 
-import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
-
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowInsetsController;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.web3j.crypto.Credentials;
@@ -43,9 +37,8 @@ public class CryptoPay extends AppCompatActivity {
     File file;
     String Walletname;
     Credentials credentials;
-    RelativeLayout Sent_crypto_button, copy;
-    TextView addresslistener;
-    ProgressBar progressBar ;
+    Button Sent_crypto_button, copy;
+    TextView addresslistener, textView;
 
 
     @Override
@@ -53,35 +46,27 @@ public class CryptoPay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crypto_pay);
 
-        Setting_ui();
-        initialisation();
 
-        Strict_mode_and_File_initial();
-        initial_web3();
-        initial_wallet_address();
-        handlingonClicks();
+        Sent_crypto_button = findViewById(R.id.Sent_crypto_button);
+        addresslistener = findViewById(R.id.wallet_hash);
+        copy = findViewById(R.id.copy);
 
-    }
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
-    private void initial_wallet_address(){
-        progressBar.setVisibility(View.VISIBLE);
-        final String password = "Hamdi";  // this will be your etherium password
-        try {
-            // generating the etherium wallet
-            Walletname = WalletUtils.generateLightNewWalletFile(password, file);
-            Log.d("Cryptopay", "Wallet generated ");
-            credentials = WalletUtils.loadCredentials(password, file + "/" + Walletname);
-            addresslistener.setText(credentials.getAddress());
-            progressBar.setVisibility(View.GONE);
+        final String etheriumwalletPath = "walletpath";
+        file = new File(getFilesDir() + etheriumwalletPath);// the etherium wallet location
+        //create the directory if it does not exist
+        if (!file.mkdirs()) {
+            file.mkdirs();
+        } else {
+            Log.d("Cryptopay", "Directory already created");
 
-        } catch (Exception e) {
-            ShowToast("failed");
-            progressBar.setVisibility(View.GONE);
+
         }
-    }
 
-    private void initial_web3(){
-        //enter your own infura api key below
+
+//enter your own infura api  key below
         web3 = Web3j.build(new HttpService("cb4257826d1242d09847c75e4523fc1b"));
 
         setupBouncyCastle();
@@ -101,77 +86,74 @@ public class CryptoPay extends AppCompatActivity {
         } catch (Exception e) {
             ShowToast(e.getMessage());
         }
-    }
 
-    private void Strict_mode_and_File_initial() {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
 
-        final String etheriumwalletPath = "walletpath";
-        file =new
+        final String password = "Hamdi";  // this will be your etherium password
+        try {
+            // generating the etherium wallet
+            Walletname = WalletUtils.generateLightNewWalletFile(password, file);
+            Log.d("Cryptopay", "Wallet generated ");
+            credentials = WalletUtils.loadCredentials(password, file + "/" + Walletname);
+            addresslistener.setText(credentials.getAddress());
 
-                File(getFilesDir() +etheriumwalletPath);// the etherium wallet location
-        //create the directory if it does not exist
-        if(!file.mkdirs())
+        } catch (Exception e) {
+            ShowToast("failed");
 
-        {
-            file.mkdirs();
-        } else
 
-        {
-            Log.d("Cryptopay", "Directory already created");
         }
+        ;
+        copy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("text", addresslistener.getText().toString());
+                clipboard.setPrimaryClip(clip);
+            }
+        });
+
+
+        ;
+
+        Sent_crypto_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    EthGetBalance balanceWei = web3.ethGetBalance(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync()
+                            .get();
+                    BigInteger balance = balanceWei.getBalance();
+                    BigDecimal currentbalance = Convert.fromWei(balance.toString(), Convert.Unit.ETHER);
+                    if (currentbalance.compareTo(BigDecimal.valueOf(0.037)) >= 0) {
+                        //Loading must happen here
+                        //TODO:Ichou must do loading here
+                        ShowToast("Sent successfully");
+
+                        try {
+
+                            TransactionReceipt receipt = Transfer.sendFunds(web3, credentials, "0xAe4Bb9C197c7e439d61CAf9f1aFdc61A2c43235F", BigDecimal.valueOf(0.036), Convert.Unit.ETHER).send();
+                            Log.d("Cryptopay", "Transaction successful: " + receipt.getTransactionHash());
+                            Intent intent = new Intent(CryptoPay.this, CongratsMembership.class);
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            Log.d("Cryptopay", "onClick: low balance");
+
+                        }
+
+                    } else {
+                        ShowToast("not sent yet");
+                    }
+                } catch (Exception e) {
+                    Log.d("Cryptopay", "balance failed");
+
+                }
+
+
+            }
+
+
+        });
+
     }
 
-   private void handlingonClicks(){
-       copy.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-               ClipData clip = ClipData.newPlainText("text", addresslistener.getText().toString());
-               clipboard.setPrimaryClip(clip);
-               Toast.makeText(CryptoPay.this, "wallet address has been copied successfully !", Toast.LENGTH_SHORT).show();
-           }
-       });
-
-
-       Sent_crypto_button.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               try {
-                   progressBar.setVisibility(view.VISIBLE);
-                   EthGetBalance balanceWei = web3.ethGetBalance(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync()
-                           .get();
-                   BigInteger balance = balanceWei.getBalance();
-                   BigDecimal currentbalance = Convert.fromWei(balance.toString(), Convert.Unit.ETHER);
-                   if (currentbalance.compareTo(BigDecimal.valueOf(0.037)) >= 0) {
-                       //Loading must happen here
-                       //TODO:Ichou must do loading here
-
-                       ShowToast("Sent successfully");
-
-                       try {
-                           TransactionReceipt receipt = Transfer.sendFunds(web3, credentials, "0xA68b889E16971D8B71d92BA2775a11477cAc405F", BigDecimal.valueOf(0.036), Convert.Unit.ETHER).send();
-                           Log.d("Cryptopay", "Transaction successful: " + receipt.getTransactionHash());
-                           Intent intent = new Intent(CryptoPay.this, CongratsMembership.class);
-                           progressBar.setVisibility(view.GONE);
-                           startActivity(intent);
-                       } catch (Exception e) {
-                           progressBar.setVisibility(view.GONE);
-                           Log.d("Cryptopay", "onClick: low balance");
-                       }
-
-                   } else {
-                       progressBar.setVisibility(view.GONE);
-                       ShowToast("not sent yet");
-                   }
-               } catch (Exception e) {
-                   progressBar.setVisibility(view.GONE);
-                   Log.d("Cryptopay", "balance failed");
-               }
-           }
-       });
-   }
 
     private void setupBouncyCastle() {
         final Provider provider = Security.getProvider(BouncyCastleProvider.PROVIDER_NAME);
@@ -192,30 +174,6 @@ public class CryptoPay extends AppCompatActivity {
         runOnUiThread(() -> {
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         });
-    }
-
-    public void initialisation(){
-        progressBar = findViewById(R.id.progres);
-        Sent_crypto_button = findViewById(R.id.Sent_crypto_button);
-        addresslistener = findViewById(R.id.wallet_hash);
-        copy = findViewById(R.id.copy);
-
-    }
-
-    public void Setting_ui(){
-        getSupportActionBar().hide();
-        // changing the color of the status bar
-        this.getWindow().setStatusBarColor(this.getColor(R.color.white));
-
-        // to change the color of the icons in status bar to dark
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(APPEARANCE_LIGHT_STATUS_BARS, APPEARANCE_LIGHT_STATUS_BARS);
-        }
-        // to change the color of the icons in the navigation bar to dark
-        getWindow().setNavigationBarColor(ContextCompat.getColor(CryptoPay.this, R.color.white)); //setting bar color
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS, WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS);
-        }
     }
 
 }

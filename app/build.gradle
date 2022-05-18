@@ -49,12 +49,12 @@ dependencies {
     implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.0.6"
     implementation 'com.github.Drjacky:ImagePicker:1.8.4'
 
+
     // navigation bar
     implementation "com.github.ismaeldivita:chip-navigation-bar:1.4.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:+"
     implementation 'com.google.firebase:firebase-analytics:21.0.0'
     implementation 'com.google.firebase:firebase-database:20.0.5'
-
     implementation 'com.google.firebase:firebase-auth:21.0.3'
     // firebase
     implementation platform('com.google.firebase:firebase-bom:29.3.1')
