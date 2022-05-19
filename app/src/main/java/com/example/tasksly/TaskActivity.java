@@ -3,6 +3,7 @@ package com.example.tasksly;
 import static android.content.ContentValues.TAG;
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -53,6 +54,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
     private Button btn_confirm_description;
 
 
+
     private String incoming_text_description_of_task_from_desc_activity;
     private TextView txt_date_of_the_task_in_task_activity, txt_time_of_task_in_activity_task;
     private int counter;
@@ -70,6 +72,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
