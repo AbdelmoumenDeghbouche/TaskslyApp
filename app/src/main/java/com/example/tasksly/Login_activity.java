@@ -4,7 +4,9 @@ import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -51,6 +53,8 @@ public class Login_activity extends AppCompatActivity {
     AlertDialog dialog;
     DatabaseReference Root;
     FirebaseAuth auth = FirebaseAuth.getInstance();
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
+
     CheckBox SaveStateBox;
     ProgressBar progressBar;
     private int RC_SIGN_IN = 123;
@@ -309,5 +313,19 @@ public class Login_activity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS, WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS);
         }
+    }
+    @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,intentFilter);
+        super.onStart();
+
+    }
+
+    @Override
+    protected void onStop() {
+
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 }

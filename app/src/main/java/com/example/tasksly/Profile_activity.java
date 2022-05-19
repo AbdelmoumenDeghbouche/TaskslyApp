@@ -3,6 +3,8 @@ package com.example.tasksly;
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -28,6 +30,7 @@ public class Profile_activity extends AppCompatActivity {
     LinearLayout join_membership,PlanningLayout, private_tasks_layout, CompletedLayout, CancelledLayout, TotalLayout ,edit;
     TextView user_name , user_email ;
     ImageView user_image ;
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
     DatabaseReference root = FirebaseDatabase.getInstance().getReference();
 
     @Override
@@ -135,5 +138,20 @@ public class Profile_activity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,intentFilter);
+        super.onStart();
 
+    }
+
+    @Override
+    protected void onStop() {
+
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
+    }
 }
+
+

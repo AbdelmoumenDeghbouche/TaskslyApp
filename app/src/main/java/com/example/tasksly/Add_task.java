@@ -144,6 +144,7 @@ public class Add_task extends AppCompatActivity {
                     Gson gson = new Gson();
                     Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), null, is_clicked);
                     String task_element = gson.toJson(task_model);
+                    task_model.setDescription("");
                     Intent intent = new Intent(Add_task.this, MainActivity.class).putExtra("task_element", task_element);
                     startActivity(intent);
 

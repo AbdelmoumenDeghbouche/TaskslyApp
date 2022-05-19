@@ -6,13 +6,14 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowInsetsController;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -46,6 +47,8 @@ public class CryptoPay extends AppCompatActivity {
     Credentials credentials;
     RelativeLayout Sent_crypto_button, copy;
     TextView addresslistener;
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
+
     ProgressBar progressBar ;
 
 
@@ -216,5 +219,18 @@ public class CryptoPay extends AppCompatActivity {
             this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS, WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS);
         }
     }
+    @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,intentFilter);
+        super.onStart();
 
+    }
+
+    @Override
+    protected void onStop() {
+
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
+    }
 }

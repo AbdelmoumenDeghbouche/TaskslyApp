@@ -7,6 +7,8 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -53,6 +55,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
     private EditText edit_text_desc_of_the_task;
     private Button btn_confirm_description;
 
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
 
     private String incoming_text_description_of_task_from_desc_activity;
@@ -291,5 +294,19 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
         } else {
             Toast.makeText(this, "Please Upload Your Photo", Toast.LENGTH_LONG).show();
         }
+    }
+    @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,intentFilter);
+        super.onStart();
+
+    }
+
+    @Override
+    protected void onStop() {
+
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 }
