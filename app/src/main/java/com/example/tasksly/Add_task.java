@@ -150,6 +150,7 @@ public class Add_task extends AppCompatActivity {
                     task_model.setDescription("");
 
                     String task_element = gson.toJson(task_model);
+                    task_model.setDescription("");
                     Intent intent = new Intent(Add_task.this, MainActivity.class).putExtra("task_element", task_element);
                     startActivity(intent);
 
