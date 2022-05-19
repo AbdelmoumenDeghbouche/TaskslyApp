@@ -25,7 +25,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class OcrRequestAsync extends AsyncTask<String, Void, Response> {
+public class OcrRequestAsync extends AsyncTask<String, Void, Response>{
 
     String url;
 
@@ -114,8 +114,8 @@ public class OcrRequestAsync extends AsyncTask<String, Void, Response> {
             e.printStackTrace();
 
         }catch (Exception e){
-            Log.d(TAG, "onPostExecute: WE ARE VENOM!");
-        }
+            //TODO: show toast for bad table image
+                   }
 
 
 //        text.setText(response.header("message"));

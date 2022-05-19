@@ -29,6 +29,7 @@ import com.github.drjacky.imagepicker.ImagePicker;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
+import com.kenai.jffi.Main;
 
 import java.net.URL;
 
@@ -238,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
         //Utils.OcrExtraction(Utils.ParseUrl(uri).toString());
 
     }
+
 
 }
 
