@@ -136,13 +136,15 @@ public class Add_task extends AppCompatActivity {
                 } else {
                     String time = "", date = "";
                     try {
-                        time = materialTimePicker.getHour() + ":" + materialTimePicker.getMinute();
+                        time=timeadjuster(materialTimePicker);
                         date = materialDatePicker.getHeaderText();
                     } catch (NullPointerException e) {
                         Toast.makeText(Add_task.this, "Fill the date and time", Toast.LENGTH_SHORT).show();
                     }
                     Gson gson = new Gson();
+
                     Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), null, is_clicked);
+                    task_model.setDescription("");
                     String task_element = gson.toJson(task_model);
                     Intent intent = new Intent(Add_task.this, MainActivity.class).putExtra("task_element", task_element);
                     startActivity(intent);
@@ -166,7 +168,10 @@ public class Add_task extends AppCompatActivity {
         materialTimePicker.addOnPositiveButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                select_time_text.setText(materialTimePicker.getHour() + ":" + materialTimePicker.getMinute());
+                String time=timeadjuster(materialTimePicker);
+
+
+                select_time_text.setText(time);
             }
         });
 
@@ -209,6 +214,21 @@ public class Add_task extends AppCompatActivity {
         });
 
     }*/
+    public String timeadjuster(MaterialTimePicker materialTimePicker){
+        String time="";
+        if (materialTimePicker.getHour()<10){
+            time+="0"+materialTimePicker.getHour();
+        }else{
+            time+=materialTimePicker.getHour();
+        }
+        if (materialTimePicker.getMinute()<10){
+            time+=":0"+materialTimePicker.getMinute();
+        }
+        else{
+            time+=":"+materialTimePicker.getMinute();
+        }
+        return time;
+    }
     @Override
     public void onBackPressed() {
         super.onBackPressed();
