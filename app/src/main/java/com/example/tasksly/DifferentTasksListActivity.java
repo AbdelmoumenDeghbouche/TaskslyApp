@@ -62,7 +62,7 @@ public class DifferentTasksListActivity extends AppCompatActivity {
 
             }
             if (intent.getStringExtra("NameOfActivity").equals("All Tasks")){
-                tasks_list =Utils.category_map.get("slqdlmùqssqllqdsldmqslmmlmslqd");
+                tasks_list =Utils.getTasks_list();
                 txt_name_of_the_activity.setText(intent.getStringExtra("NameOfActivity"));
 
 

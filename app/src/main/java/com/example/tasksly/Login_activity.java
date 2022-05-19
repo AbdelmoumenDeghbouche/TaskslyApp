@@ -209,7 +209,9 @@ public class Login_activity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     dialog.dismiss();
                                     Toast.makeText(getApplicationContext(), "Welcome !", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(Login_activity.this, MainActivity.class));
+                                    Intent intent = new Intent(Login_activity.this, MainActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
                                 } else {
                                     Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     dialog.dismiss();

@@ -52,7 +52,8 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
                 intent.putExtra("TaskModel", tasks_list.get(position));
                 intent.putExtra("selected_task", position);
                 intent.putExtra("category_name", tasks_list.get(position).getCategory().getCategory_name());
-                context.startActivity(intent);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.getApplicationContext().startActivity(intent);
             }
         });
         if (tasks_list.get(position).isIs_finished()) {

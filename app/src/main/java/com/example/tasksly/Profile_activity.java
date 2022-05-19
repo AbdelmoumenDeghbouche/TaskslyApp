@@ -25,10 +25,9 @@ import com.squareup.picasso.Picasso;
 
 public class Profile_activity extends AppCompatActivity {
 
-    LinearLayout PlanningLayout, private_tasks_layout, CompletedLayout, CancelledLayout, TotalLayout ,edit;
+    LinearLayout join_membership,PlanningLayout, private_tasks_layout, CompletedLayout, CancelledLayout, TotalLayout ,edit;
     TextView user_name , user_email ;
     ImageView user_image ;
-    Button join_membership;
     DatabaseReference root = FirebaseDatabase.getInstance().getReference();
 
     @Override
