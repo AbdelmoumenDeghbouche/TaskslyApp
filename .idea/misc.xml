@@ -17,7 +17,9 @@
         <entry key="..\:/Tasksly/app/src/main/res/drawable/add_category.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/add_task_items_background.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/background_edit_text.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/background_of_add_new_task_dialogue.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/background_of_dialogue_add_category.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/background_of_dialogue_no_connection.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/card_off_back.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/card_on_back.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/cardview_style.xml" value="0.1" />
@@ -37,6 +39,9 @@
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_baseline_camera_alt_24.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_baseline_camera_enhance_24.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_baseline_dehaze_24.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_baseline_east_24.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_baseline_lock_open_24.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_calendar.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_calendar3svg.xml" value="0.1" />
@@ -55,6 +60,7 @@
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_reward.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_symbol_scatter_haikei.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_task_create_icon_calendar.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/line.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/font/poppins_medium.xml" value="0.12361111111111112" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_congrats_membership.xml" value="0.1605351170568562" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_crypto_pay.xml" value="0.1" />
@@ -63,7 +69,7 @@
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_edite_profle.xml" value="0.1605351170568562" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_main.xml" value="0.16216216216216217" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_pay.xml" value="0.1605351170568562" />
-        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_profile.xml" value="0.1572769953051643" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_profile.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_signup.xml" value="0.12013888888888889" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_task.xml" value="0.16" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_welcom.xml" value="0.12013888888888889" />
@@ -75,6 +81,7 @@
         <entry key="..\:/Tasksly/app/src/main/res/layout/fragment_2.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/fragment_home_.xml" value="0.16216216216216217" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/fragment_settings_.xml" value="0.16216216216216217" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/internet_connection_lost_dialogue.xml" value="0.264" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/task_recycler_view.xml" value="0.264" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.209" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/about_user_items_background.xml" value="0.1225" />
