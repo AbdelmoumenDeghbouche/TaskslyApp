@@ -20,16 +20,11 @@
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_baseline_camera_alt_24.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_baseline_camera_enhance_24.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.1" />
-        <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_baseline_lock_open_24.xml" value="0.1" />
-        <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_calendar.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_calendar3svg.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_check_box_oval.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_check_box_oval_not_checked.xml" value="0.1" />
-        <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_refresh.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_description.xml" value="0.264" />
-        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_different_tasks_list.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_main.xml" value="0.16216216216216217" />
-        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_profile.xml" value="0.1572769953051643" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_signup.xml" value="0.12013888888888889" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_task.xml" value="0.16" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_welcom.xml" value="0.12013888888888889" />
@@ -38,7 +33,6 @@
         <entry key="..\:/Tasksly/app/src/main/res/layout/add_task_or_imort_image_dialogue2.xml" value="0.15763888888888888" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/category_item_recycler_view.xml" value="0.4" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/editeesctiptioneftaskdialogue.xml" value="0.176" />
-        <entry key="..\:/Tasksly/app/src/main/res/layout/fragment_2.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/fragment_home_.xml" value="0.16216216216216217" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/fragment_settings_.xml" value="0.16216216216216217" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/task_recycler_view.xml" value="0.264" />
@@ -157,7 +151,6 @@
         <entry key="..\:/Users/Admin/Desktop/TaskslyApp/app/src/main/res/layout/task_recycler_view.xml" value="0.35714285714285715" />
         <entry key="..\:/Users/Admin/Desktop/TaskslyApp/app/src/main/res/layout/welcom_card_item.xml" value="0.20729166666666668" />
         <entry key="..\:/Users/Admin/Desktop/TaskslyApp/app/src/main/res/menu/items.xml" value="0.20729166666666668" />
-        <entry key="..\:/Users/hamdi/AndroidStudioProjects/TaskslyPApp/app/src/main/res/layout/activity_pay.xml" value="0.1" />
       </map>
     </option>
   </component>

@@ -47,6 +47,7 @@ public class Edite_profle_activity extends AppCompatActivity {
     ImageView user_image;
     Uri image_uri;
     MaterialAlertDialogBuilder progressDialog;
+
     AlertDialog dialog;
     ProgressBar progressBar;
 

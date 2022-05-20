@@ -4,15 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:background="#ffffff"
     tools:context=".Profile_activity">
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Be member"
-        android:id="@+id/join_membership"/>
-
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -22,21 +18,63 @@
         android:paddingBottom="25dp">
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2.6"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textViewd"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Profile"
-                android:textColor="#1D1235"
-                android:textSize="28sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/textViewd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Profile"
+                    android:textColor="#1D1235"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:id="@+id/join_membership"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/darkbleubackgeound"
+                    android:backgroundTint="@color/mainpink"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="Pass to pro"
+                        android:textColor="@color/white"
+                        android:textSize="12dp" />
+
+                    <ImageView
+                        android:layout_width="13dp"
+                        android:layout_height="12dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/vip_icon" />
+
+                </LinearLayout>
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -75,16 +113,18 @@
                         android:layout_height="0dp"
                         android:layout_weight="0.15" />
 
-
                     <TextView
                         android:id="@+id/user_name"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_semibold"
                         android:text="ichou"
                         android:textColor="#1D1235"
                         android:textSize="18dp" />
+
+
+
+
 
                     <TextView
                         android:id="@+id/user_email"
@@ -181,7 +221,7 @@
                 android:layout_weight="0.3" />
 
             <LinearLayout
-                android:id="@+id/running_tasks_layout"
+                android:id="@+id/private_tasks_layout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -196,7 +236,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="0.3"
-                    app:srcCompat="@drawable/ic_refresh" />
+                    app:srcCompat="@drawable/ic_baseline_lock_open_24" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -205,7 +245,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_weight="4"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="25 Pending Tasks"
+                    android:text="Private Tasks"
                     android:textColor="#1D1235"
                     android:textSize="17dp" />
 
@@ -242,7 +282,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_weight="4"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="36 Completed This Month"
+                    android:text="Completed Tasks"
                     android:textColor="#1D1235"
                     android:textSize="17dp" />
 

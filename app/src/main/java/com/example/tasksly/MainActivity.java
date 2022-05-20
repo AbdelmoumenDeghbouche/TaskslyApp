@@ -6,6 +6,8 @@ import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -29,7 +31,6 @@ import com.github.drjacky.imagepicker.ImagePicker;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
-import com.kenai.jffi.Main;
 
 import java.net.URL;
 
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView img_view_close_dialogue_of_add_new_task;
     public  Dialog add_task_dialogue;
     private RelativeLayout Main_activity_layout_parent;
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -214,11 +216,7 @@ public class MainActivity extends AppCompatActivity {
             URL url = Utils.ParseUrl(uri);
 
             if (null != url){
-                try {
-                    Utils.OcrExtraction(url.toString());
-                }catch (Exception e){
-                    Toast.makeText(MainActivity.this, "There is a problem,please try again", Toast.LENGTH_SHORT).show();
-                }
+                Utils.OcrExtraction(url.toString());
                 Toast.makeText(this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
 
             }
@@ -240,6 +238,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,intentFilter);
+        super.onStart();
 
+    }
+
+    @Override
+    protected void onStop() {
+
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
+    }
 }
 

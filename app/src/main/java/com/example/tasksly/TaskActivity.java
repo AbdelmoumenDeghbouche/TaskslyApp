@@ -3,6 +3,7 @@ package com.example.tasksly;
 import static android.content.ContentValues.TAG;
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -53,6 +54,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
     private Button btn_confirm_description;
 
 
+
     private String incoming_text_description_of_task_from_desc_activity;
     private TextView txt_date_of_the_task_in_task_activity, txt_time_of_task_in_activity_task;
     private int counter;
@@ -70,6 +72,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -198,12 +201,9 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
         spinner_categories.setSelection(Utils.getIndexOfCategoryModelByCategoryName(category_name));
 
 
-
-
         linear_layout_description_of_task.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                //TODO: Create Dialogue To write the desc and get the text from it
+            public void onClick (View v) {
                 add_desc_dialogue.show();
                 edit_text_desc_of_the_task.setText(task_model.getDescription().toString());
                 btn_confirm_description.setOnClickListener(new View.OnClickListener() {
@@ -269,6 +269,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
         txt_time_of_task_in_activity_task = findViewById(R.id.txt_time_of_task_in_activity_task);
         txt_time_of_task_in_activity_task.setText(hourOfDay + ":" + minute);
     }

@@ -100,7 +100,7 @@ public class OcrRequestAsync extends AsyncTask<String, Void, Response>{
 
                 while (j <= cells.size() && row <= rowsize) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        Utils.AddTaskByTaskModel(new Task_Model(cells.get(j).text, cells.get((row - 1) * colsize).text, Utils.nextDayDate(cells.get(i).text), new Category_Model("general"), "", true));
+                        Utils.AddTaskByTaskModel(new Task_Model(cells.get(j).text, cells.get((row - 1) * colsize).text, Utils.nextDayDate(cells.get(i).text), new Category_Model("General"), "", true));
                         j += colsize;
                         row += 1;
                     }

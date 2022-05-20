@@ -94,7 +94,9 @@ public class Welcom_activity extends AppCompatActivity {
         GoogleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Welcom_activity.this, MainActivity.class));
+                Intent intent = new Intent(Welcom_activity.this,MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
     }
