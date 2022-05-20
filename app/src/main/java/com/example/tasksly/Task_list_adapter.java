@@ -1,7 +1,9 @@
 package com.example.tasksly;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,8 @@ import java.util.ArrayList;
 public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Viewholder> {
     private ArrayList<Task_Model> tasks_list = new ArrayList<>();
     private Context context;
+    int row_ind=0;
+
 
     public Task_list_adapter(Context context) {
         this.context = context;
@@ -41,7 +45,7 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Viewholder holder, int position) {
+    public void onBindViewHolder(@NonNull Viewholder holder, @SuppressLint("RecyclerView") int position) {
         holder.txt_task_name.setText(tasks_list.get(position).getTask_title().toString());
         holder.txt_time_of_task.setText(tasks_list.get(position).getTime());
         holder.txt_description_of_task.setText("description");
@@ -58,6 +62,7 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
         if (tasks_list.get(position).isIs_finished()) {
             holder.img_view_check_box_oval_not_checked.setVisibility(View.GONE);
             holder.img_view_check_box_oval_checked.setVisibility(View.VISIBLE);
+            holder.txt_task_name.setPaintFlags(holder.txt_task_name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
         } else {
             holder.img_view_check_box_oval_checked.setVisibility(View.GONE);
@@ -68,18 +73,18 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                int row_index_task = position;
-                if (holder.img_view_check_box_oval_not_checked.getVisibility() == View.VISIBLE) {
                     holder.img_view_check_box_oval_not_checked.setVisibility(View.GONE);
-                    String categoty= tasks_list.get(position).getCategory().getCategory_name();
+                    String categoty = tasks_list.get(position).getCategory().getCategory_name();
                     holder.img_view_check_box_oval_checked.setVisibility(View.VISIBLE);
                     Utils.completed_tasks.add(Utils.completed_tasks.size(), tasks_list.get(position));
                     tasks_list.get(position).setIs_finished(true);
                     tasks_list.remove(position);
-                    Utils.category_map.replace(categoty,tasks_list);
+                    Utils.category_map.replace(categoty, tasks_list);
+                    notifyDataSetChanged();
 
 
-                }
+
+
 
             }
         });
@@ -89,20 +94,40 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                if (holder.img_view_check_box_oval_checked.getVisibility() == View.VISIBLE) {
+                if (position==tasks_list.size()){
                     holder.img_view_check_box_oval_checked.setVisibility(View.GONE);
                     holder.img_view_check_box_oval_not_checked.setVisibility(View.VISIBLE);
+
                     tasks_list.get(position).setIs_finished(false);
                     ArrayList<Task_Model> new_arrayList = Utils.category_map.get(tasks_list.get(position).getCategory().getCategory_name());
                     if (null != new_arrayList) {
                         new_arrayList.add(new_arrayList.size(), tasks_list.get(position));
                         Utils.category_map.replace(tasks_list.get(position).getCategory().getCategory_name(), new_arrayList);
                         tasks_list.remove(position);
+                        notifyDataSetChanged();
+
 
                     }
-
-
                 }
+                else {
+                    holder.img_view_check_box_oval_checked.setVisibility(View.GONE);
+                    holder.img_view_check_box_oval_not_checked.setVisibility(View.VISIBLE);
+                    row_ind=position;
+
+                    tasks_list.get(row_ind).setIs_finished(false);
+                    ArrayList<Task_Model> new_arrayList = Utils.category_map.get(tasks_list.get(row_ind).getCategory().getCategory_name());
+                    if (null != new_arrayList) {
+                        new_arrayList.add(new_arrayList.size(), tasks_list.get(row_ind));
+                        Utils.category_map.replace(tasks_list.get(row_ind).getCategory().getCategory_name(), new_arrayList);
+                        tasks_list.remove(row_ind);
+                        notifyDataSetChanged();
+
+                    }
+                }
+
+
+
+
 
             }
         });
