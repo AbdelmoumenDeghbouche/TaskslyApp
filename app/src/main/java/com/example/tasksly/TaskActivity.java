@@ -43,6 +43,7 @@ import java.util.ArrayList;
 public class TaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TimePickerDialog.OnTimeSetListener {
     MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setTitleText("SELECT A DATE");
     final MaterialDatePicker materialDatePicker = builder.build();
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
     private Dialog add_task_dialogue;
     private Dialog add_desc_dialogue;
     private ImageView back_button_from_task_activity_to_main;
@@ -54,11 +55,8 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
     private int selected_category;
     private EditText edit_text_desc_of_the_task;
     private Button btn_confirm_description;
-
-    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
-
-
     private String incoming_text_description_of_task_from_desc_activity;
+
     private TextView txt_date_of_the_task_in_task_activity, txt_time_of_task_in_activity_task;
     private int counter;
 
@@ -112,6 +110,8 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
 
         Intent intent = getIntent();
         Task_Model task_model = intent.getParcelableExtra("TaskModel");
+        final Task_Model  task_model1_without_changes = intent.getParcelableExtra("TaskModel");
+
 
         if (null != intent) {
             edit_text_name_of_the_task.setText(task_model.getTask_title());
@@ -206,7 +206,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
 
         linear_layout_description_of_task.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View v) {
+            public void onClick(View v) {
                 add_desc_dialogue.show();
                 edit_text_desc_of_the_task.setText(task_model.getDescription().toString());
                 btn_confirm_description.setOnClickListener(new View.OnClickListener() {
@@ -236,7 +236,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
 //                    task_model.setCategory(new Category_Model(categories[selected_category]));
                     ArrayList<Task_Model> the_new_array_list = new ArrayList<>();
                     the_new_array_list = Utils.category_map.get(category_name);
-                    Log.d(TAG, "onClick: title" + task_model.getTask_title());
+                    Log.d(TAG, "onClick: title" + task_model1_without_changes.getTask_title());
                     the_new_array_list.set(selected_task_from_RV, task_model);
                     Utils.category_map.replace(category_name, the_new_array_list);
                 } else {
@@ -295,10 +295,11 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
             Toast.makeText(this, "Please Upload Your Photo", Toast.LENGTH_LONG).show();
         }
     }
+
     @Override
     protected void onStart() {
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(networkChangeListener,intentFilter);
+        registerReceiver(networkChangeListener, intentFilter);
         super.onStart();
 
     }

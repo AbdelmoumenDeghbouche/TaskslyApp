@@ -68,6 +68,7 @@
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_different_tasks_list.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_edite_profle.xml" value="0.1605351170568562" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_main.xml" value="0.16216216216216217" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_otp_verification.xml" value="0.1605351170568562" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_pay.xml" value="0.1605351170568562" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_profile.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_signup.xml" value="0.12013888888888889" />
@@ -82,6 +83,7 @@
         <entry key="..\:/Tasksly/app/src/main/res/layout/fragment_home_.xml" value="0.16216216216216217" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/fragment_settings_.xml" value="0.16216216216216217" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/internet_connection_lost_dialogue.xml" value="0.264" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/private_tasks_pin_dialogue.xml" value="0.2" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/task_recycler_view.xml" value="0.264" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.209" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/about_user_items_background.xml" value="0.1225" />

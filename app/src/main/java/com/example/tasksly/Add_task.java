@@ -2,10 +2,13 @@ package com.example.tasksly;
 
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
+import static com.yalantis.ucrop.UCropFragment.TAG;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowInsetsController;
 import android.widget.EditText;
@@ -131,7 +134,7 @@ public class Add_task extends AppCompatActivity {
         task_done_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TaskTitle.equals("")) {
+                if (TaskTitle.getText().toString().equals("")) {
                     Toast.makeText(Add_task.this, "Please Fill The title of your task", Toast.LENGTH_SHORT).show();
                 } else {
                     String time = "", date = "";
@@ -139,12 +142,14 @@ public class Add_task extends AppCompatActivity {
                         time = materialTimePicker.getHour() + ":" + materialTimePicker.getMinute();
                         date = materialDatePicker.getHeaderText();
                     } catch (NullPointerException e) {
-                        Toast.makeText(Add_task.this, "Fill the date and time", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "onClick: "+ e);
                     }
                     Gson gson = new Gson();
+
                     Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), null, is_clicked);
-                    String task_element = gson.toJson(task_model);
                     task_model.setDescription("");
+
+                    String task_element = gson.toJson(task_model);
                     Intent intent = new Intent(Add_task.this, MainActivity.class).putExtra("task_element", task_element);
                     startActivity(intent);
 

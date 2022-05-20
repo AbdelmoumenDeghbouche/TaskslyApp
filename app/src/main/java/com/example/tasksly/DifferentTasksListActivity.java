@@ -56,7 +56,9 @@ public class DifferentTasksListActivity extends AppCompatActivity {
         if (intent != null) {
             if (intent.getStringExtra("NameOfActivity").equals("Private Tasks")) {
                 tasks_list = Utils.category_map.get("sqddqsdjqsoidjqsjdsoqidjoqsidjqsoi");
+
                 txt_name_of_the_activity.setText(intent.getStringExtra("NameOfActivity"));
+
 
 
             }

@@ -47,6 +47,7 @@ public class Utils {
     public static Context context;
     public static Dialog add_task_dialogue;
     public static URL myUrl = null;
+    public static String private_task_pin_code ="";
 
     public static int getIndexOfCategoryModelByCategoryName(String CategoryName) {
         for (int i = 0; i < categories_list.size(); i++) {
@@ -115,11 +116,12 @@ public class Utils {
             Task_Model first_task = new Task_Model("Meet Mr Khaldi Completed 1", "14:00", String.valueOf(Calendar.DATE),
                     //just test i tried to get first category from categories list (General)
                     general, "All illustration design should be handover to Smith today for review.", false);
-            Task_Model sec_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
+            Task_Model sec_task = new Task_Model("Completed Task", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
             Task_Model third_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
             Task_Model fourth_task = new Task_Model("Meet Mr Khaldi Completed", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", false);
             fourth_task.setIs_finished(true);
             first_task.setIs_finished(true);
+            sec_task.setIs_finished(true);
             tasks_list.add(first_task);
             tasks_list.add(sec_task);
             tasks_list.add(third_task);
