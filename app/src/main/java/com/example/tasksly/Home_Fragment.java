@@ -2,8 +2,6 @@ package com.example.tasksly;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +21,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.auth.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -57,7 +54,7 @@ public class Home_Fragment extends Fragment {
 
 
         Utils.initCategories(); // charging the arraylist with the categories
-        ArrayList<Category_Model> categories = Utils.getCategories_list(); // this function is returning the arraylist that we charged in the precedent line
+        ArrayList<Category_Model> categories = Utils.GetAllCatgoriesFromFirebse(); // this function is returning the arraylist that we charged in the precedent line
 
 
         // setting the categories recycler view

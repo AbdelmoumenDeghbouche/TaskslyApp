@@ -83,9 +83,9 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
                         Name_of_the_category = viewHolderTwo.edit_text_enter_the_name_of_the_category.getText().toString();
                         Utils.category_map.put(viewHolderTwo.edit_text_enter_the_name_of_the_category.getText().toString(), new ArrayList<>());
 
-
                         Category_Model category_model_coming_from_dialogue = new Category_Model(Name_of_the_category);
-                        categories.add(categories.size() - 1, category_model_coming_from_dialogue);
+                        Utils.AddCategoryToFirebase(category_model_coming_from_dialogue,context);
+//                        categories.add(categories.size() - 1, category_model_coming_from_dialogue);
                         viewHolderTwo.edit_text_enter_the_name_of_the_category.setText("");
                         Toast.makeText(context, "Category added", Toast.LENGTH_SHORT).show();
                     }

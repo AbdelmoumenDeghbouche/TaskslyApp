@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
                 //.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                 .replace(R.id.frame, new Home_Fragment())
                 .commit();
-
+    
         // navigation bar clicking interaction
         chipNavigationBar.setItemSelected(R.id.home, true);
         chipNavigationBar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {

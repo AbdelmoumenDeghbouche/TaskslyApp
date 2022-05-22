@@ -44,7 +44,7 @@ public class Add_task extends AppCompatActivity {
             .setTitleText("SELECT A TIME")
             .setTimeFormat(TimeFormat.CLOCK_12H)
             .build();
-    MaterialAlertDialogBuilder progressDialog = new MaterialAlertDialogBuilder(Add_task.this);
+        MaterialAlertDialogBuilder progressDialog = new MaterialAlertDialogBuilder(Add_task.this);
     public static AlertDialog dialog;
     MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setTitleText("SELECT A DATE");
     final MaterialDatePicker materialDatePicker = builder.build();
@@ -73,7 +73,7 @@ public class Add_task extends AppCompatActivity {
         AssingElements();
         Handlingonoffclicks();
         Utils.initCategories(); // charging the arraylist with the categories
-        ArrayList<Category_Model> categories = Utils.getCategories_list(); // this function is returning the arraylist that we charged in the precedent line
+        ArrayList<Category_Model> categories = Utils.GetAllCatgoriesFromFirebse(); // this function is returning the arraylist that we charged in the precedent line
 
         // setting the categories recycler view
 
