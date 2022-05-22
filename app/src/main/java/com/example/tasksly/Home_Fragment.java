@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 public class Home_Fragment extends Fragment {
     private RecyclerView category_recyclerview;
-    private Categoty_list_adapter adapter;
+    public static Categoty_list_adapter adapter;
     private TextView UserNameText , txt_hello_name;
     private ImageView img_user_profile;
     String image ;
