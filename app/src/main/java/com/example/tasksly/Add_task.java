@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 import com.google.gson.Gson;
@@ -42,6 +44,8 @@ public class Add_task extends AppCompatActivity {
             .setTitleText("SELECT A TIME")
             .setTimeFormat(TimeFormat.CLOCK_12H)
             .build();
+    MaterialAlertDialogBuilder progressDialog = new MaterialAlertDialogBuilder(Add_task.this);
+    public static AlertDialog dialog;
     MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setTitleText("SELECT A DATE");
     final MaterialDatePicker materialDatePicker = builder.build();
 
@@ -148,6 +152,15 @@ public class Add_task extends AppCompatActivity {
 
                     Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), null, is_clicked);
                     task_model.setDescription("");
+
+                    progressDialog.setTitle("Wait a minute please !");
+                    progressDialog.setMessage("We are saving your task...");
+                    progressDialog.setCancelable(false);
+                    progressDialog.setBackground(getResources().getDrawable(R.drawable.tasks_background));
+                    progressDialog.setIcon(R.drawable.ic__cloud_upload);
+                    progressDialog.setCancelable(false);
+                    dialog = progressDialog.show();
+                    dialog.show();
 
                     String task_element = gson.toJson(task_model);
                     Intent intent = new Intent(Add_task.this, MainActivity.class).putExtra("task_element", task_element);

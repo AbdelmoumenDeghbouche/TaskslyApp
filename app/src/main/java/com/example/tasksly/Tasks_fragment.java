@@ -44,10 +44,7 @@ public class Tasks_fragment extends Fragment {
             getFragmentManager().beginTransaction().detach(Tasks_fragment.this).attach(Tasks_fragment.this).commit();
 
         }
-        if (null!=tasks_list){
-            adapter.setTasks(Utils.return_only_not_completed_tasks(tasks_list));
-
-        }
+        adapter.setTasks(tasks_list);
         return view;
     }
 }
