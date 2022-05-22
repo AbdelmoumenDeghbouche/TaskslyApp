@@ -44,8 +44,12 @@ public class Tasks_fragment extends Fragment {
             getFragmentManager().beginTransaction().detach(Tasks_fragment.this).attach(Tasks_fragment.this).commit();
 
         }
+//        ArrayList<Task_Model> task_modelArrayList = (ArrayList<Task_Model>) tasks_list.clone();
+
         if (null!=tasks_list){
             adapter.setTasks(Utils.return_only_not_completed_tasks(tasks_list));
+            adapter.notifyDataSetChanged();
+
 
         }
         return view;

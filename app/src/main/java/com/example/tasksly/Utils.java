@@ -116,8 +116,8 @@ public class Utils {
             Task_Model first_task = new Task_Model("Meet Mr Khaldi Completed 1", "14:00", String.valueOf(Calendar.DATE),
                     //just test i tried to get first category from categories list (General)
                     general, "All illustration design should be handover to Smith today for review.", false);
-            Task_Model sec_task = new Task_Model("Completed Task", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
-            Task_Model third_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
+            Task_Model sec_task = new Task_Model("Completed Task", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", false);
+            Task_Model third_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", false);
             Task_Model fourth_task = new Task_Model("Meet Mr Khaldi Completed", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", false);
             fourth_task.setIs_finished(true);
             first_task.setIs_finished(true);

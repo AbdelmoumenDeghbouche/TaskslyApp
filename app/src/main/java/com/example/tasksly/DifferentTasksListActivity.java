@@ -73,6 +73,12 @@ public class DifferentTasksListActivity extends AppCompatActivity {
 
 
             }
+            if (intent.getStringExtra("NameOfActivity").equals("Planning Tasks")){
+                tasks_list =Utils.return_only_not_completed_tasks(Utils.getTasks_list() );
+                txt_name_of_the_activity.setText(intent.getStringExtra("NameOfActivity"));
+
+
+            }
 
 
 

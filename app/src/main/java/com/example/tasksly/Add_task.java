@@ -144,7 +144,10 @@ public class Add_task extends AppCompatActivity {
                     } catch (NullPointerException e) {
                         Log.d(TAG, "onClick: "+ e);
                     }
+                    date = select_date_text.getText().toString();
+
                     Gson gson = new Gson();
+
 
                     Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), null, is_clicked);
                     task_model.setDescription("");

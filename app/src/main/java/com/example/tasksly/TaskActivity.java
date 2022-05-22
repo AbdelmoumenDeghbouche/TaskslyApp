@@ -44,6 +44,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
     MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setTitleText("SELECT A DATE");
     final MaterialDatePicker materialDatePicker = builder.build();
     NetworkChangeListener networkChangeListener = new NetworkChangeListener();
+    Task_Model task_model1_without_changes;
     private Dialog add_task_dialogue;
     private Dialog add_desc_dialogue;
     private ImageView back_button_from_task_activity_to_main;
@@ -56,7 +57,6 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
     private EditText edit_text_desc_of_the_task;
     private Button btn_confirm_description;
     private String incoming_text_description_of_task_from_desc_activity;
-
     private TextView txt_date_of_the_task_in_task_activity, txt_time_of_task_in_activity_task;
     private int counter;
 
@@ -110,13 +110,13 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
 
         Intent intent = getIntent();
         Task_Model task_model = intent.getParcelableExtra("TaskModel");
-        final Task_Model  task_model1_without_changes = intent.getParcelableExtra("TaskModel");
 
 
         if (null != intent) {
             edit_text_name_of_the_task.setText(task_model.getTask_title());
             txt_date_of_the_task_in_task_activity.setText(task_model.getDate());
             txt_time_of_task_in_activity_task.setText(task_model.getTime());
+            task_model1_without_changes = new Task_Model(task_model.getTask_title(), task_model.getTime(), task_model.getDate(), task_model.getCategory(), task_model.getDescription(), false);
 
 
         }
@@ -233,12 +233,17 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
                 if (spinner_categories.getSelectedItem().toString().equals(category_name)) {
                     Toast.makeText(TaskActivity.this, "Task Updated successfully", Toast.LENGTH_SHORT).show();
                     task_model.setCategory(new Category_Model(category_name));
+                    task_model1_without_changes.setCategory(new Category_Model(category_name));
 //                    task_model.setCategory(new Category_Model(categories[selected_category]));
                     ArrayList<Task_Model> the_new_array_list = new ArrayList<>();
                     the_new_array_list = Utils.category_map.get(category_name);
-                    Log.d(TAG, "onClick: title" + task_model1_without_changes.getTask_title());
-                    the_new_array_list.set(selected_task_from_RV, task_model);
-                    Utils.category_map.replace(category_name, the_new_array_list);
+                    if (null != the_new_array_list) {
+                        Log.d(TAG, "onClick: title" + the_new_array_list.toString() + "  " + the_new_array_list.indexOf(task_model1_without_changes) + "  " + task_model1_without_changes.toString());
+                        the_new_array_list.set(selected_task_from_RV, task_model);
+                        Utils.category_map.replace(category_name, the_new_array_list);
+
+                    }
+
                 } else {
                     task_model.setCategory(new Category_Model(spinner_categories.getSelectedItem().toString()));
                     ArrayList<Task_Model> the_new_array_list = new ArrayList<>();
