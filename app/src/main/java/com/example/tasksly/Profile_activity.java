@@ -71,6 +71,14 @@ public class Profile_activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        PlanningLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Profile_activity.this,DifferentTasksListActivity.class);
+                intent.putExtra("NameOfActivity","Planning Tasks");
+                startActivity(intent);
+            }
+        });
         CompletedLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

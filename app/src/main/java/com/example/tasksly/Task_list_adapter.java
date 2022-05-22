@@ -30,6 +30,7 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
         this.context = context;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setTasks(ArrayList<Task_Model> tasks_list) {
         this.tasks_list = tasks_list;
         notifyDataSetChanged();
@@ -46,7 +47,7 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, @SuppressLint("RecyclerView") int position) {
-        holder.txt_task_name.setText(tasks_list.get(position).getTask_title().toString());
+        holder.txt_task_name.setText(tasks_list.get(position).getTask_title());
         holder.txt_time_of_task.setText(tasks_list.get(position).getTime());
         holder.txt_description_of_task.setText("description");
         holder.parent_relative_layout_of_task_name.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +132,12 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
 
             }
         });
+
+        if (getItemCount()==Utils.getTasks_list().size()){
+            holder.parent_relative_layout_of_task_name.setClickable(true);
+            holder.img_view_check_box_oval_checked.setClickable(false);
+            holder.img_view_check_box_oval_not_checked.setClickable(false);
+        }
     }
 
 
