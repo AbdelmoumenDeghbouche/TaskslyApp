@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
@@ -327,18 +328,18 @@ public class Utils {
             Category_Model category = task.getCategory();
             if (category != null){
                 //if (categoryIsExist(category.getCategory_name())){
-                FirebaseDatabase.getInstance().getReference().child("Tasks").child(category.getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(task).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            Toast.makeText(contextt, "Your task has been saved successfully !", Toast.LENGTH_SHORT).show();
-                            Add_task.dialog.dismiss();
-                        } else {
-                            Toast.makeText(contextt, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            Add_task.dialog.dismiss();
+                    FirebaseDatabase.getInstance().getReference().child("Tasks").child(category.getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(task).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                Toast.makeText(contextt, "Your task has been saved successfully !", Toast.LENGTH_SHORT).show();
+                                Add_task.dialog.dismiss();
+                            } else {
+                                Toast.makeText(contextt, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                Add_task.dialog.dismiss();
+                            }
                         }
-                    }
-                });
+                    });
 //                } else {
 //                    Toast.makeText(contextt, "No category with this name !", Toast.LENGTH_SHORT).show();
 //                    Add_task.dialog.dismiss();
@@ -430,10 +431,6 @@ public class Utils {
                     list.add(model);
                     if (Home_Fragment.adapter !=null){
                         Home_Fragment.adapter.notifyDataSetChanged();
-                    }
-                    if (Add_task.adapter!= null){
-                        Add_task.adapter.notifyDataSetChanged();
-
                     }
                 }
             }
