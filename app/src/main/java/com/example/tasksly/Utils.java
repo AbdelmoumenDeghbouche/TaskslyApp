@@ -436,6 +436,9 @@ public class Utils {
                     if (Home_Fragment.adapter !=null){
                         Home_Fragment.adapter.notifyDataSetChanged();
                     }
+                    if (Add_task.adapter != null){
+                        Add_task.adapter.notifyDataSetChanged();
+                    }
                 }
             }
             @Override
