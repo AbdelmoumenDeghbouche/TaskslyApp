@@ -32,7 +32,7 @@ public class Tasks_fragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         tasks_list_recycler_view.setLayoutManager(linearLayoutManager);
         Utils.initTasksList();
-        ArrayList<Task_Model> tasks_list = Utils.GetTasksListOfSpecificCategory("Gaming");
+        ArrayList<Task_Model> tasks_list = Utils.GetAllTasksFromFirebase();
 //        ArrayList<Task_Model> tasks_list = Utils.category_map.get(Utils.getCategories_list().get(Categoty_list_adapter.row_index).getCategory_name());
         Bundle bundle = this.getArguments();
         if (null != bundle) {
