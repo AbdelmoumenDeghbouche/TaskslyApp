@@ -153,8 +153,7 @@ public class Add_task extends AppCompatActivity {
                     Gson gson = new Gson();
 
 
-                    Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), null, is_clicked);
-                    task_model.setDescription("");
+                    Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), "", is_clicked);
 
                     progressDialog.setTitle("Wait a minute please !");
                     progressDialog.setMessage("We are saving your task...");
@@ -164,6 +163,8 @@ public class Add_task extends AppCompatActivity {
                     progressDialog.setCancelable(false);
                     dialog = progressDialog.show();
                     dialog.show();
+                    Utils.AddTaskToFirebase(task_model,getApplicationContext());
+
 
                     String task_element = gson.toJson(task_model);
                     Intent intent = new Intent(Add_task.this, MainActivity.class).putExtra("task_element", task_element);
