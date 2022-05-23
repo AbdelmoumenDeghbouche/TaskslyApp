@@ -137,7 +137,10 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
 
     @Override
     public int getItemCount() {
-        return tasks_list.size();
+        if (tasks_list != null){
+            return tasks_list.size();
+        }
+        return 0 ;
     }
 
     class Viewholder extends RecyclerView.ViewHolder {

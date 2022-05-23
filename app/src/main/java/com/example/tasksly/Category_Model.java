@@ -13,6 +13,9 @@ public class Category_Model {
         this.category_name = category_name;
     }
 
+    public Category_Model() {
+    }
+
     public String getCategory_name() {
         return category_name;
     }

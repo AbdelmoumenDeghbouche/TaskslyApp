@@ -44,7 +44,7 @@ public class Add_task extends AppCompatActivity {
             .setTitleText("SELECT A TIME")
             .setTimeFormat(TimeFormat.CLOCK_12H)
             .build();
-    MaterialAlertDialogBuilder progressDialog = new MaterialAlertDialogBuilder(Add_task.this);
+    MaterialAlertDialogBuilder progressDialog ;
     public static AlertDialog dialog;
     MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setTitleText("SELECT A DATE");
     final MaterialDatePicker materialDatePicker = builder.build();
@@ -149,10 +149,11 @@ public class Add_task extends AppCompatActivity {
                         Log.d(TAG, "onClick: "+ e);
                     }
                     Gson gson = new Gson();
+                    date =select_date_text.getText().toString().trim();
 
                     Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), null, is_clicked);
                     task_model.setDescription("");
-
+                    progressDialog = new MaterialAlertDialogBuilder(Add_task.this);
                     progressDialog.setTitle("Wait a minute please !");
                     progressDialog.setMessage("We are saving your task...");
                     progressDialog.setCancelable(false);
@@ -161,10 +162,7 @@ public class Add_task extends AppCompatActivity {
                     progressDialog.setCancelable(false);
                     dialog = progressDialog.show();
                     dialog.show();
-
-                    String task_element = gson.toJson(task_model);
-                    Intent intent = new Intent(Add_task.this, MainActivity.class).putExtra("task_element", task_element);
-                    startActivity(intent);
+                    Utils.AddTaskToFirebase(task_model,Add_task.this);
 
                 }
 

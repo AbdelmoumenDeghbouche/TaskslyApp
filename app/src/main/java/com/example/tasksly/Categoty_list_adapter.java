@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.database.core.utilities.Utilities;
 
 import java.util.ArrayList;
 
@@ -85,6 +86,7 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
 
 
                         Category_Model category_model_coming_from_dialogue = new Category_Model(Name_of_the_category);
+                        Utils.AddCategoryToFirebase(category_model_coming_from_dialogue,context);
                         categories.add(categories.size() - 1, category_model_coming_from_dialogue);
                         viewHolderTwo.edit_text_enter_the_name_of_the_category.setText("");
                         Toast.makeText(context, "Category added", Toast.LENGTH_SHORT).show();

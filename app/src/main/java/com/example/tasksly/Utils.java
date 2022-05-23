@@ -18,12 +18,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,7 +30,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.kenai.jffi.Main;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -48,15 +45,16 @@ import java.util.HashMap;
 // the 2 first functions are for the categories arraylist
 
 public class Utils {
+    public static final String COMPLETED_TASKS_KEY = "slqdlmùqssqllqdsldmqslmmlmslqd";
     public static ArrayList<Category_Model> categories_list;
-    public static ArrayList<Task_Model> tasks_list;
+    public static ArrayList<Task_Model> tasks_list, private_tasks, completed_tasks, planing_tasks;
     public static HashMap<String, ArrayList<Task_Model>> category_map = new HashMap<>();
     public static ArrayList<welcom_activity_Model> Welcomlist;
     public static Context context;
     public static Dialog add_task_dialogue;
     public static URL myUrl = null;
+    public static String private_task_pin_code ="";
     public static int exists = 0;
-
 
 
     public static int getIndexOfCategoryModelByCategoryName(String CategoryName) {
@@ -110,29 +108,51 @@ public class Utils {
     // the 2 first functions are for the tasks arraylist
 
     public static void initTasksList() {
+        if (null == private_tasks) {
+            private_tasks = new ArrayList<>();
+        }
         if (null == tasks_list) {
             tasks_list = new ArrayList<>();
         }
+        if (null == completed_tasks) {
+            completed_tasks = new ArrayList<>();
+        }
         if (tasks_list.isEmpty()) {
-            Category_Model general = new Category_Model("General");
-            Category_Model Gaming = new Category_Model("Gaming");
+            tasks_list = Utils.GetAllTasksFromFirebase();
 
-            Task_Model first_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE),
-                    //just test i tried to get first category from categories list (General)
-                    general, "All illustration design should be handover to Smith today for review.", false);
-            Task_Model sec_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
-            Task_Model third_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
-            Task_Model fourth_task = new Task_Model("Meet Mr Khaldixxxxx", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
-            tasks_list.add(first_task);
-            tasks_list.add(sec_task);
-            tasks_list.add(third_task);
-            tasks_list.add(fourth_task);
-            category_map.put("General", tasks_list);
-            category_map.put("Education", new ArrayList<>());
-            category_map.put("Health", new ArrayList<>());
-            category_map.put("Gaming", new ArrayList<>());
-            category_map.put("Sport", new ArrayList<>());
-            category_map.put("Personal", new ArrayList<>());
+
+
+
+
+
+
+
+//            Category_Model general = new Category_Model("General");
+//            Category_Model Gaming = new Category_Model("Gaming");
+//
+//            Task_Model first_task = new Task_Model("Meet Mr Khaldi Completed 1", "14:00", String.valueOf(Calendar.DATE),
+//                    //just test i tried to get first category from categories list (General)
+//                    general, "All illustration design should be handover to Smith today for review.", false);
+//            Task_Model sec_task = new Task_Model("Completed Task", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", false);
+//            Task_Model third_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", false);
+//            Task_Model fourth_task = new Task_Model("Meet Mr Khaldi Completed", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", false);
+//            fourth_task.setIs_finished(true);
+//            first_task.setIs_finished(true);
+//            sec_task.setIs_finished(true);
+//            tasks_list.add(first_task);
+//            tasks_list.add(sec_task);
+//            tasks_list.add(third_task);
+//            tasks_list.add(fourth_task);
+//            private_tasks.add(first_task);
+//            category_map.put("General", new ArrayList<>());
+//            category_map.put("Education", new ArrayList<>());
+//            category_map.put("Health", new ArrayList<>());
+//            category_map.put("Gaming", new ArrayList<>());
+//            category_map.put("Sport", new ArrayList<>());
+//            category_map.put("Personal", new ArrayList<>());
+//            category_map.put("sqddqsdjqsoidjqsjdsoqidjoqsidjqsoi", private_tasks);
+//            category_map.put(COMPLETED_TASKS_KEY, completed_tasks);
+
 
         }
 
@@ -161,10 +181,7 @@ public class Utils {
     public static void AddTaskByTaskModel(Task_Model task_model) {
         if (tasks_list != null) {
             Log.d(TAG, "AddTaskByTaskModel: Niccce");
-            Category_Model category_model = null ;
-            if (task_model != null){
-                category_model = task_model.getCategory();
-            }
+            Category_Model category_model = task_model.getCategory();
             if (category_model != null) {
                 Log.d(TAG, "AddTaskByTaskModel: Niccce2");
 
@@ -189,28 +206,144 @@ public class Utils {
         }
     }
 
+    // hide the keyboard when we clicks any where(better user experience )
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        if (inputMethodManager.isAcceptingText()) {
+            inputMethodManager.hideSoftInputFromWindow(
+                    activity.getCurrentFocus().getWindowToken(),
+                    0
+            );
+        }
+    }
+
+    //this function is for getting the next day's date used in ocrextraction's ocrrequest call
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static String nextDayDate(String day) {
+        LocalDate dt = LocalDate.now();
+
+        return String.valueOf(dt.with(TemporalAdjusters.next(DayOfWeek.of(DayOfWeek.valueOf(day.toUpperCase()).getValue()))));
+
+    }
+
+    public static URL ParseUrl(Uri imageUri) {
+        // this date and time variables are used just to create a different parent fir very child
+        String date = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
+        String time = new SimpleDateFormat("HH:mm:ss a").format(Calendar.getInstance().getTime());
+        StorageReference storage = FirebaseStorage.getInstance().getReference().child("OCRImages").child(date + "//" + time);
+        storage.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                // which means that we have uploaded the image to the firebase
+                // and now we are going to get our image uri as a string
+                if (task.isSuccessful()) {
+                    storage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            // this uri makes us able to charge the image in the imageview every time ( its like url )
+                            try {
+                                Log.d(TAG, "onSuccess: ");
+                                myUrl = new URL(uri.toString());
+                            } catch (MalformedURLException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                } else {
+                    Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        return myUrl;
+    }
+
+    public static void OcrExtraction(String url) {
+        OcrRequestAsync ocrRequestAsync = new OcrRequestAsync();
+        ocrRequestAsync.execute(url);
+
+
+    }
+
+    public static void SettingKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        if (inputMethodManager.isAcceptingText()) {
+            inputMethodManager.hideSoftInputFromWindow(
+                    activity.getCurrentFocus().getWindowToken(),
+                    0
+            );
+        }
+    }
+
+    public static ArrayList<Task_Model> return_only_not_completed_tasks(ArrayList<Task_Model> task_modelArrayList) {
+        ArrayList<Task_Model> task_modelArrayList1 = new ArrayList<>();
+        for (int i = 0; i < task_modelArrayList.size(); i++) {
+            if (!task_modelArrayList.get(i).isIs_finished()) {
+                task_modelArrayList1.add(task_modelArrayList.get(i));
+
+
+            }
+
+        }
+        return task_modelArrayList1;
+    }
+    public static ArrayList<Task_Model> return_only_completed_tasks(ArrayList<Task_Model> task_modelArrayList) {
+        ArrayList<Task_Model> task_modelArrayList1 = new ArrayList<>();
+        for (int i = 0; i < task_modelArrayList.size(); i++) {
+            if (task_modelArrayList.get(i).isIs_finished()) {
+                task_modelArrayList1.add(task_modelArrayList.get(i));
+
+
+            }
+
+        }
+        return task_modelArrayList1;
+    }
+
+    // hiding the keyboard when we clicks any where ( better user experience )
+
+    public static void setUpKeybaord(View view, Activity activity) {
+        // Set up touch listener for non-text box views to hide keyboard.
+        if (!(view instanceof EditText)) {
+            view.setOnTouchListener(new View.OnTouchListener() {
+                public boolean onTouch(View v, MotionEvent event) {
+                    Utils.SettingKeyboard(activity);
+                    return false;
+                }
+            });
+        }
+        //If a layout container, iterate over children and seed recursion.
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                View innerView = ((ViewGroup) view).getChildAt(i);
+                setUpKeybaord(innerView, activity);
+            }
+        }
+    }
     public static void AddTaskToFirebase(Task_Model task, Context contextt ){
         if (task != null){
             Category_Model category = task.getCategory();
             if (category != null){
-                if (categoryIsExist(category.getCategory_name())){
+                //if (categoryIsExist(category.getCategory_name())){
                     FirebaseDatabase.getInstance().getReference().child("Tasks").child(category.getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(task).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
                                 Toast.makeText(contextt, "Your task has been saved successfully !", Toast.LENGTH_SHORT).show();
                                 Add_task.dialog.dismiss();
-                                contextt.startActivity(new Intent(contextt, MainActivity.class));
                             } else {
                                 Toast.makeText(contextt, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 Add_task.dialog.dismiss();
                             }
                         }
                     });
-                } else {
-                    Toast.makeText(contextt, "No category with this name !", Toast.LENGTH_SHORT).show();
-                    Add_task.dialog.dismiss();
-                }
+//                } else {
+//                    Toast.makeText(contextt, "No category with this name !", Toast.LENGTH_SHORT).show();
+//                    Add_task.dialog.dismiss();
+//                }
             } else {
                 Toast.makeText(contextt, "Please select a category !", Toast.LENGTH_SHORT).show();
                 Add_task.dialog.dismiss();
@@ -242,14 +375,14 @@ public class Utils {
                             public void onCancelled(@NonNull DatabaseError error) {
                             }
                         });
-                        }
+                    }
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-            Log.d("Task name ",list.toString());
+        Log.d("Task name ",list.toString());
         return list ;
     }
 
@@ -307,100 +440,16 @@ public class Utils {
         });
         return list ;
     }
+    public static ArrayList<Task_Model> GetTasksListOfSpecificCategory(String categoryName){
+        ArrayList<Task_Model> task_models = new ArrayList<>();
 
-
-    // hide the keyboard when we clicks any where(better user experience )
-    public static void hideSoftKeyboard(Activity activity) {
-        InputMethodManager inputMethodManager =
-                (InputMethodManager) activity.getSystemService(
-                        Activity.INPUT_METHOD_SERVICE);
-        if (inputMethodManager.isAcceptingText()) {
-            inputMethodManager.hideSoftInputFromWindow(
-                    activity.getCurrentFocus().getWindowToken(),
-                    0
-            );
-        }
-    }
-
-    //this function is for getting the next day's date used in ocrextraction's ocrrequest call
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public static String nextDayDate(String day) {
-        LocalDate dt = LocalDate.now();
-
-        return String.valueOf(dt.with(TemporalAdjusters.next(DayOfWeek.of(DayOfWeek.valueOf(day.toUpperCase()).getValue()))));
-
-    }
-
-    public static URL ParseUrl(Uri imageUri) {
-        // this date and time variables are used just to create a different parent fir very child
-        String date = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
-        String time = new SimpleDateFormat("HH:mm:ss a").format(Calendar.getInstance().getTime());
-        StorageReference storage = FirebaseStorage.getInstance().getReference().child("OCRImages").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        storage.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                // which means that we have uploaded the image to the firebase
-                // and now we are going to get our image uri as a string
-                if (task.isSuccessful()) {
-                    storage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            // this uri makes us able to charge the image in the imageview every time ( its like url )
-                            try {
-                                Log.d(TAG, "onSuccess: ");
-                                myUrl = new URL(uri.toString());
-                            } catch (MalformedURLException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                } else {
-                    Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                }
+        for (int i =0 ; i<tasks_list.size() ; i++ ){
+            if (tasks_list.get(i).getCategory().getCategory_name().equals(categoryName)){
+                task_models.add(tasks_list.get(i));
             }
-        });
-        return myUrl;
-    }
 
-    public static void OcrExtraction(String url) {
-        OcrRequestAsync ocrRequestAsync = new OcrRequestAsync();
-        ocrRequestAsync.execute(url);
-
-
-    }
-
-    public static void SettingKeyboard(Activity activity) {
-        InputMethodManager inputMethodManager =
-                (InputMethodManager) activity.getSystemService(
-                        Activity.INPUT_METHOD_SERVICE);
-        if (inputMethodManager.isAcceptingText()) {
-            inputMethodManager.hideSoftInputFromWindow(
-                    activity.getCurrentFocus().getWindowToken(),
-                    0
-            );
         }
+        return task_models;
     }
-
-    // hiding the keyboard when we clicks any where ( better user experience )
-
-    public static void setUpKeybaord(View view, Activity activity) {
-        // Set up touch listener for non-text box views to hide keyboard.
-        if (!(view instanceof EditText)) {
-            view.setOnTouchListener(new View.OnTouchListener() {
-                public boolean onTouch(View v, MotionEvent event) {
-                    Utils.SettingKeyboard(activity);
-                    return false;
-                }
-            });
-        }
-        //If a layout container, iterate over children and seed recursion.
-        if (view instanceof ViewGroup) {
-            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
-                View innerView = ((ViewGroup) view).getChildAt(i);
-                setUpKeybaord(innerView, activity);
-            }
-        }
-    }
-
 
 }

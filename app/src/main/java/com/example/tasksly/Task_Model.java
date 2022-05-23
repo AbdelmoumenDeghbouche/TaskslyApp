@@ -11,6 +11,9 @@ public class Task_Model implements Parcelable {
     private boolean is_finished, is_notified;
     private String description;
 
+    public Task_Model() {
+    }
+
     public Task_Model(String task_title, String time, String date, Category_Model category, String description, Boolean is_notified) {
         this.task_title = task_title;
         this.time = time;
