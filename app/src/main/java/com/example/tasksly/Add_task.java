@@ -36,7 +36,7 @@ public class Add_task extends AppCompatActivity {
     EditText TaskTitle;
     RecyclerView recyclerView;
     RelativeLayout relativeLayout, relativeLayout2, task_done_button;
-    Categoty_list_adapter adapter;
+    public static Categoty_list_adapter adapter;
     boolean is_clicked;
     TextView select_date_text, select_time_text;
     LinearLayout select_date_button, select_time_button;
@@ -44,7 +44,7 @@ public class Add_task extends AppCompatActivity {
             .setTitleText("SELECT A TIME")
             .setTimeFormat(TimeFormat.CLOCK_12H)
             .build();
-        MaterialAlertDialogBuilder progressDialog = new MaterialAlertDialogBuilder(Add_task.this);
+        MaterialAlertDialogBuilder progressDialog ;
     public static AlertDialog dialog;
     MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setTitleText("SELECT A DATE");
     final MaterialDatePicker materialDatePicker = builder.build();
@@ -154,7 +154,7 @@ public class Add_task extends AppCompatActivity {
 
 
                     Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), "", is_clicked);
-
+                    progressDialog = new MaterialAlertDialogBuilder(Add_task.this);
                     progressDialog.setTitle("Wait a minute please !");
                     progressDialog.setMessage("We are saving your task...");
                     progressDialog.setCancelable(false);
@@ -163,7 +163,7 @@ public class Add_task extends AppCompatActivity {
                     progressDialog.setCancelable(false);
                     dialog = progressDialog.show();
                     dialog.show();
-                    Utils.AddTaskToFirebase(task_model,getApplicationContext());
+//                    Utils.AddTaskToFirebase(task_model,getApplicationContext());
 
 
                     String task_element = gson.toJson(task_model);
