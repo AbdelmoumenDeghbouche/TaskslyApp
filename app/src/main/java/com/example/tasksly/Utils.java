@@ -3,7 +3,6 @@ package com.example.tasksly;
 import static android.content.ContentValues.TAG;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -54,10 +53,9 @@ public class Utils {
     public static HashMap<String, ArrayList<Task_Model>> category_map = new HashMap<>();
     public static ArrayList<welcom_activity_Model> Welcomlist;
     public static Context context;
-    public static Dialog add_task_dialogue;
     public static URL myUrl = null;
     public static String private_task_pin_code ="";
-    public static int exists = 0;
+    public static int exists = 0 ;
 
 
     public static int getIndexOfCategoryModelByCategoryName(String CategoryName) {
@@ -120,8 +118,14 @@ public class Utils {
         if (null == completed_tasks) {
             completed_tasks = new ArrayList<>();
         }
+        if (null == planing_tasks){
+            planing_tasks = new ArrayList<>();
+        }
         if (tasks_list.isEmpty()) {
             tasks_list = Utils.GetAllTasksFromFirebase();
+            if (completed_tasks.isEmpty()){
+               completed_tasks= return_only_completed_tasks(tasks_list);
+            }
 
 
 
