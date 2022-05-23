@@ -163,11 +163,10 @@ public class Add_task extends AppCompatActivity {
                     progressDialog.setCancelable(false);
                     dialog = progressDialog.show();
                     dialog.show();
-//                    Utils.AddTaskToFirebase(task_model,getApplicationContext());
+                    Utils.AddTaskToFirebase(task_model,getApplicationContext());
 
 
-                    String task_element = gson.toJson(task_model);
-                    Intent intent = new Intent(Add_task.this, MainActivity.class).putExtra("task_element", task_element);
+                    Intent intent = new Intent(Add_task.this, MainActivity.class);
                     startActivity(intent);
 
                 }
