@@ -57,7 +57,7 @@ public class Login_activity extends AppCompatActivity {
 
     CheckBox SaveStateBox;
     ProgressBar progressBar;
-    private int RC_SIGN_IN = 123;
+    private final int RC_SIGN_IN = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

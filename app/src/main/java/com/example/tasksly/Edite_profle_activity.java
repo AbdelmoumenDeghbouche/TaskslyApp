@@ -101,14 +101,14 @@ public class Edite_profle_activity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent.createChooser(intent, "pick an image !"), 10);
+                startActivityForResult(Intent.createChooser(intent, "pick an image !"), 10);
                 user_image.setClickable(false);
             }
         });
         done_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (namelayout.getEditText().getText().toString().isEmpty() || numberlayout.getEditText().getText().toString().toString().isEmpty()) {
+                if (namelayout.getEditText().getText().toString().isEmpty() || numberlayout.getEditText().getText().toString().isEmpty()) {
                     Toast.makeText(Edite_profle_activity.this, "All fields must be full !", Toast.LENGTH_SHORT).show();
                 } else {
                     progressDialog.setTitle("Wait a minute please !");

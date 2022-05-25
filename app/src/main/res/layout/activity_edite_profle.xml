@@ -165,6 +165,8 @@
             android:fontFamily="@font/poppins_medium"
             android:inputType="textEmailAddress"
             android:textColor="#B90D1340"
+            android:maxLength="25"
+            android:maxLines="1"
             android:textSize="14dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -202,7 +204,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
-            android:inputType="textEmailAddress"
+            android:inputType="phone"
             android:textColor="#B90D1340"
             android:textSize="14dp" />
     </com.google.android.material.textfield.TextInputLayout>

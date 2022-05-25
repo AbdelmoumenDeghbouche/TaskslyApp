@@ -54,7 +54,7 @@ public class Home_Fragment extends Fragment {
 
 
         Utils.initCategories(); // charging the arraylist with the categories
-        ArrayList<Category_Model> categories = Utils.GetAllCatgoriesFromFirebse(); // this function is returning the arraylist that we charged in the precedent line
+        ArrayList<Category_Model> categories = Utils.categories_list; // this function is returning the arraylist that we charged in the precedent line
 
 
         // setting the categories recycler view

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_margin="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
 
@@ -23,10 +24,11 @@
         android:layout_below="@+id/txt_enter_name_of_the_category"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="20dp"
-        android:text=""
-        android:maxLines="1"
         android:layout_marginRight="15dp"
         android:hint="Enter the name of your category"
+        android:maxLines="1"
+        android:maxLength="20"
+        android:text=""
         android:textColorHint="@color/button_cancel" />
 
     <com.google.android.material.card.MaterialCardView
@@ -35,13 +37,14 @@
         android:layout_below="@+id/edit_text_enter_the_name_of_the_category"
         android:layout_alignParentRight="true"
         android:layout_marginTop="30dp"
-        android:layout_marginRight="45dp"
+        android:layout_marginEnd="45dp"
         app:cardCornerRadius="15dp"
         android:background="@drawable/background_style_of_button"
         >
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginRight="35dp"
             android:background="@drawable/background_style_of_button"
             >
 
@@ -62,7 +65,7 @@
         android:layout_below="@+id/edit_text_enter_the_name_of_the_category"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="30dp"
-        android:layout_marginLeft="45dp"
+        android:layout_marginLeft="35dp"
         app:cardCornerRadius="15dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/background_style_button_2"
