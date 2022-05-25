@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Viewholder> {
     private ArrayList<Task_Model> tasks_list = new ArrayList<>();
-    private Context context;
+    private final Context context;
     int row_ind=0;
 
 
@@ -58,7 +58,7 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
                 intent.putExtra("selected_task", position);
                 intent.putExtra("category_name", tasks_list.get(position).getCategory().getCategory_name());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.getApplicationContext().startActivity(intent);
+                context.startActivity(intent);
             }
         });
         if (tasks_list.get(position).isIs_finished()) {
@@ -151,10 +151,15 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
     }
 
     class Viewholder extends RecyclerView.ViewHolder {
-        private MaterialCardView card_view_layout_of_task_item;
-        private RelativeLayout parent_relative_layout_of_task_name;
-        private TextView txt_time_of_task, txt_description_of_task, txt_task_name, txt_view_date_of_task_in_RV;
-        private ImageView img_view_clock, img_view_check_box_oval_checked, img_view_check_box_oval_not_checked;
+        private final MaterialCardView card_view_layout_of_task_item;
+        private final RelativeLayout parent_relative_layout_of_task_name;
+        private final TextView txt_time_of_task;
+        private final TextView txt_description_of_task;
+        private final TextView txt_task_name;
+        private final TextView txt_view_date_of_task_in_RV;
+        private final ImageView img_view_clock;
+        private final ImageView img_view_check_box_oval_checked;
+        private final ImageView img_view_check_box_oval_not_checked;
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);

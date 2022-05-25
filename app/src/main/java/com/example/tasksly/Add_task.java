@@ -1,7 +1,6 @@
 package com.example.tasksly;
 
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
-
 import static com.yalantis.ucrop.UCropFragment.TAG;
 
 import android.annotation.SuppressLint;
@@ -36,7 +35,7 @@ public class Add_task extends AppCompatActivity {
     EditText TaskTitle;
     RecyclerView recyclerView;
     RelativeLayout relativeLayout, relativeLayout2, task_done_button;
-    Categoty_list_adapter adapter;
+    public static Categoty_list_adapter adapter;
     boolean is_clicked;
     TextView select_date_text, select_time_text;
     LinearLayout select_date_button, select_time_button;
@@ -162,7 +161,8 @@ public class Add_task extends AppCompatActivity {
                     progressDialog.setCancelable(false);
                     dialog = progressDialog.show();
                     dialog.show();
-                    Utils.AddTaskToFirebase(task_model,Add_task.this);
+                    Utils.AddTaskToFirebase(task_model);
+                    Tasks_fragment.adapter.notifyDataSetChanged();
 
                 }
 

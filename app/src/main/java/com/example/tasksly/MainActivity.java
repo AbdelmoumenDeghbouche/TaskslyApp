@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int SETTINGS_INTENT_CODE = 271;
 
 
+    private boolean changed_statemnt_of_fragment_when_clicking_on_chip_naviation_bar =true;
     public static ChipNavigationBar chipNavigationBar;
     public static Uri uri;
     boolean is_clicked;
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         Linear_layout_add_task.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                add_task_dialogue.dismiss();
                 startActivity(new Intent(MainActivity.this, Add_task.class));
             }
         });
@@ -151,16 +153,22 @@ public class MainActivity extends AppCompatActivity {
                 fragment = null;
                 switch (i) {
                     case R.id.home:
-                        fragment = new Home_Fragment();
+                        if (changed_statemnt_of_fragment_when_clicking_on_chip_naviation_bar){
+                            fragment = new Home_Fragment();
+
+                        }
                         break;
                     case R.id.add:
                         add_task_dialogue.show();
                         chipNavigationBar.setItemSelected(R.id.home, true);
+                        changed_statemnt_of_fragment_when_clicking_on_chip_naviation_bar= false;
+
 
 
                         break;
                     case R.id.settings:
                         fragment = new Settings_Fragment();
+                        changed_statemnt_of_fragment_when_clicking_on_chip_naviation_bar =true;
                         break;
                 }
                 if (fragment != null) {

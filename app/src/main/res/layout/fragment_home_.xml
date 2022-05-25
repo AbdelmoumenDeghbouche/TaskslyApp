@@ -52,7 +52,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/user_img" />
+                        android:src="@drawable/ic_avataaars" />
                 </com.google.android.material.card.MaterialCardView>
 
                 <TextView

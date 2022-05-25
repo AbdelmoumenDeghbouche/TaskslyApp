@@ -1,6 +1,6 @@
 package com.example.tasksly;
 
-import static android.content.ContentValues.TAG;
+import static com.yalantis.ucrop.UCropFragment.TAG;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class Tasks_fragment extends Fragment {
+    public static Task_list_adapter adapter;
     private RecyclerView tasks_list_recycler_view;
-    private Task_list_adapter adapter;
     private int roww;
 
     @Override
@@ -32,27 +32,16 @@ public class Tasks_fragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         tasks_list_recycler_view.setLayoutManager(linearLayoutManager);
         Utils.initTasksList();
-        ArrayList<Task_Model> tasks_list = Utils.GetAllTasksFromFirebase();
-//        ArrayList<Task_Model> tasks_list = Utils.category_map.get(Utils.getCategories_list().get(Categoty_list_adapter.row_index).getCategory_name());
-        Bundle bundle = this.getArguments();
-        if (null != bundle) {
-            roww = bundle.getInt("rowIndex");
-
-        }
-        Log.d(TAG, "onCreateView: row index" + roww);
         if (Categoty_list_adapter.row_index == 0) {
-            Log.d(TAG, "onCreateView: condition worked");
-            getFragmentManager().beginTransaction().detach(Tasks_fragment.this).attach(Tasks_fragment.this).commit();
+            Log.d(TAG, "trueeeeeeeeeee: ");
+            ArrayList<Task_Model> tasks_list = Utils.GetTasksListOfSpecificCategory("Education");
 
-        }
-//        ArrayList<Task_Model> task_modelArrayList = (ArrayList<Task_Model>) tasks_list.clone();
-
-        if (null!=tasks_list){
+//          ArrayList<Task_Model> tasks_list = Utils.category_map.get(Utils.getCategories_list().get(Categoty_list_adapter.row_index).getCategory_name());
             adapter.setTasks(Utils.return_only_not_completed_tasks(tasks_list));
             adapter.notifyDataSetChanged();
-
-
         }
+
+
         return view;
     }
 }

@@ -48,7 +48,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
     private Dialog add_task_dialogue;
     private Dialog add_desc_dialogue;
     private ImageView back_button_from_task_activity_to_main;
-    private String[] categories = new String[Utils.getCategories_list().size() - 1];
+    private final String[] categories = new String[Utils.getCategories_list().size() - 1];
     private Spinner spinner_categories;
     private LinearLayout linear_layout_scan_table_ocr_of_task, Linear_layout_add_task, Linear_layout_import_image, Linear_layout_Take_photo_by_camera, linear_layout_date_of_task, linear_layout_time_of_task, linear_layout_description_of_task;
     private EditText edit_text_name_of_the_task;
@@ -208,7 +208,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View v) {
                 add_desc_dialogue.show();
-                edit_text_desc_of_the_task.setText(task_model.getDescription().toString());
+                edit_text_desc_of_the_task.setText(task_model.getDescription());
                 btn_confirm_description.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -238,8 +238,9 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
                     ArrayList<Task_Model> the_new_array_list = new ArrayList<>();
                     the_new_array_list = Utils.category_map.get(category_name);
                     if (null != the_new_array_list) {
-                        Log.d(TAG, "onClick: title" + the_new_array_list.toString() + "  " + the_new_array_list.indexOf(task_model1_without_changes) + "  " + task_model1_without_changes.toString());
+                        Log.d(TAG, "onClick: title necessary" + the_new_array_list + "  " + the_new_array_list.indexOf(task_model1_without_changes) + "  " + task_model1_without_changes.toString());
                         the_new_array_list.set(selected_task_from_RV, task_model);
+
                         Utils.category_map.replace(category_name, the_new_array_list);
 
                     }

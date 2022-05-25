@@ -141,7 +141,7 @@ public class CryptoPay extends AppCompatActivity {
            @Override
            public void onClick(View view) {
                try {
-                   progressBar.setVisibility(view.VISIBLE);
+                   progressBar.setVisibility(View.VISIBLE);
                    EthGetBalance balanceWei = web3.ethGetBalance(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync()
                            .get();
                    BigInteger balance = balanceWei.getBalance();
@@ -156,19 +156,19 @@ public class CryptoPay extends AppCompatActivity {
                            TransactionReceipt receipt = Transfer.sendFunds(web3, credentials, "0xA68b889E16971D8B71d92BA2775a11477cAc405F", BigDecimal.valueOf(0.036), Convert.Unit.ETHER).send();
                            Log.d("Cryptopay", "Transaction successful: " + receipt.getTransactionHash());
                            Intent intent = new Intent(CryptoPay.this, CongratsMembership.class);
-                           progressBar.setVisibility(view.GONE);
+                           progressBar.setVisibility(View.GONE);
                            startActivity(intent);
                        } catch (Exception e) {
-                           progressBar.setVisibility(view.GONE);
+                           progressBar.setVisibility(View.GONE);
                            Log.d("Cryptopay", "onClick: low balance");
                        }
 
                    } else {
-                       progressBar.setVisibility(view.GONE);
+                       progressBar.setVisibility(View.GONE);
                        ShowToast("not sent yet");
                    }
                } catch (Exception e) {
-                   progressBar.setVisibility(view.GONE);
+                   progressBar.setVisibility(View.GONE);
                    Log.d("Cryptopay", "balance failed");
                }
            }

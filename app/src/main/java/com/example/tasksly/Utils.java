@@ -5,7 +5,6 @@ import static android.content.ContentValues.TAG;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
@@ -55,6 +54,8 @@ public class Utils {
     public static URL myUrl = null;
     public static String private_task_pin_code ="";
     public static int exists = 0;
+    public  static  boolean task_uploaded ;
+
 
 
     public static int getIndexOfCategoryModelByCategoryName(String CategoryName) {
@@ -80,21 +81,8 @@ public class Utils {
             categories_list = new ArrayList<>();
         }
         if (categories_list.isEmpty()) {
-            Category_Model General = new Category_Model("General");
 
-            Category_Model sport = new Category_Model("Sport");
-            Category_Model education = new Category_Model("Education");
-            Category_Model Health = new Category_Model("Health");
-            Category_Model Gaming = new Category_Model("Gaming");
-            Category_Model personal = new Category_Model("Personal");
-            Category_Model add_category = new Category_Model("add_category");
-            categories_list.add(General);
-            categories_list.add(personal);
-            categories_list.add(sport);
-            categories_list.add(education);
-            categories_list.add(Health);
-            categories_list.add(Gaming);
-            categories_list.add(add_category);
+            categories_list = GetAllCatgoriesFromFirebse();
         }
 
     }
@@ -119,7 +107,6 @@ public class Utils {
         }
         if (tasks_list.isEmpty()) {
             tasks_list = Utils.GetAllTasksFromFirebase();
-
 
 
 
@@ -323,7 +310,7 @@ public class Utils {
             }
         }
     }
-    public static void AddTaskToFirebase(Task_Model task, Context contextt ){
+    public static void AddTaskToFirebase(Task_Model task ){
         if (task != null){
             Category_Model category = task.getCategory();
             if (category != null){
@@ -332,11 +319,16 @@ public class Utils {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
-                                Toast.makeText(contextt, "Your task has been saved successfully !", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(contextt, "Your task has been saved successfully !", Toast.LENGTH_SHORT).show();
                                 Add_task.dialog.dismiss();
+                                task_uploaded = true;
+                                Utils.tasks_list =Utils.GetAllTasksFromFirebase();
+
+
                             } else {
-                                Toast.makeText(contextt, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(contextt, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 Add_task.dialog.dismiss();
+                                task_uploaded =false;
                             }
                         }
                     });
@@ -345,11 +337,11 @@ public class Utils {
 //                    Add_task.dialog.dismiss();
 //                }
             } else {
-                Toast.makeText(contextt, "Please select a category !", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(contextt, "Please select a category !", Toast.LENGTH_SHORT).show();
                 Add_task.dialog.dismiss();
             }
         } else {
-            Toast.makeText(contextt, "No task to add !", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(contextt, "No task to add !", Toast.LENGTH_SHORT).show();
             Add_task.dialog.dismiss();
         }
     }
@@ -403,6 +395,8 @@ public class Utils {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
                                 Toast.makeText(contexto, "Category added successfully !", Toast.LENGTH_SHORT).show();
+                                Home_Fragment.adapter.setCategories(GetAllCatgoriesFromFirebse());
+
                             }
                         }
                     });
@@ -431,8 +425,15 @@ public class Utils {
                     list.add(model);
                     if (Home_Fragment.adapter !=null){
                         Home_Fragment.adapter.notifyDataSetChanged();
+
+                    }
+                    if (Add_task.adapter!= null){
+                        Add_task.adapter.notifyDataSetChanged();
                     }
                 }
+                list.add(new Category_Model("add_category"));
+
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

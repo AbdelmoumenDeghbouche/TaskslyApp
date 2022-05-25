@@ -2,6 +2,8 @@ package com.example.tasksly;
 
 import static android.content.ContentValues.TAG;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.SystemClock;
@@ -99,7 +101,7 @@ public class OcrRequestAsync extends AsyncTask<String, Void, Response> {
 
                 while (j <= cells.size() && row <= rowsize) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        Utils.AddTaskByTaskModel(new Task_Model(cells.get(j).text, cells.get((row - 1) * colsize).text, Utils.nextDayDate(cells.get(i).text), new Category_Model("General"), "", true));
+                        Utils.AddTaskToFirebase(new Task_Model(cells.get(j).text, cells.get((row - 1) * colsize).text, Utils.nextDayDate(cells.get(i).text), new Category_Model("General"), "", true));
                         j += colsize;
                         row += 1;
                     }
