@@ -3,6 +3,8 @@ package com.example.tasksly;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Objects;
+
 public class Task_Model implements Parcelable {
     private String task_title;
     private String time;
@@ -10,6 +12,19 @@ public class Task_Model implements Parcelable {
     private Category_Model category;
     private boolean is_finished, is_notified;
     private String description;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Task_Model)) return false;
+        Task_Model that = (Task_Model) o;
+        return is_finished == that.is_finished && is_notified == that.is_notified && Objects.equals(task_title, that.task_title) && Objects.equals(time, that.time) && Objects.equals(date, that.date) && Objects.equals(category, that.category) && Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(task_title, time, date, category, is_finished, is_notified, description);
+    }
 
     public Task_Model() {
     }
