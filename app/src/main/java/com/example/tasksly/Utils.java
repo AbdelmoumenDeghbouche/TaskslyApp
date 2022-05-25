@@ -322,7 +322,10 @@ public class Utils {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
 //                                Toast.makeText(contextt, "Your task has been saved successfully !", Toast.LENGTH_SHORT).show();
-                                Add_task.dialog.dismiss();
+                               if (add_task_dialogue != null){
+                                   Add_task.dialog.dismiss();
+
+                               }
                                 task_uploaded = true;
                                 Utils.tasks_list =Utils.GetAllTasksFromFirebase();
 
@@ -454,7 +457,7 @@ public class Utils {
         }
         return task_models;
     }
-    public static void UpdateTask(Task_Model newtask ,Task_Model oldtask){
+    public static void UpdateTask(Task_Model newtask ,Task_Model oldtask,Context contexto){
         FirebaseDatabase.getInstance().getReference().child("Tasks").child(oldtask.getCategory().getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -466,9 +469,9 @@ public class Utils {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()){
-                                        Toast.makeText(context, "Task updated successfully !", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(contexto, "Task updated successfully !", Toast.LENGTH_SHORT).show();
                                     }else {
-                                        Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(contexto, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -485,7 +488,7 @@ public class Utils {
         });
     }
 
-    public static void DeleteTask(Task_Model oldtask){
+    public static void DeleteTask(Task_Model oldtask,Context contextoo){
         FirebaseDatabase.getInstance().getReference().child("Tasks").child(oldtask.getCategory().getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -496,7 +499,7 @@ public class Utils {
                             FirebaseDatabase.getInstance().getReference().child("Tasks").child(oldtask.getCategory().getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(task.getKey()).removeValue(new DatabaseReference.CompletionListener() {
                                 @Override
                                 public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                    Toast.makeText(context, "Task deleted successfully !", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(contextoo, "Task deleted successfully !", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }

@@ -2,6 +2,8 @@ package com.example.tasksly;
 
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
+import static com.yalantis.ucrop.UCropFragment.TAG;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -11,6 +13,7 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsetsController;
@@ -36,7 +39,6 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 import java.net.URL;
-import java.util.ArrayList;
 
 public class TaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TimePickerDialog.OnTimeSetListener {
     private final String[] categories = new String[Utils.getCategories_list().size() - 1];
@@ -111,10 +113,11 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
         if (null != intent) {
+            String category_name_of_selecteed_task = intent.getStringExtra("category_name");
             edit_text_name_of_the_task.setText(task_model.getTask_title());
             txt_date_of_the_task_in_task_activity.setText(task_model.getDate());
             txt_time_of_task_in_activity_task.setText(task_model.getTime());
-            task_model1_without_changes = new Task_Model(task_model.getTask_title(), task_model.getTime(), task_model.getDate(), task_model.getCategory(), task_model.getDescription(), false);
+            task_model1_without_changes = new Task_Model(task_model.getTask_title(), task_model.getTime(), task_model.getDate(), new Category_Model(category_name_of_selecteed_task), task_model.getDescription(), false);
 
 
         }
@@ -233,19 +236,18 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
                     task_model.setCategory(new Category_Model(category_name));
                     task_model1_without_changes.setCategory(new Category_Model(category_name));
 //                    task_model.setCategory(new Category_Model(categories[selected_category]));
-                    Utils.UpdateTask(task_model, task_model1_without_changes);
+                    Utils.UpdateTask(task_model, task_model1_without_changes, getApplicationContext());
+                    Utils.tasks_list = Utils.GetAllTasksFromFirebase();
+                    Tasks_fragment.adapter.notifyDataSetChanged();
 
 
                 } else {
                     task_model.setCategory(new Category_Model(spinner_categories.getSelectedItem().toString()));
-                    ArrayList<Task_Model> the_new_array_list = new ArrayList<>();
-                    the_new_array_list = Utils.category_map.get(category_name);
-                    the_new_array_list.remove(selected_task_from_RV);
-                    Utils.category_map.replace(category_name, the_new_array_list);
-                    the_new_array_list = Utils.category_map.get(spinner_categories.getSelectedItem().toString());
-                    the_new_array_list.add(the_new_array_list.size(), task_model);
-                    Utils.category_map.replace(spinner_categories.getSelectedItem().toString(), the_new_array_list);
-
+                    Log.d(TAG, "Old Task: " + task_model1_without_changes.toString());
+                    Utils.DeleteTask(task_model1_without_changes,getApplicationContext());
+                    Utils.AddTaskToFirebase(task_model);
+                    Utils.tasks_list = Utils.GetAllTasksFromFirebase();
+                    Tasks_fragment.adapter.notifyDataSetChanged();
 
                 }
 
