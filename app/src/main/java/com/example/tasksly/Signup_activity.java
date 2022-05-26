@@ -167,7 +167,7 @@ public class Signup_activity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    UserModel user = new UserModel(name, email, password, number,"");
+                    UserModel user = new UserModel(name, email, password, number,"",false );
                     Root.child("Users").child(auth.getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

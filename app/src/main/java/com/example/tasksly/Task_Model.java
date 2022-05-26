@@ -10,11 +10,13 @@ public class Task_Model implements Parcelable {
     private Category_Model category;
     private boolean is_finished, is_notified;
     private String description;
+    private String current_date ;
+    private String current_time ;
 
     public Task_Model() {
     }
 
-    public Task_Model(String task_title, String time, String date, Category_Model category, String description, Boolean is_notified) {
+    public Task_Model(String task_title, String time, String date, Category_Model category, String description, Boolean is_notified,String current_date, String current_time) {
         this.task_title = task_title;
         this.time = time;
         this.date = date;
@@ -22,6 +24,24 @@ public class Task_Model implements Parcelable {
         this.category = category;
         this.is_finished = false;
         this.description = description;
+        this.current_date = current_date ;
+        this.current_time = current_time ;
+    }
+
+    public String getCurrent_date() {
+        return current_date;
+    }
+
+    public void setCurrent_date(String current_date) {
+        this.current_date = current_date;
+    }
+
+    public String getCurrent_time() {
+        return current_time;
+    }
+
+    public void setCurrent_time(String current_time) {
+        this.current_time = current_time;
     }
 
     protected Task_Model(Parcel in) {

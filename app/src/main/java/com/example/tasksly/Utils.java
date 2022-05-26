@@ -232,10 +232,7 @@ public class Utils {
     }
 
     public static URL ParseUrl(Uri imageUri) {
-        // this date and time variables are used just to create a different parent fir very child
-        String date = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
-        String time = new SimpleDateFormat("HH:mm:ss a").format(Calendar.getInstance().getTime());
-        StorageReference storage = FirebaseStorage.getInstance().getReference().child("OCRImages").child(date + "//" + time);
+        StorageReference storage = FirebaseStorage.getInstance().getReference().child("OCRImages").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         storage.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
@@ -461,14 +458,14 @@ public class Utils {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
                     for (DataSnapshot task : snapshot.getChildren()){
-                        if (task.getValue(Task_Model.class).getDate().equals(oldtask.getDate()) && task.getValue(Task_Model.class).getTime().equals(oldtask.getTime())){
+                        if (task.getValue(Task_Model.class).getCurrent_date().equals(oldtask.getCurrent_date()) && task.getValue(Task_Model.class).getCurrent_time().equals(oldtask.getCurrent_time())){
                             // means this is the task that we want to update so we update it
                             FirebaseDatabase.getInstance().getReference().child("Tasks").child(oldtask.getCategory().getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(task.getKey()).setValue(newtask).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()){
                                         Toast.makeText(context, "Task updated successfully !", Toast.LENGTH_SHORT).show();
-                                    }else {
+                                    } else {
                                         Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 }

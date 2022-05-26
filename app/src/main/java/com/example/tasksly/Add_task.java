@@ -30,7 +30,9 @@ import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Add_task extends AppCompatActivity {
     EditText TaskTitle;
@@ -151,7 +153,10 @@ public class Add_task extends AppCompatActivity {
                     Gson gson = new Gson();
                     date =select_date_text.getText().toString().trim();
 
-                    Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), null, is_clicked);
+                    // this date and time variables are used just to create a different parent fir very child
+                    String date_now = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
+                    String time_now = new SimpleDateFormat("HH:mm:ss a").format(Calendar.getInstance().getTime());
+                    Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), null, is_clicked,date_now,time_now);
                     task_model.setDescription("");
                     progressDialog = new MaterialAlertDialogBuilder(Add_task.this);
                     progressDialog.setTitle("Wait a minute please !");

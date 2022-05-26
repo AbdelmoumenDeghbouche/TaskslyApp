@@ -7,9 +7,9 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    android:paddingLeft="20dp"
+    android:paddingLeft="10dp"
     android:paddingTop="10dp"
-    android:paddingRight="20dp"
+    android:paddingRight="10dp"
     android:paddingBottom="10dp"
     tools:context=".Login_activity">
 
@@ -23,8 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:fontFamily="@font/poppins_medium"
-        android:text="Edit profile "
+        android:text="Edit profile"
         android:textColor="#1D1235"
+        android:gravity="center"
         android:textSize="28sp"
         android:textStyle="bold" />
 
@@ -32,13 +33,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical">
+        android:layout_marginTop="10dp">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:layout_margin="10dp"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
@@ -67,12 +68,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_marginTop="10dp"
-                android:fontFamily="@font/poppins_medium"
+                android:fontFamily="@font/poppins_bold"
                 android:maxLines="1"
                 android:text="email"
                 android:textAllCaps="true"
                 android:textColor="#1D1235"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/name_text"
@@ -82,7 +83,6 @@
                 android:fontFamily="@font/poppins_medium"
                 android:maxLines="1"
                 android:text="name"
-                android:textAllCaps="true"
                 android:textColor="#3D3D3D"
                 android:textSize="15dp" />
 
@@ -135,7 +135,7 @@
         android:layout_marginTop="30dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Name"
-        android:textColor="#676767"
+        android:textColor="@color/colorfirst"
         android:textSize="15dp" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -143,7 +143,6 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:textColorHint="#676767"
         app:boxBackgroundColor="@color/mainblue"
@@ -174,7 +173,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_semibold"
         android:text="Phone number"
-        android:textColor="#676767"
+        android:textColor="@color/colorfirst"
         android:textSize="15dp" />
 
 

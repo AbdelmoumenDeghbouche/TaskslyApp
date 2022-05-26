@@ -14,11 +14,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,7 +45,20 @@ public class CongratsMembership extends AppCompatActivity {
         SettingAnimation();
         initialUserImage_Name();
         handelingOnClicks();
+        RegestringTheUser();
     }
+
+    public void RegestringTheUser(){
+        FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("is_memeber").setValue(true).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(CongratsMembership.this, "Your are officially one of owr family !", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
 
     public void handelingOnClicks(){
         backHome.setOnClickListener(new View.OnClickListener() {
