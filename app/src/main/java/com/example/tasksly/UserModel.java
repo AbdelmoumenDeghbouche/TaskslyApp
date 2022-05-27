@@ -3,14 +3,23 @@ package com.example.tasksly;
 public class UserModel {
     private String name , email , password , image ;
     private int phonenumber ;
+    boolean is_memeber ;
 
-    public UserModel(String name, String email, String password, int phonenumber , String image) {
+    public UserModel(String name, String email, String password, int phonenumber , String image,boolean is_memeber) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.phonenumber = phonenumber;
         this.image = image ;
+        this.is_memeber = is_memeber ;
+    }
 
+    public boolean isIs_memeber() {
+        return is_memeber;
+    }
+
+    public void setIs_memeber(boolean is_memeber) {
+        this.is_memeber = is_memeber;
     }
 
     public UserModel() {
@@ -49,7 +58,7 @@ public class UserModel {
     }
 
     public void setImage(String image) {
-        this.image = image;
+            this.image = image;
     }
 
     public String getImage() {
