@@ -22,10 +22,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:maxLines="1"
             android:layout_marginTop="25dp"
+            android:maxWidth="250dp"
+            android:background="@drawable/line"
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/text_task_name"
-            android:background="@drawable/line"
             android:textColor="@color/black"
             android:textSize="18dp" />
 
@@ -68,6 +70,8 @@
                 android:textColor="@color/txt_time_of_task_color"
                 android:textSize="12dp" />
         </RelativeLayout>
+
+
 
 
         <ImageView

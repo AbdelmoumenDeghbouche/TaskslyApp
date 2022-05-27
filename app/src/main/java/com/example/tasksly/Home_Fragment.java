@@ -2,8 +2,6 @@ package com.example.tasksly;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,15 +21,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.auth.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class Home_Fragment extends Fragment {
     private RecyclerView category_recyclerview;
-    private Categoty_list_adapter adapter;
+    public static Categoty_list_adapter adapter;
     private TextView UserNameText , txt_hello_name;
+    Tasks_fragment Saved_tasks_fragment ;
     private ImageView img_user_profile;
     String image ;
     private TextView txt_name_of_client;
@@ -41,6 +39,8 @@ public class Home_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Saved_tasks_fragment = new Tasks_fragment();
+
 
 
         View view = inflater.inflate(R.layout.fragment_home_, container, false) ;
@@ -48,20 +48,18 @@ public class Home_Fragment extends Fragment {
         // set the fragment2 (list of tasks that will appear when we click on a specific category )  when we entered the mainactivity
         getParentFragmentManager().beginTransaction()
                 //.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                .replace(R.id.fragment2, new Tasks_fragment())
+                .replace(R.id.fragment2, Saved_tasks_fragment)
                 .commit();
 
 
         initViewsOfMainActivity(view);
         settingInitialUserName();
 
-
         Utils.initCategories(); // charging the arraylist with the categories
-        ArrayList<Category_Model> categories = Utils.getCategories_list(); // this function is returning the arraylist that we charged in the precedent line
-
+        ArrayList<Category_Model> categories = Utils.categories_list; // this function is returning the arraylist that we charged in the precedent line
 
         // setting the categories recycler view
-        adapter = new Categoty_list_adapter(view.getContext());
+        adapter = new Categoty_list_adapter(view.getContext().getApplicationContext());
         category_recyclerview.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL,false);
         category_recyclerview.setLayoutManager(linearLayoutManager);
@@ -111,4 +109,15 @@ public class Home_Fragment extends Fragment {
         });
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Utils.is_this_adapter_Home_fragment =true;
+
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
 }

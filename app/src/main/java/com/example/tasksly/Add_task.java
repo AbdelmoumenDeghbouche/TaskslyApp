@@ -1,7 +1,6 @@
 package com.example.tasksly;
 
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
-
 import static com.yalantis.ucrop.UCropFragment.TAG;
 
 import android.annotation.SuppressLint;
@@ -17,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,17 +24,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Add_task extends AppCompatActivity {
     EditText TaskTitle;
     RecyclerView recyclerView;
     RelativeLayout relativeLayout, relativeLayout2, task_done_button;
-    Categoty_list_adapter adapter;
+    public static Categoty_list_adapter adapter;
     boolean is_clicked;
     TextView select_date_text, select_time_text;
     LinearLayout select_date_button, select_time_button;
@@ -42,6 +45,8 @@ public class Add_task extends AppCompatActivity {
             .setTitleText("SELECT A TIME")
             .setTimeFormat(TimeFormat.CLOCK_12H)
             .build();
+    MaterialAlertDialogBuilder progressDialog ;
+    public static AlertDialog dialog;
     MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setTitleText("SELECT A DATE");
     final MaterialDatePicker materialDatePicker = builder.build();
 
@@ -73,7 +78,7 @@ public class Add_task extends AppCompatActivity {
 
         // setting the categories recycler view
 
-        adapter = new Categoty_list_adapter(getApplicationContext());
+        adapter = new Categoty_list_adapter(Add_task.this);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -145,14 +150,24 @@ public class Add_task extends AppCompatActivity {
                         Log.d(TAG, "onClick: "+ e);
                     }
                     Gson gson = new Gson();
+                    date =select_date_text.getText().toString().trim();
+                    // this date and time variables are used just to create a different parent fir very child
+                    String date_now = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
+                    String time_now = new SimpleDateFormat("HH:mm:ss a").format(Calendar.getInstance().getTime());
 
-                    Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), null, is_clicked);
-                    task_model.setDescription("");
 
-                    String task_element = gson.toJson(task_model);
-                    task_model.setDescription("");
-                    Intent intent = new Intent(Add_task.this, MainActivity.class).putExtra("task_element", task_element);
-                    startActivity(intent);
+                    Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), "", is_clicked,date_now,time_now);
+                    progressDialog = new MaterialAlertDialogBuilder(Add_task.this);
+                    progressDialog.setTitle("Wait a minute please !");
+                    progressDialog.setMessage("We are saving your task...");
+                    progressDialog.setCancelable(false);
+                    progressDialog.setBackground(getResources().getDrawable(R.drawable.tasks_background));
+                    progressDialog.setIcon(R.drawable.ic__cloud_upload);
+                    progressDialog.setCancelable(false);
+                    dialog = progressDialog.show();
+                    dialog.show();
+                    Utils.AddTaskToFirebase(task_model);
+
 
                 }
 
@@ -219,5 +234,11 @@ public class Add_task extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Utils.is_this_adapter_Home_fragment = false;
     }
 }

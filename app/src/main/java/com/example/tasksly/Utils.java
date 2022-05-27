@@ -16,11 +16,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -47,7 +54,11 @@ public class Utils {
     public static Context context;
     public static Dialog add_task_dialogue;
     public static URL myUrl = null;
-    public static String private_task_pin_code ="";
+    public static String private_task_pin_code = "";
+    public static int exists = 0;
+    public static boolean is_this_adapter_Home_fragment = false;
+    public static boolean task_uploaded;
+
 
     public static int getIndexOfCategoryModelByCategoryName(String CategoryName) {
         for (int i = 0; i < categories_list.size(); i++) {
@@ -72,21 +83,8 @@ public class Utils {
             categories_list = new ArrayList<>();
         }
         if (categories_list.isEmpty()) {
-            Category_Model General = new Category_Model("General");
 
-            Category_Model sport = new Category_Model("Sport");
-            Category_Model education = new Category_Model("Education");
-            Category_Model Health = new Category_Model("Health");
-            Category_Model Gaming = new Category_Model("Gaming");
-            Category_Model personal = new Category_Model("Personal");
-            Category_Model add_category = new Category_Model("add_category");
-            categories_list.add(General);
-            categories_list.add(personal);
-            categories_list.add(sport);
-            categories_list.add(education);
-            categories_list.add(Health);
-            categories_list.add(Gaming);
-            categories_list.add(add_category);
+            categories_list = GetAllCatgoriesFromFirebse();
         }
 
     }
@@ -110,31 +108,34 @@ public class Utils {
             completed_tasks = new ArrayList<>();
         }
         if (tasks_list.isEmpty()) {
-            Category_Model general = new Category_Model("General");
-            Category_Model Gaming = new Category_Model("Gaming");
+            tasks_list = Utils.GetAllTasksFromFirebase();
 
-            Task_Model first_task = new Task_Model("Meet Mr Khaldi Completed 1", "14:00", String.valueOf(Calendar.DATE),
-                    //just test i tried to get first category from categories list (General)
-                    general, "All illustration design should be handover to Smith today for review.", false);
-            Task_Model sec_task = new Task_Model("Completed Task", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
-            Task_Model third_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", true);
-            Task_Model fourth_task = new Task_Model("Meet Mr Khaldi Completed", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", false);
-            fourth_task.setIs_finished(true);
-            first_task.setIs_finished(true);
-            sec_task.setIs_finished(true);
-            tasks_list.add(first_task);
-            tasks_list.add(sec_task);
-            tasks_list.add(third_task);
-            tasks_list.add(fourth_task);
-            private_tasks.add(first_task);
-            category_map.put("General", new ArrayList<>());
-            category_map.put("Education", new ArrayList<>());
-            category_map.put("Health", new ArrayList<>());
-            category_map.put("Gaming", new ArrayList<>());
-            category_map.put("Sport", new ArrayList<>());
-            category_map.put("Personal", new ArrayList<>());
-            category_map.put("sqddqsdjqsoidjqsjdsoqidjoqsidjqsoi", private_tasks);
-            category_map.put(COMPLETED_TASKS_KEY, completed_tasks);
+
+//            Category_Model general = new Category_Model("General");
+//            Category_Model Gaming = new Category_Model("Gaming");
+//
+//            Task_Model first_task = new Task_Model("Meet Mr Khaldi Completed 1", "14:00", String.valueOf(Calendar.DATE),
+//                    //just test i tried to get first category from categories list (General)
+//                    general, "All illustration design should be handover to Smith today for review.", false);
+//            Task_Model sec_task = new Task_Model("Completed Task", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", false);
+//            Task_Model third_task = new Task_Model("Meet Mr Khaldi", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", false);
+//            Task_Model fourth_task = new Task_Model("Meet Mr Khaldi Completed", "14:00", String.valueOf(Calendar.DATE), general, "All illustration design should be handover to Smith today for review.", false);
+//            fourth_task.setIs_finished(true);
+//            first_task.setIs_finished(true);
+//            sec_task.setIs_finished(true);
+//            tasks_list.add(first_task);
+//            tasks_list.add(sec_task);
+//            tasks_list.add(third_task);
+//            tasks_list.add(fourth_task);
+//            private_tasks.add(first_task);
+//            category_map.put("General", new ArrayList<>());
+//            category_map.put("Education", new ArrayList<>());
+//            category_map.put("Health", new ArrayList<>());
+//            category_map.put("Gaming", new ArrayList<>());
+//            category_map.put("Sport", new ArrayList<>());
+//            category_map.put("Personal", new ArrayList<>());
+//            category_map.put("sqddqsdjqsoidjqsjdsoqidjoqsidjqsoi", private_tasks);
+//            category_map.put(COMPLETED_TASKS_KEY, completed_tasks);
 
 
         }
@@ -273,6 +274,7 @@ public class Utils {
         }
         return task_modelArrayList1;
     }
+
     public static ArrayList<Task_Model> return_only_completed_tasks(ArrayList<Task_Model> task_modelArrayList) {
         ArrayList<Task_Model> task_modelArrayList1 = new ArrayList<>();
         for (int i = 0; i < task_modelArrayList.size(); i++) {
@@ -307,5 +309,205 @@ public class Utils {
         }
     }
 
+    public static void AddTaskToFirebase(Task_Model task) {
+        if (task != null){
+            Category_Model category = task.getCategory();
+            if (category != null){
+                //if (categoryIsExist(category.getCategory_name())){
+                FirebaseDatabase.getInstance().getReference().child("Tasks").child(category.getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(task).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+//                            Toast.makeText(contextt, "Your task has been saved successfully !", Toast.LENGTH_SHORT).show();
+                            Add_task.dialog.dismiss();
+                        } else {
+//                            Toast.makeText(contextt, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Add_task.dialog.dismiss();
+                        }
+                    }
+                });
+//                } else {
+//                    Toast.makeText(contextt, "No category with this name !", Toast.LENGTH_SHORT).show();
+//                    Add_task.dialog.dismiss();
+//                }
+            } else {
+//                Toast.makeText(contextt, "Please select a category !", Toast.LENGTH_SHORT).show();
+                Add_task.dialog.dismiss();
+            }
+        } else {
+//            Toast.makeText(contextt, "No task to add !", Toast.LENGTH_SHORT).show();
+            Add_task.dialog.dismiss();
+        }
+    }
 
+    public static ArrayList<Task_Model> GetAllTasksFromFirebase() {
+        ArrayList<Task_Model> list = new ArrayList<>();
+        FirebaseDatabase.getInstance().getReference().child("Tasks").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot category : snapshot.getChildren()) {
+                        FirebaseDatabase.getInstance().getReference().child("Tasks").child(category.getKey()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()) {
+                                    for (DataSnapshot task : snapshot.getChildren()) {
+                                        Task_Model UserTask = task.getValue(Task_Model.class);
+                                        list.add(UserTask);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+        Log.d("Task name ", list.toString());
+        return list;
+    }
+
+    public static void AddCategoryToFirebase(Category_Model Newcategory, Context contexto) {
+        FirebaseDatabase.getInstance().getReference().child("Tasks").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot category : snapshot.getChildren()) {
+                    if (category.getKey().equals(Newcategory.getCategory_name())) {
+                        exists = 1;
+                        break;
+                    }
+                }
+                if (exists == 0) {
+                    // there is no category like this , so we add it
+                    FirebaseDatabase.getInstance().getReference().child("Tasks").child(Newcategory.getCategory_name()).setValue("initial").addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(contexto, "Category added successfully !", Toast.LENGTH_SHORT).show();
+                                Home_Fragment.adapter.setCategories(GetAllCatgoriesFromFirebse());
+
+                            }
+                        }
+                    });
+                    // means that this element already exists in the firebase favorite list , so we don't add it
+                } else {
+                    exists = 0;
+                    Toast.makeText(contexto, "Category already exists !", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public static ArrayList<Category_Model> GetAllCatgoriesFromFirebse() {
+        ArrayList<Category_Model> list = new ArrayList<>();
+        FirebaseDatabase.getInstance().getReference().child("Tasks").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot category : snapshot.getChildren()) {
+                    String name = category.getKey();
+                    Category_Model model = new Category_Model(name);
+                    list.add(model);
+                    if (Home_Fragment.adapter != null) {
+                        Home_Fragment.adapter.notifyDataSetChanged();
+
+                    }
+                    if (Add_task.adapter != null) {
+                        Add_task.adapter.notifyDataSetChanged();
+                    }
+                }
+                list.add(new Category_Model("add_category"));
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+        return list;
+    }
+
+    public static ArrayList<Task_Model> GetTasksListOfSpecificCategory(String categoryName) {
+        ArrayList<Task_Model> task_models = new ArrayList<>();
+
+        for (int i = 0; i < tasks_list.size(); i++) {
+            if (tasks_list.get(i).getCategory().getCategory_name().equals(categoryName)) {
+                task_models.add(tasks_list.get(i));
+            }
+
+        }
+        return task_models;
+    }
+
+    public static void UpdateTask(Task_Model newtask, Task_Model oldtask, Context contexto) {
+        FirebaseDatabase.getInstance().getReference().child("Tasks").child(oldtask.getCategory().getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot task : snapshot.getChildren()) {
+                        if (task.getValue(Task_Model.class).getCurrent_date().equals(oldtask.getCurrent_date()) && task.getValue(Task_Model.class).getCurrent_time().equals(oldtask.getCurrent_time())) {
+                            // means this is the task that we want to update so we update it
+                            FirebaseDatabase.getInstance().getReference().child("Tasks").child(oldtask.getCategory().getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(task.getKey()).setValue(newtask).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(contexto, "Task updated successfully !", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(contexto, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
+                    }
+                } else {
+                    Toast.makeText(contexto, "No task found !", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public static void DeleteTask(Task_Model oldtask, Context contextoo) {
+        FirebaseDatabase.getInstance().getReference().child("Tasks").child(oldtask.getCategory().getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot task : snapshot.getChildren()) {
+                        if (task.getValue(Task_Model.class).getDate().equals(oldtask.getDate()) && task.getValue(Task_Model.class).getTime().equals(oldtask.getTime())) {
+                            // means this is the task that we want to delete so we delete it
+                            FirebaseDatabase.getInstance().getReference().child("Tasks").child(oldtask.getCategory().getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(task.getKey()).removeValue(new DatabaseReference.CompletionListener() {
+                                @Override
+                                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                    Toast.makeText(contextoo, "Task deleted successfully !", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+                } else {
+                    Toast.makeText(contextoo, "No task found !", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 }

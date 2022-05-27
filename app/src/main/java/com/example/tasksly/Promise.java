@@ -61,7 +61,7 @@ import java.util.List;
 public class Promise {
 
     private static final String TAG = "Promise";
-    private Handler handler;
+    private final Handler handler;
     private OnSuccessListener onSuccessListener;
     private OnErrorListener onErrorListener;
     private Promise child;
@@ -93,7 +93,7 @@ public class Promise {
         if (list != null) {
             size = list.length;
         }
-        Object results[] = new Object[size];
+        Object[] results = new Object[size];
         if (list == null || list.length <= 0) {
             Log.w(TAG, "Promise list should not be empty!");
             p.resolve(results);
