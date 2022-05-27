@@ -66,6 +66,8 @@ public class Task_Model implements Parcelable {
         is_finished = in.readByte() != 0;
         is_notified = in.readByte() != 0;
         description = in.readString();
+        current_date = in.readString();
+        current_time = in.readString();
     }
 
     public static final Creator<Task_Model> CREATOR = new Creator<Task_Model>() {
@@ -153,5 +155,7 @@ public class Task_Model implements Parcelable {
         dest.writeByte((byte) (is_finished ? 1 : 0));
         dest.writeByte((byte) (is_notified ? 1 : 0));
         dest.writeString(description);
+        dest.writeString(current_date);
+        dest.writeString(current_time);
     }
 }
