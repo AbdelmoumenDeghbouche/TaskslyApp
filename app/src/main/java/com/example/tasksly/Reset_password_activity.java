@@ -3,7 +3,9 @@ package com.example.tasksly;
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -38,6 +40,8 @@ public class Reset_password_activity extends AppCompatActivity {
     TextInputLayout passwordlayout, confirmpasswordlayout;
     String userPassword, userConfirmPassword;
     DatabaseReference Root;
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
+
     FirebaseAuth auth = FirebaseAuth.getInstance();
     UserModel oldUser = null;
 
@@ -193,5 +197,18 @@ public class Reset_password_activity extends AppCompatActivity {
         userPassword = passwordlayout.getEditText().getText().toString().trim();
         userConfirmPassword = confirmpasswordlayout.getEditText().getText().toString().trim();
     }
+    @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,intentFilter);
+        super.onStart();
 
+    }
+
+    @Override
+    protected void onStop() {
+
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
+    }
 }

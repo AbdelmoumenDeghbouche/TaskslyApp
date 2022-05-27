@@ -93,7 +93,7 @@
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/user_img" />
+                        android:src="@drawable/ic_avataaars" />
                 </com.google.android.material.card.MaterialCardView>
 
                 <Space
@@ -119,6 +119,8 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_semibold"
                         android:text="ichou"
+                        android:maxLines="1"
+                        android:maxLength="25"
                         android:textColor="#1D1235"
                         android:textSize="18dp" />
 

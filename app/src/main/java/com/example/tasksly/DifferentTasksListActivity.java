@@ -3,6 +3,8 @@ package com.example.tasksly;
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.WindowInsetsController;
@@ -20,6 +22,8 @@ public class DifferentTasksListActivity extends AppCompatActivity {
     private Task_list_adapter adapter;
     private TextView txt_name_of_the_activity;
     private ArrayList<Task_Model> tasks_list;
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +56,9 @@ public class DifferentTasksListActivity extends AppCompatActivity {
         if (intent != null) {
             if (intent.getStringExtra("NameOfActivity").equals("Private Tasks")) {
                 tasks_list = Utils.category_map.get("sqddqsdjqsoidjqsjdsoqidjoqsidjqsoi");
+
                 txt_name_of_the_activity.setText(intent.getStringExtra("NameOfActivity"));
+
 
 
             }
@@ -67,6 +73,12 @@ public class DifferentTasksListActivity extends AppCompatActivity {
 
 
             }
+            if (intent.getStringExtra("NameOfActivity").equals("Planning Tasks")){
+                tasks_list =Utils.return_only_not_completed_tasks(Utils.getTasks_list() );
+                txt_name_of_the_activity.setText(intent.getStringExtra("NameOfActivity"));
+
+
+            }
 
 
 
@@ -76,5 +88,18 @@ public class DifferentTasksListActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,intentFilter);
+        super.onStart();
 
+    }
+
+    @Override
+    protected void onStop() {
+
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
+    }
 }

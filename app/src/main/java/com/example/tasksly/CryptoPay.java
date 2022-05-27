@@ -6,13 +6,14 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowInsetsController;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -46,6 +47,8 @@ public class CryptoPay extends AppCompatActivity {
     Credentials credentials;
     RelativeLayout Sent_crypto_button, copy;
     TextView addresslistener;
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
+
     ProgressBar progressBar ;
 
 
@@ -138,7 +141,7 @@ public class CryptoPay extends AppCompatActivity {
            @Override
            public void onClick(View view) {
                try {
-                   progressBar.setVisibility(view.VISIBLE);
+                   progressBar.setVisibility(View.VISIBLE);
                    EthGetBalance balanceWei = web3.ethGetBalance(credentials.getAddress(), DefaultBlockParameterName.LATEST).sendAsync()
                            .get();
                    BigInteger balance = balanceWei.getBalance();
@@ -153,19 +156,19 @@ public class CryptoPay extends AppCompatActivity {
                            TransactionReceipt receipt = Transfer.sendFunds(web3, credentials, "0xA68b889E16971D8B71d92BA2775a11477cAc405F", BigDecimal.valueOf(0.036), Convert.Unit.ETHER).send();
                            Log.d("Cryptopay", "Transaction successful: " + receipt.getTransactionHash());
                            Intent intent = new Intent(CryptoPay.this, CongratsMembership.class);
-                           progressBar.setVisibility(view.GONE);
+                           progressBar.setVisibility(View.GONE);
                            startActivity(intent);
                        } catch (Exception e) {
-                           progressBar.setVisibility(view.GONE);
+                           progressBar.setVisibility(View.GONE);
                            Log.d("Cryptopay", "onClick: low balance");
                        }
 
                    } else {
-                       progressBar.setVisibility(view.GONE);
+                       progressBar.setVisibility(View.GONE);
                        ShowToast("not sent yet");
                    }
                } catch (Exception e) {
-                   progressBar.setVisibility(view.GONE);
+                   progressBar.setVisibility(View.GONE);
                    Log.d("Cryptopay", "balance failed");
                }
            }
@@ -216,5 +219,18 @@ public class CryptoPay extends AppCompatActivity {
             this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS, WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS);
         }
     }
+    @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,intentFilter);
+        super.onStart();
 
+    }
+
+    @Override
+    protected void onStop() {
+
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
+    }
 }

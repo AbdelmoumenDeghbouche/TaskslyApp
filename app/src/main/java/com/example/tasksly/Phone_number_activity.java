@@ -3,7 +3,9 @@ package com.example.tasksly;
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,6 +38,8 @@ public class Phone_number_activity extends AppCompatActivity {
     TextInputLayout PhoneNumberLayout;
     String userNumber;
     ProgressBar progressBar;
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
+
     DatabaseReference Root;
 
     @Override
@@ -161,5 +165,18 @@ public class Phone_number_activity extends AppCompatActivity {
         userNumber = PhoneNumberLayout.getEditText().getText().toString().trim();
     }
 
+    @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,intentFilter);
+        super.onStart();
 
+    }
+
+    @Override
+    protected void onStop() {
+
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
+    }
 }

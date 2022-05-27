@@ -16,14 +16,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:padding="25dp"
             android:layout_weight="1.5"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="25dp">
 
             <ImageView
                 android:id="@+id/otp_image"
@@ -58,22 +59,21 @@
         </LinearLayout>
 
 
-
         <com.chaos.view.PinView
             android:id="@+id/otp_number"
+            style="@style/PinWidget.PinView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:cursorVisible="false"
             android:hint="****"
-            android:textColorHint="#AAB4FF"
-            style="@style/PinWidget.PinView"
-            app:hideLineWhenFilled="true"
             android:inputType="number"
             android:itemBackground="@color/mainblue"
             android:textColor="@color/black"
-            android:layout_gravity="center"
+            android:textColorHint="#AAB4FF"
             android:textSize="30sp"
             android:textStyle="bold"
+            app:hideLineWhenFilled="true"
             app:itemCount="6"
             app:itemHeight="50dp"
             app:itemRadius="15dp"
@@ -81,7 +81,7 @@
             app:itemWidth="45dp"
             app:lineColor="@color/darkblue3"
             app:lineWidth="1dp"
-            app:viewType="rectangle"/>
+            app:viewType="rectangle" />
 
         <Space
             android:layout_width="wrap_content"
@@ -90,9 +90,9 @@
 
         <RelativeLayout
             android:id="@+id/otp_submit"
-            android:layout_margin="25dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="25dp"
             android:background="@drawable/done_creating_task_button_back"
             android:clickable="true"
             android:focusable="true"

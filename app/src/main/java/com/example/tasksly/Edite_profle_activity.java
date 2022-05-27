@@ -3,6 +3,8 @@ package com.example.tasksly;
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -47,6 +49,7 @@ public class Edite_profle_activity extends AppCompatActivity {
     ImageView user_image;
     Uri image_uri;
     MaterialAlertDialogBuilder progressDialog;
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
     AlertDialog dialog;
     ProgressBar progressBar;
@@ -101,14 +104,14 @@ public class Edite_profle_activity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent.createChooser(intent, "pick an image !"), 10);
+                startActivityForResult(Intent.createChooser(intent, "pick an image !"), 10);
                 user_image.setClickable(false);
             }
         });
         done_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (namelayout.getEditText().getText().toString().isEmpty() || numberlayout.getEditText().getText().toString().toString().isEmpty()) {
+                if (namelayout.getEditText().getText().toString().isEmpty() || numberlayout.getEditText().getText().toString().isEmpty()) {
                     Toast.makeText(Edite_profle_activity.this, "All fields must be full !", Toast.LENGTH_SHORT).show();
                 } else {
                     progressDialog.setTitle("Wait a minute please !");
@@ -232,5 +235,19 @@ public class Edite_profle_activity extends AppCompatActivity {
             user_image.setImageURI(image_uri);
             Toast.makeText(Edite_profle_activity.this, "Image selected successfully !", Toast.LENGTH_SHORT).show();
         }
+    }
+    @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,intentFilter);
+        super.onStart();
+
+    }
+
+    @Override
+    protected void onStop() {
+
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 }

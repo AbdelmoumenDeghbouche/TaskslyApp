@@ -3,13 +3,12 @@ package com.example.tasksly;
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowInsetsController;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -37,6 +36,8 @@ public class OTP_verification_activity extends AppCompatActivity {
     TextView secondtext, maintext;
     RelativeLayout LoginginButton;
     PinView pinview;
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
+
     String number = "";
     String PrivousText = "Check your SMS messages ,We've sent you\nthe PIN in (+213)";
     String OTP_Text = "";
@@ -152,5 +153,18 @@ public class OTP_verification_activity extends AppCompatActivity {
         number = getIntent().getStringExtra("phonenumber");
     }
 
+    @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,intentFilter);
+        super.onStart();
 
+    }
+
+    @Override
+    protected void onStop() {
+
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
+    }
 }

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
     android:background="@color/white">
 
     <TextView
@@ -13,7 +14,7 @@
         android:layout_marginTop="15dp"
         android:fontFamily="@font/poppins_medium"
         android:text="Enter The Name of Your Category"
-        android:textColor="@color/Viollet"
+        android:textColor="@color/darkblue3"
         android:textSize="18dp" />
 
     <EditText
@@ -23,11 +24,12 @@
         android:layout_below="@+id/txt_enter_name_of_the_category"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="20dp"
-        android:text=""
-        android:maxLines="1"
         android:layout_marginRight="15dp"
         android:hint="Enter the name of your category"
-        android:textColorHint="@color/button_cancel" />
+        android:maxLength="20"
+        android:maxLines="1"
+        android:text=""
+        android:textColorHint="#919191" />
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
@@ -35,43 +37,49 @@
         android:layout_below="@+id/edit_text_enter_the_name_of_the_category"
         android:layout_alignParentRight="true"
         android:layout_marginTop="30dp"
-        android:layout_marginRight="45dp"
-        app:cardCornerRadius="15dp"
+        android:layout_marginEnd="45dp"
         android:background="@drawable/background_style_of_button"
-        >
+        app:cardCornerRadius="15dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_style_of_button"
-            >
+            android:layout_marginRight="35dp"
+            android:background="@drawable/background_style_of_button">
 
             <Button
                 android:id="@+id/btn_confirm_adding_category"
-                android:layout_width="120dp"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/Viollet"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="10dp"
+                android:background="@null"
+                android:backgroundTint="@color/mainpink"
+                android:fontFamily="@font/poppins_medium"
+                android:outlineSpotShadowColor="@color/mainpink"
+                android:shadowColor="@color/mainpink"
                 android:text="Confirm"
                 android:textAllCaps="false"
                 android:textColor="@color/white" />
         </RelativeLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/edit_text_enter_the_name_of_the_category"
         android:layout_alignParentLeft="true"
+        android:layout_marginLeft="35dp"
         android:layout_marginTop="30dp"
-        android:layout_marginLeft="45dp"
-        app:cardCornerRadius="15dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/background_style_button_2"
-        >
+        app:cardCornerRadius="15dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_style_button_2"
-            >
+            android:background="@drawable/background_style_button_2">
 
             <Button
                 android:id="@+id/btn_cancel_adding_category"
@@ -84,7 +92,6 @@
         </RelativeLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
 
 
 </RelativeLayout>

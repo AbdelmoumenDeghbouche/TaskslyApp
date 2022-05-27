@@ -1,12 +1,15 @@
 package com.example.tasksly;
 
-import static android.content.ContentValues.TAG;
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
+import static com.yalantis.ucrop.UCropFragment.TAG;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.icu.util.Calendar;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,15 +39,17 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 import java.net.URL;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 
 public class TaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TimePickerDialog.OnTimeSetListener {
+    private final String[] categories = new String[Utils.getCategories_list().size() - 1];
     MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setTitleText("SELECT A DATE");
     final MaterialDatePicker materialDatePicker = builder.build();
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
+    Task_Model task_model1_without_changes;
     private Dialog add_task_dialogue;
     private Dialog add_desc_dialogue;
     private ImageView back_button_from_task_activity_to_main;
-    private String[] categories = new String[Utils.getCategories_list().size() - 1];
     private Spinner spinner_categories;
     private LinearLayout linear_layout_scan_table_ocr_of_task, Linear_layout_add_task, Linear_layout_import_image, Linear_layout_Take_photo_by_camera, linear_layout_date_of_task, linear_layout_time_of_task, linear_layout_description_of_task;
     private EditText edit_text_name_of_the_task;
@@ -52,9 +57,6 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
     private int selected_category;
     private EditText edit_text_desc_of_the_task;
     private Button btn_confirm_description;
-
-
-
     private String incoming_text_description_of_task_from_desc_activity;
     private TextView txt_date_of_the_task_in_task_activity, txt_time_of_task_in_activity_task;
     private int counter;
@@ -72,6 +74,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,10 +113,15 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
         Intent intent = getIntent();
         Task_Model task_model = intent.getParcelableExtra("TaskModel");
 
+
         if (null != intent) {
+            String category_name_of_selecteed_task = intent.getStringExtra("category_name");
             edit_text_name_of_the_task.setText(task_model.getTask_title());
             txt_date_of_the_task_in_task_activity.setText(task_model.getDate());
             txt_time_of_task_in_activity_task.setText(task_model.getTime());
+            String date_now = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
+            String time_now = new SimpleDateFormat("HH:mm:ss a").format(Calendar.getInstance().getTime());
+            task_model1_without_changes = new Task_Model(task_model.getTask_title(), task_model.getTime(), task_model.getDate(), new Category_Model(category_name_of_selecteed_task), task_model.getDescription(), false,date_now,time_now);
 
 
         }
@@ -203,9 +211,9 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
 
         linear_layout_description_of_task.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View v) {
+            public void onClick(View v) {
                 add_desc_dialogue.show();
-                edit_text_desc_of_the_task.setText(task_model.getDescription().toString());
+                edit_text_desc_of_the_task.setText(task_model.getDescription());
                 btn_confirm_description.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -218,6 +226,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
         });
 
         back_button_from_task_activity_to_main.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
@@ -230,22 +239,20 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
                 if (spinner_categories.getSelectedItem().toString().equals(category_name)) {
                     Toast.makeText(TaskActivity.this, "Task Updated successfully", Toast.LENGTH_SHORT).show();
                     task_model.setCategory(new Category_Model(category_name));
+                    task_model1_without_changes.setCategory(new Category_Model(category_name));
 //                    task_model.setCategory(new Category_Model(categories[selected_category]));
-                    ArrayList<Task_Model> the_new_array_list = new ArrayList<>();
-                    the_new_array_list = Utils.category_map.get(category_name);
-                    Log.d(TAG, "onClick: title" + task_model.getTask_title());
-                    the_new_array_list.set(selected_task_from_RV, task_model);
-                    Utils.category_map.replace(category_name, the_new_array_list);
+                    Utils.UpdateTask(task_model, task_model1_without_changes, getApplicationContext());
+                    Utils.tasks_list = Utils.GetAllTasksFromFirebase();
+                    Tasks_fragment.adapter.notifyDataSetChanged();
+
+
                 } else {
                     task_model.setCategory(new Category_Model(spinner_categories.getSelectedItem().toString()));
-                    ArrayList<Task_Model> the_new_array_list = new ArrayList<>();
-                    the_new_array_list = Utils.category_map.get(category_name);
-                    the_new_array_list.remove(selected_task_from_RV);
-                    Utils.category_map.replace(category_name, the_new_array_list);
-                    the_new_array_list = Utils.category_map.get(spinner_categories.getSelectedItem().toString());
-                    the_new_array_list.add(the_new_array_list.size(), task_model);
-                    Utils.category_map.replace(spinner_categories.getSelectedItem().toString(), the_new_array_list);
-
+                    Log.d(TAG, "Old Task: " + task_model1_without_changes.toString());
+                    Utils.DeleteTask(task_model1_without_changes, getApplicationContext());
+                    Utils.AddTaskToFirebase(task_model);
+                    Utils.tasks_list = Utils.GetAllTasksFromFirebase();
+                    Tasks_fragment.adapter.notifyDataSetChanged();
 
                 }
 
@@ -291,5 +298,20 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
         } else {
             Toast.makeText(this, "Please Upload Your Photo", Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener, intentFilter);
+        super.onStart();
+
+    }
+
+    @Override
+    protected void onStop() {
+
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 }

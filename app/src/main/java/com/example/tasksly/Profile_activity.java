@@ -2,19 +2,25 @@ package com.example.tasksly;
 
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowInsetsController;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.chaos.view.PinView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,21 +31,39 @@ import com.squareup.picasso.Picasso;
 
 public class Profile_activity extends AppCompatActivity {
 
-    LinearLayout join_membership,PlanningLayout, private_tasks_layout, CompletedLayout, CancelledLayout, TotalLayout ,edit;
+    LinearLayout PlanningLayout, private_tasks_layout, CompletedLayout, CancelledLayout, TotalLayout ,edit;
     TextView user_name , user_email ;
     ImageView user_image ;
+    RelativeLayout relative_layout_submitting_pin_code_private_tasks_first_time;
+    PinView pin_code_private_tasks_first_time;
+    TextView text_pin_code_submission_head ;
+    Dialog Pin_code_submission_of_private_tasks_first_time;
+    LinearLayout join_membership;
     DatabaseReference root = FirebaseDatabase.getInstance().getReference();
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         getSupportActionBar().hide();
+        Pin_code_submission_of_private_tasks_first_time = new Dialog(Profile_activity.this);
+        Pin_code_submission_of_private_tasks_first_time.setContentView(R.layout.private_tasks_pin_dialogue);
+        Pin_code_submission_of_private_tasks_first_time.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_of_dialogue_add_category));
+        Pin_code_submission_of_private_tasks_first_time.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        Pin_code_submission_of_private_tasks_first_time.setCancelable(true);
+        Pin_code_submission_of_private_tasks_first_time.getWindow().getAttributes().windowAnimations = R.style.animation_of_add_category;
+
+        relative_layout_submitting_pin_code_private_tasks_first_time = Pin_code_submission_of_private_tasks_first_time.findViewById(R.id.relative_layout_submitting_pin_code_private_tasks_first_time);
+        pin_code_private_tasks_first_time = Pin_code_submission_of_private_tasks_first_time.findViewById(R.id.pin_code_private_tasks_first_time);
+        text_pin_code_submission_head = Pin_code_submission_of_private_tasks_first_time.findViewById(R.id.text_pin_code_submission_head);
+
+
         join_membership=findViewById(R.id.join_membership);
         join_membership.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Profile_activity.this,PayActivity.class);
+                Intent intent=new Intent(Profile_activity.this,CongratsMembership.class);
                 startActivity(intent);
             }
         });
@@ -63,7 +87,60 @@ public class Profile_activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Profile_activity.this,DifferentTasksListActivity.class);
-                intent.putExtra("NameOfActivity","Private Tasks");
+                if (Utils.private_task_pin_code.equals("")){
+                    Pin_code_submission_of_private_tasks_first_time.show();
+                    relative_layout_submitting_pin_code_private_tasks_first_time.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (pin_code_private_tasks_first_time.getText().toString().trim().length()<4){
+                                Toast.makeText(Profile_activity.this, "Please Enter The PIN code correctly", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                Utils.private_task_pin_code = pin_code_private_tasks_first_time.getText().toString().trim();
+                                intent.putExtra("NameOfActivity","Private Tasks");
+                                Pin_code_submission_of_private_tasks_first_time.dismiss();
+                                pin_code_private_tasks_first_time.setText("");
+                                startActivity(intent);
+                            }
+
+                        }
+                    });
+                }
+                else {
+                    Pin_code_submission_of_private_tasks_first_time.show();
+                    text_pin_code_submission_head.setText("PIN CODE \n Submission !");
+                    relative_layout_submitting_pin_code_private_tasks_first_time.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (pin_code_private_tasks_first_time.getText().toString().trim().length()<4){
+                                Toast.makeText(Profile_activity.this, "Please Enter The PIN code correctly", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                if (pin_code_private_tasks_first_time.getText().toString().trim().equals(Utils.private_task_pin_code)){
+                                    intent.putExtra("NameOfActivity","Private Tasks");
+                                    Pin_code_submission_of_private_tasks_first_time.dismiss();
+                                    pin_code_private_tasks_first_time.setText("");
+                                    startActivity(intent);
+                                }
+                                else {
+                                    Toast.makeText(Profile_activity.this, "Wrong PIN Code Please Check and try again", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                        }
+                    });
+
+
+
+                }
+
+            }
+        });
+        PlanningLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Profile_activity.this,DifferentTasksListActivity.class);
+                intent.putExtra("NameOfActivity","Planning Tasks");
                 startActivity(intent);
             }
         });
@@ -89,6 +166,7 @@ public class Profile_activity extends AppCompatActivity {
                 startActivity(new Intent(Profile_activity.this,Edite_profle_activity.class));
             }
         });
+
 
     }
 
