@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
-import android.icu.util.Calendar;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Viewholder> {
@@ -81,9 +79,7 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
                 String categoty = tasks_list.get(position).getCategory().getCategory_name();
                 holder.img_view_check_box_oval_checked.setVisibility(View.VISIBLE);
                 Utils.completed_tasks.add(Utils.completed_tasks.size(), tasks_list.get(position));
-                String date_now = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
-                String time_now = new SimpleDateFormat("HH:mm:ss a").format(Calendar.getInstance().getTime());
-                Task_Model new_finished_task = new Task_Model(tasks_list.get(position).getTask_title(), tasks_list.get(position).getTime(), tasks_list.get(position).getDate(), tasks_list.get(position).getCategory(), tasks_list.get(position).getDescription(), true,date_now,time_now);
+                Task_Model new_finished_task = new Task_Model(tasks_list.get(position).getTask_title(), tasks_list.get(position).getTime(), tasks_list.get(position).getDate(), tasks_list.get(position).getCategory(), tasks_list.get(position).getDescription(), true,tasks_list.get(position).getCurrent_date(),tasks_list.get(position).getCurrent_time());
                 new_finished_task.setIs_finished(true);
                 Utils.UpdateTask(tasks_list.get(position), new_finished_task, context);
                 tasks_list.get(position).setIs_finished(true);

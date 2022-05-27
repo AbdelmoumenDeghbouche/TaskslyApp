@@ -42,6 +42,7 @@ public class Home_Fragment extends Fragment {
         Saved_tasks_fragment = new Tasks_fragment();
 
 
+
         View view = inflater.inflate(R.layout.fragment_home_, container, false) ;
 
         // set the fragment2 (list of tasks that will appear when we click on a specific category )  when we entered the mainactivity
