@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.icu.util.Calendar;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
@@ -38,6 +39,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 
 public class TaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TimePickerDialog.OnTimeSetListener {
     private final String[] categories = new String[Utils.getCategories_list().size() - 1];
@@ -72,6 +74,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +119,9 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
             edit_text_name_of_the_task.setText(task_model.getTask_title());
             txt_date_of_the_task_in_task_activity.setText(task_model.getDate());
             txt_time_of_task_in_activity_task.setText(task_model.getTime());
-            task_model1_without_changes = new Task_Model(task_model.getTask_title(), task_model.getTime(), task_model.getDate(), new Category_Model(category_name_of_selecteed_task), task_model.getDescription(), false);
+            String date_now = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
+            String time_now = new SimpleDateFormat("HH:mm:ss a").format(Calendar.getInstance().getTime());
+            task_model1_without_changes = new Task_Model(task_model.getTask_title(), task_model.getTime(), task_model.getDate(), new Category_Model(category_name_of_selecteed_task), task_model.getDescription(), false,date_now,time_now);
 
 
         }

@@ -465,7 +465,7 @@ public class Utils {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     for (DataSnapshot task : snapshot.getChildren()) {
-                        if (task.getValue(Task_Model.class).getDate().equals(oldtask.getDate()) && task.getValue(Task_Model.class).getTime().equals(oldtask.getTime())) {
+                        if (task.getValue(Task_Model.class).getCurrent_date().equals(oldtask.getCurrent_date()) && task.getValue(Task_Model.class).getCurrent_time().equals(oldtask.getCurrent_time())) {
                             // means this is the task that we want to update so we update it
                             FirebaseDatabase.getInstance().getReference().child("Tasks").child(oldtask.getCategory().getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(task.getKey()).setValue(newtask).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -480,7 +480,7 @@ public class Utils {
                         }
                     }
                 } else {
-                    Toast.makeText(context, "No task found !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(contexto, "No task found !", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -508,7 +508,7 @@ public class Utils {
                         }
                     }
                 } else {
-                    Toast.makeText(context, "No task found !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(contextoo, "No task found !", Toast.LENGTH_SHORT).show();
                 }
             }
 
