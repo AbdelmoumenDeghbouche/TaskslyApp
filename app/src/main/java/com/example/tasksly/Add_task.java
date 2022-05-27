@@ -76,7 +76,7 @@ public class Add_task extends AppCompatActivity {
 
         // setting the categories recycler view
 
-        adapter = new Categoty_list_adapter(getApplicationContext());
+        adapter = new Categoty_list_adapter(Add_task.this);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -162,7 +162,7 @@ public class Add_task extends AppCompatActivity {
                     dialog = progressDialog.show();
                     dialog.show();
                     Utils.AddTaskToFirebase(task_model);
-                    Tasks_fragment.adapter.notifyDataSetChanged();
+
 
                 }
 
@@ -229,5 +229,11 @@ public class Add_task extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Utils.is_this_adapter_Home_fragment = false;
     }
 }

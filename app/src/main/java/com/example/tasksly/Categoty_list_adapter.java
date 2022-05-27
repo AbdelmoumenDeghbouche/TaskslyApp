@@ -29,6 +29,7 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
     private final Context context;
     private ArrayList<Category_Model> categories = new ArrayList<>();
     private String Name_of_the_category;
+
     private int counter;
 
     public Categoty_list_adapter(Context context) {
@@ -83,7 +84,7 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
                         Utils.category_map.put(viewHolderTwo.edit_text_enter_the_name_of_the_category.getText().toString(), new ArrayList<>());
 
                         Category_Model category_model_coming_from_dialogue = new Category_Model(Name_of_the_category);
-                        Utils.AddCategoryToFirebase(category_model_coming_from_dialogue,context.getApplicationContext());
+                        Utils.AddCategoryToFirebase(category_model_coming_from_dialogue, context.getApplicationContext());
 //                        categories.add(categories.size() - 1, category_model_coming_from_dialogue);
                         viewHolderTwo.edit_text_enter_the_name_of_the_category.setText("");
                         Toast.makeText(context, "Category added", Toast.LENGTH_SHORT).show();
@@ -110,6 +111,7 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
             });
         } else {
             ViewHolderOne viewHolderOne = (ViewHolderOne) holder;
+
             viewHolderOne.txt_category_name.setText(categories.get(position).getCategory_name());
             viewHolderOne.parent_cardview_layout_of_category_name.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -118,13 +120,16 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
                     row_index = position;
                     notifyDataSetChanged();
                     Log.d(TAG, "category map: " + Categoty_list_adapter.row_index);
-                    if (Tasks_fragment.adapter!= null){
-                        ArrayList<Task_Model> tasks_list = Utils.GetTasksListOfSpecificCategory(Utils.getCategories_list().get(position).getCategory_name());
 
-                        Tasks_fragment.adapter.setTasks(Utils.return_only_not_completed_tasks(tasks_list));
-                        Tasks_fragment.adapter.notifyDataSetChanged();
-                        notifyDataSetChanged();
+                    if (Utils.is_this_adapter_Home_fragment) {
+                        if (Tasks_fragment.adapter != null) {
+                            ArrayList<Task_Model> tasks_list = Utils.GetTasksListOfSpecificCategory(Utils.getCategories_list().get(position).getCategory_name());
+                            Tasks_fragment.adapter.setTasks(Utils.return_only_not_completed_tasks(tasks_list));
+                            Tasks_fragment.adapter.notifyDataSetChanged();
+                            notifyDataSetChanged();
 
+
+                        }
                     }
 
 
@@ -164,12 +169,11 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
         private final RelativeLayout parent_relative_layout_of_add_category;
         private final TextView txt_has_no_utility;
         private final ImageView add_category_image_view;
-        private String Name_of_the_category;
-
         private final Dialog add_category_dialogue;
         private final Button btn_confirm_adding_category;
         private final Button btn_cancel_adding_category;
         private final EditText edit_text_enter_the_name_of_the_category;
+        private String Name_of_the_category;
 
         public ViewHolderTwo(@NonNull View itemView) {
             super(itemView);

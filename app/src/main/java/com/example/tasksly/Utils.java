@@ -54,10 +54,10 @@ public class Utils {
     public static Context context;
     public static Dialog add_task_dialogue;
     public static URL myUrl = null;
-    public static String private_task_pin_code ="";
+    public static String private_task_pin_code = "";
     public static int exists = 0;
-    public  static  boolean task_uploaded ;
-
+    public static boolean is_this_adapter_Home_fragment = false;
+    public static boolean task_uploaded;
 
 
     public static int getIndexOfCategoryModelByCategoryName(String CategoryName) {
@@ -109,11 +109,6 @@ public class Utils {
         }
         if (tasks_list.isEmpty()) {
             tasks_list = Utils.GetAllTasksFromFirebase();
-
-
-
-
-
 
 
 //            Category_Model general = new Category_Model("General");
@@ -279,6 +274,7 @@ public class Utils {
         }
         return task_modelArrayList1;
     }
+
     public static ArrayList<Task_Model> return_only_completed_tasks(ArrayList<Task_Model> task_modelArrayList) {
         ArrayList<Task_Model> task_modelArrayList1 = new ArrayList<>();
         for (int i = 0; i < task_modelArrayList.size(); i++) {
@@ -312,31 +308,32 @@ public class Utils {
             }
         }
     }
-    public static void AddTaskToFirebase(Task_Model task ){
-        if (task != null){
+
+    public static void AddTaskToFirebase(Task_Model task) {
+        if (task != null) {
             Category_Model category = task.getCategory();
-            if (category != null){
+            if (category != null) {
                 //if (categoryIsExist(category.getCategory_name())){
-                    FirebaseDatabase.getInstance().getReference().child("Tasks").child(category.getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(task).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
+                FirebaseDatabase.getInstance().getReference().child("Tasks").child(category.getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(task).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
 //                                Toast.makeText(contextt, "Your task has been saved successfully !", Toast.LENGTH_SHORT).show();
-                               if (add_task_dialogue != null){
-                                   Add_task.dialog.dismiss();
-
-                               }
-                                task_uploaded = true;
-                                Utils.tasks_list =Utils.GetAllTasksFromFirebase();
-
-
-                            } else {
-//                                Toast.makeText(contextt, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            if (add_task_dialogue != null) {
                                 Add_task.dialog.dismiss();
-                                task_uploaded =false;
+
                             }
+                            task_uploaded = true;
+                            Utils.tasks_list = Utils.GetAllTasksFromFirebase();
+
+
+                        } else {
+//                                Toast.makeText(contextt, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Add_task.dialog.dismiss();
+                            task_uploaded = false;
                         }
-                    });
+                    }
+                });
 //                } else {
 //                    Toast.makeText(contextt, "No category with this name !", Toast.LENGTH_SHORT).show();
 //                    Add_task.dialog.dismiss();
@@ -351,23 +348,24 @@ public class Utils {
         }
     }
 
-    public static ArrayList<Task_Model> GetAllTasksFromFirebase(){
+    public static ArrayList<Task_Model> GetAllTasksFromFirebase() {
         ArrayList<Task_Model> list = new ArrayList<>();
         FirebaseDatabase.getInstance().getReference().child("Tasks").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    for (DataSnapshot category : snapshot.getChildren()){
+                if (snapshot.exists()) {
+                    for (DataSnapshot category : snapshot.getChildren()) {
                         FirebaseDatabase.getInstance().getReference().child("Tasks").child(category.getKey()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.exists()){
-                                    for (DataSnapshot task : snapshot.getChildren()){
+                                if (snapshot.exists()) {
+                                    for (DataSnapshot task : snapshot.getChildren()) {
                                         Task_Model UserTask = task.getValue(Task_Model.class);
                                         list.add(UserTask);
                                     }
                                 }
                             }
+
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
                             }
@@ -375,21 +373,22 @@ public class Utils {
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-        Log.d("Task name ",list.toString());
-        return list ;
+        Log.d("Task name ", list.toString());
+        return list;
     }
 
-    public static void AddCategoryToFirebase(Category_Model Newcategory,Context contexto){
+    public static void AddCategoryToFirebase(Category_Model Newcategory, Context contexto) {
         FirebaseDatabase.getInstance().getReference().child("Tasks").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot category : snapshot.getChildren()){
-                    if (category.getKey().equals(Newcategory.getCategory_name())){
-                        exists = 1 ;
+                for (DataSnapshot category : snapshot.getChildren()) {
+                    if (category.getKey().equals(Newcategory.getCategory_name())) {
+                        exists = 1;
                         break;
                     }
                 }
@@ -398,7 +397,7 @@ public class Utils {
                     FirebaseDatabase.getInstance().getReference().child("Tasks").child(Newcategory.getCategory_name()).setValue("initial").addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 Toast.makeText(contexto, "Category added successfully !", Toast.LENGTH_SHORT).show();
                                 Home_Fragment.adapter.setCategories(GetAllCatgoriesFromFirebse());
 
@@ -419,20 +418,20 @@ public class Utils {
         });
     }
 
-    public static ArrayList<Category_Model> GetAllCatgoriesFromFirebse(){
-        ArrayList<Category_Model> list = new ArrayList<>() ;
+    public static ArrayList<Category_Model> GetAllCatgoriesFromFirebse() {
+        ArrayList<Category_Model> list = new ArrayList<>();
         FirebaseDatabase.getInstance().getReference().child("Tasks").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot category : snapshot.getChildren()){
+                for (DataSnapshot category : snapshot.getChildren()) {
                     String name = category.getKey();
                     Category_Model model = new Category_Model(name);
                     list.add(model);
-                    if (Home_Fragment.adapter !=null){
+                    if (Home_Fragment.adapter != null) {
                         Home_Fragment.adapter.notifyDataSetChanged();
 
                     }
-                    if (Add_task.adapter!= null){
+                    if (Add_task.adapter != null) {
                         Add_task.adapter.notifyDataSetChanged();
                     }
                 }
@@ -440,37 +439,40 @@ public class Utils {
 
 
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-        return list ;
+        return list;
     }
-    public static ArrayList<Task_Model> GetTasksListOfSpecificCategory(String categoryName){
+
+    public static ArrayList<Task_Model> GetTasksListOfSpecificCategory(String categoryName) {
         ArrayList<Task_Model> task_models = new ArrayList<>();
 
-        for (int i =0 ; i<tasks_list.size() ; i++ ){
-            if (tasks_list.get(i).getCategory().getCategory_name().equals(categoryName)){
+        for (int i = 0; i < tasks_list.size(); i++) {
+            if (tasks_list.get(i).getCategory().getCategory_name().equals(categoryName)) {
                 task_models.add(tasks_list.get(i));
             }
 
         }
         return task_models;
     }
-    public static void UpdateTask(Task_Model newtask ,Task_Model oldtask,Context contexto){
+
+    public static void UpdateTask(Task_Model newtask, Task_Model oldtask, Context contexto) {
         FirebaseDatabase.getInstance().getReference().child("Tasks").child(oldtask.getCategory().getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    for (DataSnapshot task : snapshot.getChildren()){
-                        if (task.getValue(Task_Model.class).getDate().equals(oldtask.getDate()) && task.getValue(Task_Model.class).getTime().equals(oldtask.getTime())){
+                if (snapshot.exists()) {
+                    for (DataSnapshot task : snapshot.getChildren()) {
+                        if (task.getValue(Task_Model.class).getDate().equals(oldtask.getDate()) && task.getValue(Task_Model.class).getTime().equals(oldtask.getTime())) {
                             // means this is the task that we want to update so we update it
                             FirebaseDatabase.getInstance().getReference().child("Tasks").child(oldtask.getCategory().getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(task.getKey()).setValue(newtask).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()){
+                                    if (task.isSuccessful()) {
                                         Toast.makeText(contexto, "Task updated successfully !", Toast.LENGTH_SHORT).show();
-                                    }else {
+                                    } else {
                                         Toast.makeText(contexto, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 }
@@ -481,6 +483,7 @@ public class Utils {
                     Toast.makeText(context, "No task found !", Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -488,11 +491,11 @@ public class Utils {
         });
     }
 
-    public static void DeleteTask(Task_Model oldtask,Context contextoo){
+    public static void DeleteTask(Task_Model oldtask, Context contextoo) {
         FirebaseDatabase.getInstance().getReference().child("Tasks").child(oldtask.getCategory().getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
+                if (snapshot.exists()) {
                     for (DataSnapshot task : snapshot.getChildren()) {
                         if (task.getValue(Task_Model.class).getDate().equals(oldtask.getDate()) && task.getValue(Task_Model.class).getTime().equals(oldtask.getTime())) {
                             // means this is the task that we want to delete so we delete it
@@ -508,6 +511,7 @@ public class Utils {
                     Toast.makeText(context, "No task found !", Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,8 +18,17 @@ import java.util.ArrayList;
 
 public class Tasks_fragment extends Fragment {
     public static Task_list_adapter adapter;
-    private RecyclerView tasks_list_recycler_view;
+    ArrayList<Task_Model> tasks_list;
+    public RecyclerView tasks_list_recycler_view;
     private int roww;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState!=null){
+            tasks_list =savedInstanceState.getParcelableArrayList("Taskslist");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,14 +45,17 @@ public class Tasks_fragment extends Fragment {
         Utils.initTasksList();
         if (Categoty_list_adapter.row_index == 0) {
             Log.d(TAG, "trueeeeeeeeeee: ");
-            ArrayList<Task_Model> tasks_list = Utils.GetTasksListOfSpecificCategory("Education");
 
-//          ArrayList<Task_Model> tasks_list = Utils.category_map.get(Utils.getCategories_list().get(Categoty_list_adapter.row_index).getCategory_name());
-            adapter.setTasks(Utils.return_only_not_completed_tasks(tasks_list));
-            adapter.notifyDataSetChanged();
         }
 
 
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("Taskslist",tasks_list);
+
     }
 }

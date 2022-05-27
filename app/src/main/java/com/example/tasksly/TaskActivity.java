@@ -1,7 +1,6 @@
 package com.example.tasksly;
 
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
-
 import static com.yalantis.ucrop.UCropFragment.TAG;
 
 import android.annotation.SuppressLint;
@@ -222,6 +221,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
         });
 
         back_button_from_task_activity_to_main.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
@@ -244,7 +244,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
                 } else {
                     task_model.setCategory(new Category_Model(spinner_categories.getSelectedItem().toString()));
                     Log.d(TAG, "Old Task: " + task_model1_without_changes.toString());
-                    Utils.DeleteTask(task_model1_without_changes,getApplicationContext());
+                    Utils.DeleteTask(task_model1_without_changes, getApplicationContext());
                     Utils.AddTaskToFirebase(task_model);
                     Utils.tasks_list = Utils.GetAllTasksFromFirebase();
                     Tasks_fragment.adapter.notifyDataSetChanged();

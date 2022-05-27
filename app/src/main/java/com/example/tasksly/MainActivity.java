@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.os.StrictMode;
 import android.provider.Settings;
 import android.util.Log;
@@ -40,19 +41,18 @@ public class MainActivity extends AppCompatActivity {
     private static final int CAMERA_INTENT_CODE = 270;
     private static final int SETTINGS_PERMISSION_CODE = 171;
     private static final int SETTINGS_INTENT_CODE = 271;
-
-
-    private boolean changed_statemnt_of_fragment_when_clicking_on_chip_naviation_bar =true;
     public static ChipNavigationBar chipNavigationBar;
     public static Uri uri;
+    public static Tasks_fragment Saved_tasks_fragment;
+    public Dialog add_task_dialogue;
     boolean is_clicked;
     Fragment fragment;
     LinearLayout Linear_layout_add_task, Linear_layout_import_image, Linear_layout_Take_photo_by_camera;
     ImageView img_view_close_dialogue_of_add_new_task;
-    public  Dialog add_task_dialogue;
-    private RelativeLayout Main_activity_layout_parent;
+    Home_Fragment Saved_home_fragment;
     NetworkChangeListener networkChangeListener = new NetworkChangeListener();
-
+    private boolean changed_statemnt_of_fragment_when_clicking_on_chip_naviation_bar = true;
+    private RelativeLayout Main_activity_layout_parent;
 
     @SuppressLint("UseCompatLoadingForDrawables")
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
+        Saved_home_fragment = new Home_Fragment();
         add_task_dialogue = new Dialog(MainActivity.this);
         add_task_dialogue.setContentView(R.layout.add_task_or_imort_image_dialogue);
         add_task_dialogue.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_of_dialogue_add_category));
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, Add_task.class));
             }
         });
-      Linear_layout_Take_photo_by_camera.setOnClickListener(new View.OnClickListener() {
+        Linear_layout_Take_photo_by_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 add_task_dialogue.dismiss();
@@ -144,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 //.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                 .replace(R.id.frame, new Home_Fragment())
                 .commit();
-    
+
         // navigation bar clicking interaction
         chipNavigationBar.setItemSelected(R.id.home, true);
         chipNavigationBar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
@@ -153,22 +154,21 @@ public class MainActivity extends AppCompatActivity {
                 fragment = null;
                 switch (i) {
                     case R.id.home:
-                        if (changed_statemnt_of_fragment_when_clicking_on_chip_naviation_bar){
-                            fragment = new Home_Fragment();
+                        if (changed_statemnt_of_fragment_when_clicking_on_chip_naviation_bar) {
+                            fragment = Saved_home_fragment;
 
                         }
                         break;
                     case R.id.add:
                         add_task_dialogue.show();
                         chipNavigationBar.setItemSelected(R.id.home, true);
-                        changed_statemnt_of_fragment_when_clicking_on_chip_naviation_bar= false;
-
+                        changed_statemnt_of_fragment_when_clicking_on_chip_naviation_bar = false;
 
 
                         break;
                     case R.id.settings:
                         fragment = new Settings_Fragment();
-                        changed_statemnt_of_fragment_when_clicking_on_chip_naviation_bar =true;
+                        changed_statemnt_of_fragment_when_clicking_on_chip_naviation_bar = true;
                         break;
                 }
                 if (fragment != null) {
@@ -218,24 +218,34 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         uri = data.getData();
-        if (uri != null){
+        if (uri != null) {
             URL url = Utils.ParseUrl(uri);
 
-            if (null != url){
+            if (null != url) {
+                Log.d(TAG, "uri when url not null : "+ uri+  " " + url);
+
                 Utils.OcrExtraction(url.toString());
                 Toast.makeText(this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
 
-            }
-            else {
-                Toast.makeText(this, "Operation Failed Please Upload the Image Again", Toast.LENGTH_LONG).show();
+            } else {
+                URL url2 = Utils.ParseUrl(uri);
+                if (null!=url2){
+                    Utils.OcrExtraction(url2.toString());
+                }
+                else {
+                    Log.d(TAG, "uri when url is null : "+ uri + "  " +url2);
+
+                    Toast.makeText(this, "Operation Failed Please Upload the Image Again", Toast.LENGTH_LONG).show();
+
+                }
 
 
+
             }
-        }
-        else {
+        } else {
             Toast.makeText(this, "Please Upload Your Photo", Toast.LENGTH_LONG).show();
         }
-      
+
 //        Log.d(TAG, "OCr: " + Utils.ParseUrl(uri).toString());
 //          if (uri!= null){
 //        Utils.OcrExtraction(Utils.ParseUrl(uri).toString());
@@ -245,9 +255,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+        Saved_tasks_fragment = new Tasks_fragment();
+
+    }
+
+    @Override
     protected void onStart() {
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(networkChangeListener,intentFilter);
+        registerReceiver(networkChangeListener, intentFilter);
+
         super.onStart();
 
     }
@@ -257,6 +275,19 @@ public class MainActivity extends AppCompatActivity {
 
         unregisterReceiver(networkChangeListener);
         super.onStop();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (chipNavigationBar.getSelectedItemId()==R.id.settings){
+            chipNavigationBar.setItemSelected(R.id.home, true);
+            fragment = Saved_home_fragment;
+
+        }
+        else {
+            super.onBackPressed();
+
+        }
     }
 }
 

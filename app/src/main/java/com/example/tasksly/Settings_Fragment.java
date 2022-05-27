@@ -23,7 +23,6 @@ public class Settings_Fragment extends Fragment {
 
         return view;
     }
-
     public void AssingElements(View view) {
 
         relativeLayout = view.findViewById(R.id.On_relalive_layout);
@@ -50,7 +49,6 @@ public class Settings_Fragment extends Fragment {
                 is_clicked = !is_clicked;
             }
         });
-
 
     }
 }
