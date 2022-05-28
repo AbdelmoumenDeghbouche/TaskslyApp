@@ -63,7 +63,7 @@ public class Profile_activity extends AppCompatActivity {
         join_membership.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Profile_activity.this,CongratsMembership.class);
+                Intent intent=new Intent(Profile_activity.this,CryptoPay.class);
                 startActivity(intent);
             }
         });

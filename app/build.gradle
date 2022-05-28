@@ -85,7 +85,6 @@ dependencies {
 
 
 
-
     // otp verification
     implementation "com.chaos.view:pinview:1.4.4"
     //web3j

@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.SystemClock;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -27,7 +26,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class OcrRequestAsync extends AsyncTask<String, Void, Response>{
+public class OcrRequestAsync extends AsyncTask<String, Void, Response> {
 
     String url;
 
@@ -118,9 +117,7 @@ public class OcrRequestAsync extends AsyncTask<String, Void, Response>{
         } catch (JSONException e) {
             e.printStackTrace();
 
-        }catch (Exception e){
-            //TODO: show toast for bad table image
-                   }
+        }
 
 
 //        text.setText(response.header("message"));

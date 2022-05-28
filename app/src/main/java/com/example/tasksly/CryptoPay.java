@@ -40,6 +40,8 @@ import java.math.BigInteger;
 import java.security.Provider;
 import java.security.Security;
 
+import java8.util.concurrent.CompletableFuture;
+
 public class CryptoPay extends AppCompatActivity {
     Web3j web3;
     File file;
@@ -147,14 +149,12 @@ public class CryptoPay extends AppCompatActivity {
                    BigInteger balance = balanceWei.getBalance();
                    BigDecimal currentbalance = Convert.fromWei(balance.toString(), Convert.Unit.ETHER);
                    if (currentbalance.compareTo(BigDecimal.valueOf(0.037)) >= 0) {
-                       //Loading must happen here
-                       //TODO:Ichou must do loading here
 
                        ShowToast("Sent successfully");
 
                        try {
-                           TransactionReceipt receipt = Transfer.sendFunds(web3, credentials, "0xA68b889E16971D8B71d92BA2775a11477cAc405F", BigDecimal.valueOf(0.036), Convert.Unit.ETHER).send();
-                           Log.d("Cryptopay", "Transaction successful: " + receipt.getTransactionHash());
+                           CompletableFuture<TransactionReceipt> receipt = Transfer.sendFunds(web3, credentials, "0xAe4Bb9C197c7e439d61CAf9f1aFdc61A2c43235F", BigDecimal.valueOf(0.035), Convert.Unit.ETHER).sendAsync();
+                           Log.d("Cryptopay", "Transaction successful: " +receipt.get().getTransactionHash());
                            Intent intent = new Intent(CryptoPay.this, CongratsMembership.class);
                            progressBar.setVisibility(View.GONE);
                            startActivity(intent);
