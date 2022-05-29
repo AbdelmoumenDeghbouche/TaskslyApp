@@ -57,7 +57,7 @@ public class Utils {
     public static String private_task_pin_code = "";
     public static int exists = 0;
     public static boolean is_this_adapter_Home_fragment = false;
-    public static boolean task_uploaded;
+    public static boolean task_uploaded = false;
 
 
     public static int getIndexOfCategoryModelByCategoryName(String CategoryName) {
@@ -275,6 +275,7 @@ public class Utils {
         return task_modelArrayList1;
     }
 
+
     public static ArrayList<Task_Model> return_only_completed_tasks(ArrayList<Task_Model> task_modelArrayList) {
         ArrayList<Task_Model> task_modelArrayList1 = new ArrayList<>();
         for (int i = 0; i < task_modelArrayList.size(); i++) {
@@ -309,20 +310,62 @@ public class Utils {
         }
     }
 
-    public static void AddTaskToFirebase(Task_Model task) {
-        if (task != null){
+    public static boolean AddTaskToFirebase(Task_Model task, Context context1) {
+        if (task != null) {
             Category_Model category = task.getCategory();
-            if (category != null){
+            if (category != null) {
                 //if (categoryIsExist(category.getCategory_name())){
                 FirebaseDatabase.getInstance().getReference().child("Tasks").child(category.getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(task).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-//                            Toast.makeText(contextt, "Your task has been saved successfully !", Toast.LENGTH_SHORT).show();
-                            Add_task.dialog.dismiss();
+                        if (task.isSuccessful()) {
+
+                            Toast.makeText(context1, "Your task has been saved successfully !", Toast.LENGTH_SHORT).show();
+                            if (Add_task.dialog != null) {
+                                Add_task.dialog.dismiss();
+                                task_uploaded = true;
+                            }
                         } else {
-//                            Toast.makeText(contextt, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context1, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             Add_task.dialog.dismiss();
+                            task_uploaded =false;
+                        }
+                    }
+                });
+//                } else {
+//                    Toast.makeText(contextt, "No category with this name !", Toast.LENGTH_SHORT).show();
+//                    Add_task.dialog.dismiss();
+//                }
+            } else {
+//                Toast.makeText(contextt, "Please select a category !", Toast.LENGTH_SHORT).show();
+                Add_task.dialog.dismiss();
+
+            }
+        } else {
+//            Toast.makeText(contextt, "No task to add !", Toast.LENGTH_SHORT).show();
+            Add_task.dialog.dismiss();
+        }
+        return task_uploaded;
+    }
+
+    public static boolean AddTaskToFirebasewithoutcontext(Task_Model task) {
+        if (task != null) {
+            Category_Model category = task.getCategory();
+            if (category != null) {
+                //if (categoryIsExist(category.getCategory_name())){
+                FirebaseDatabase.getInstance().getReference().child("Tasks").child(category.getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(task).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+//                            Toast.makeText(context1, "Your task has been saved successfully !", Toast.LENGTH_SHORT).show();
+                            if (Add_task.dialog != null) {
+                                Add_task.dialog.dismiss();
+                                task_uploaded =true;
+                            }
+                        } else {
+//                            Toast.makeText(context1, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Add_task.dialog.dismiss();
+                            task_uploaded =false;
                         }
                     }
                 });
@@ -338,9 +381,11 @@ public class Utils {
 //            Toast.makeText(contextt, "No task to add !", Toast.LENGTH_SHORT).show();
             Add_task.dialog.dismiss();
         }
+        return task_uploaded;
     }
 
     public static ArrayList<Task_Model> GetAllTasksFromFirebase() {
+
         ArrayList<Task_Model> list = new ArrayList<>();
         FirebaseDatabase.getInstance().getReference().child("Tasks").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -374,7 +419,7 @@ public class Utils {
         return list;
     }
 
-    public static void AddCategoryToFirebase(Category_Model Newcategory, Context contexto) {
+    public static boolean AddCategoryToFirebase(Category_Model Newcategory, Context contexto) {
         FirebaseDatabase.getInstance().getReference().child("Tasks").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -391,7 +436,7 @@ public class Utils {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(contexto, "Category added successfully !", Toast.LENGTH_SHORT).show();
-                                Home_Fragment.adapter.setCategories(GetAllCatgoriesFromFirebse());
+//                                Home_Fragment.adapter.setCategories(GetAllCatgoriesFromFirebse());
 
                             }
                         }
@@ -408,6 +453,7 @@ public class Utils {
 
             }
         });
+        return task_uploaded;
     }
 
     public static ArrayList<Category_Model> GetAllCatgoriesFromFirebse() {
@@ -419,13 +465,7 @@ public class Utils {
                     String name = category.getKey();
                     Category_Model model = new Category_Model(name);
                     list.add(model);
-                    if (Home_Fragment.adapter != null) {
-                        Home_Fragment.adapter.notifyDataSetChanged();
 
-                    }
-                    if (Add_task.adapter != null) {
-                        Add_task.adapter.notifyDataSetChanged();
-                    }
                 }
                 list.add(new Category_Model("add_category"));
 
@@ -445,6 +485,18 @@ public class Utils {
         for (int i = 0; i < tasks_list.size(); i++) {
             if (tasks_list.get(i).getCategory().getCategory_name().equals(categoryName)) {
                 task_models.add(tasks_list.get(i));
+            }
+
+        }
+        return task_models;
+    }
+
+    public static ArrayList<Task_Model> GetTasksListOfSpecificCategory(String categoryName, ArrayList<Task_Model> Parcoured) {
+        ArrayList<Task_Model> task_models = new ArrayList<>();
+
+        for (int i = 0; i < Parcoured.size(); i++) {
+            if (Parcoured.get(i).getCategory().getCategory_name().equals(categoryName)) {
+                task_models.add(Parcoured.get(i));
             }
 
         }

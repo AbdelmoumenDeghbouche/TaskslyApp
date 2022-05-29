@@ -38,6 +38,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 public class TaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TimePickerDialog.OnTimeSetListener {
     private final String[] categories = new String[Utils.getCategories_list().size() - 1];
@@ -222,7 +223,6 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
         });
 
         back_button_from_task_activity_to_main.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("NotifyDataSetChanged")
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
@@ -241,6 +241,10 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
 
                     Utils.UpdateTask(task_model, task_model1_without_changes, getApplicationContext());
                     Utils.tasks_list = Utils.GetAllTasksFromFirebase();
+                    ArrayList<Task_Model> task_modelArrayList =Utils.GetTasksListOfSpecificCategory(Utils.categories_list.get(Categoty_list_adapter.row_index).getCategory_name());
+
+                    Tasks_fragment.adapter.setTasks(Utils.return_only_not_completed_tasks(task_modelArrayList));
+
                     Tasks_fragment.adapter.notifyDataSetChanged();
 
 
@@ -248,7 +252,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
                     task_model.setCategory(new Category_Model(spinner_categories.getSelectedItem().toString()));
                     Log.d(TAG, "Old Task: " + task_model1_without_changes.toString());
                     Utils.DeleteTask(task_model1_without_changes, getApplicationContext());
-                    Utils.AddTaskToFirebase(task_model);
+                    Utils.AddTaskToFirebase(task_model,getApplicationContext());
                     Utils.tasks_list = Utils.GetAllTasksFromFirebase();
                     Tasks_fragment.adapter.notifyDataSetChanged();
 

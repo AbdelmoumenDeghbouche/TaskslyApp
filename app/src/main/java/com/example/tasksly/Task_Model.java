@@ -15,17 +15,18 @@ public class Task_Model implements Parcelable {
     private String current_date ;
     private String current_time ;
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Task_Model)) return false;
         Task_Model that = (Task_Model) o;
-        return is_finished == that.is_finished && is_notified == that.is_notified && Objects.equals(task_title, that.task_title) && Objects.equals(time, that.time) && Objects.equals(date, that.date) && Objects.equals(category, that.category) && Objects.equals(description, that.description);
+        return is_finished == that.is_finished && is_notified == that.is_notified && Objects.equals(task_title, that.task_title) && Objects.equals(time, that.time) && Objects.equals(date, that.date) && Objects.equals(category, that.category) && Objects.equals(description, that.description) && Objects.equals(current_date, that.current_date) && Objects.equals(current_time, that.current_time);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(task_title, time, date, category, is_finished, is_notified, description);
+        return Objects.hash(task_title, time, date, category, is_finished, is_notified, description, current_date, current_time);
     }
 
     public Task_Model() {

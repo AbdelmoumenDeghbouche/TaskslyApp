@@ -123,6 +123,7 @@ public class Categoty_list_adapter extends RecyclerView.Adapter {
 
                     if (Utils.is_this_adapter_Home_fragment) {
                         if (Tasks_fragment.adapter != null) {
+
                             ArrayList<Task_Model> tasks_list = Utils.GetTasksListOfSpecificCategory(Utils.getCategories_list().get(position).getCategory_name());
                             Tasks_fragment.adapter.setTasks(Utils.return_only_not_completed_tasks(tasks_list));
                             Tasks_fragment.adapter.notifyDataSetChanged();

@@ -74,6 +74,8 @@
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_profile.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_signup.xml" value="0.12013888888888889" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_task.xml" value="0.176" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_vip.xml" value="0.16216216216216217" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_vip_special_2.xml" value="0.16216216216216217" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_welcom.xml" value="0.12013888888888889" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/add_category_daialogue.xml" value="0.4" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/add_category_view.xml" value="0.1" />
@@ -87,6 +89,9 @@
         <entry key="..\:/Tasksly/app/src/main/res/layout/internet_connection_lost_dialogue.xml" value="0.264" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/private_tasks_pin_dialogue.xml" value="0.2" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/task_recycler_view.xml" value="0.264" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/toolbar_vip_normal.xml" value="0.16216216216216217" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/vip_price_symbol.xml" value="0.16216216216216217" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/widget_layout_tasklist_vip.xml" value="0.16216216216216217" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.209" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/about_user_items_background.xml" value="0.1225" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Tasksly/app/src/main/res/drawable/add_category.xml" value="0.209" />

@@ -104,7 +104,7 @@ public class OcrRequestAsync extends AsyncTask<String, Void, Response> {
                         // this date and time variables are used just to create a different parent fir very child
                         String date_now = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
                         String time_now = new SimpleDateFormat("HH:mm:ss a").format(Calendar.getInstance().getTime());
-                        Utils.AddTaskToFirebase(new Task_Model(cells.get(j).text, cells.get((row - 1) * colsize).text, Utils.nextDayDate(cells.get(i).text), new Category_Model("General"), "", true,date_now,time_now));
+                        Utils.AddTaskToFirebasewithoutcontext(new Task_Model(cells.get(j).text, cells.get((row - 1) * colsize).text, Utils.nextDayDate(cells.get(i).text), new Category_Model("General"), "", true,date_now,time_now));
                         j += colsize;
                         row += 1;
                     }

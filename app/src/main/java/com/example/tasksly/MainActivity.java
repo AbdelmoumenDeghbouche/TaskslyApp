@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView img_view_close_dialogue_of_add_new_task;
     Home_Fragment Saved_home_fragment;
     NetworkChangeListener networkChangeListener = new NetworkChangeListener();
-    private boolean changed_statemnt_of_fragment_when_clicking_on_chip_naviation_bar = true;
+    private boolean changed_statemnt_of_fragment_when_clicking_on_chip_naviation_bar = false;
     private RelativeLayout Main_activity_layout_parent;
 
     @SuppressLint("UseCompatLoadingForDrawables")
