@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class Tasks_fragment extends Fragment {
     private RecyclerView tasks_list_recycler_view;
-    private Task_list_adapter adapter;
+    public static  Task_list_adapter adapter;
     private int roww;
 
     @Override
