@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,6 +59,7 @@ public class Utils {
     public static int exists = 0;
     public static boolean is_this_adapter_Home_fragment = false;
     public static boolean task_uploaded;
+    public static boolean member = false ;
 
 
     public static int getIndexOfCategoryModelByCategoryName(String CategoryName) {
@@ -165,7 +167,10 @@ public class Utils {
     public static void AddTaskByTaskModel(Task_Model task_model) {
         if (tasks_list != null) {
             Log.d(TAG, "AddTaskByTaskModel: Niccce");
-            Category_Model category_model = task_model.getCategory();
+            Category_Model category_model = null;
+            if (task_model != null){
+                category_model = task_model.getCategory();
+            }
             if (category_model != null) {
                 Log.d(TAG, "AddTaskByTaskModel: Niccce2");
 
@@ -310,27 +315,19 @@ public class Utils {
     }
 
     public static void AddTaskToFirebase(Task_Model task) {
-        if (task != null) {
+        if (task != null){
             Category_Model category = task.getCategory();
-            if (category != null) {
+            if (category != null){
                 //if (categoryIsExist(category.getCategory_name())){
                 FirebaseDatabase.getInstance().getReference().child("Tasks").child(category.getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(task).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-//                                Toast.makeText(contextt, "Your task has been saved successfully !", Toast.LENGTH_SHORT).show();
-                            if (add_task_dialogue != null) {
-                                Add_task.dialog.dismiss();
-
-                            }
-                            task_uploaded = true;
-                            Utils.tasks_list = Utils.GetAllTasksFromFirebase();
-
-
-                        } else {
-//                                Toast.makeText(contextt, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        if (task.isSuccessful()){
+//                            Toast.makeText(contextt, "Your task has been saved successfully !", Toast.LENGTH_SHORT).show();
                             Add_task.dialog.dismiss();
-                            task_uploaded = false;
+                        } else {
+//                            Toast.makeText(contextt, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Add_task.dialog.dismiss();
                         }
                     }
                 });
@@ -517,5 +514,24 @@ public class Utils {
 
             }
         });
+    }
+
+    public static boolean Is_member(){
+        FirebaseUser auth = FirebaseAuth.getInstance().getCurrentUser() ;
+        if (auth != null){
+            FirebaseDatabase.getInstance().getReference().child("Users").child(auth.getUid()).child("is_memeber").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()){
+                        member = snapshot.getValue(boolean.class) ;
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+        }
+        return member ;
     }
 }

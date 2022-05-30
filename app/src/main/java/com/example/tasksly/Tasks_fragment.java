@@ -1,6 +1,6 @@
 package com.example.tasksly;
 
-import static com.yalantis.ucrop.UCropFragment.TAG;
+import static android.content.ContentValues.TAG;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,18 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class Tasks_fragment extends Fragment {
-    public static Task_list_adapter adapter;
-    ArrayList<Task_Model> tasks_list;
-    public RecyclerView tasks_list_recycler_view;
+    private RecyclerView tasks_list_recycler_view;
+    public static  Task_list_adapter adapter;
     private int roww;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState!=null){
-            tasks_list =savedInstanceState.getParcelableArrayList("Taskslist");
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,19 +32,20 @@ public class Tasks_fragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         tasks_list_recycler_view.setLayoutManager(linearLayoutManager);
         Utils.initTasksList();
-        if (Categoty_list_adapter.row_index == 0) {
-            Log.d(TAG, "trueeeeeeeeeee: ");
+        ArrayList<Task_Model> tasks_list = Utils.GetAllTasksFromFirebase();
+//        ArrayList<Task_Model> tasks_list = Utils.category_map.get(Utils.getCategories_list().get(Categoty_list_adapter.row_index).getCategory_name());
+        Bundle bundle = this.getArguments();
+        if (null != bundle) {
+            roww = bundle.getInt("rowIndex");
 
         }
+        Log.d(TAG, "onCreateView: row index" + roww);
+        if (Categoty_list_adapter.row_index == 0) {
+            Log.d(TAG, "onCreateView: condition worked");
+            getFragmentManager().beginTransaction().detach(Tasks_fragment.this).attach(Tasks_fragment.this).commit();
 
-
+        }
+        adapter.setTasks(tasks_list);
         return view;
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList("Taskslist",tasks_list);
-
     }
 }

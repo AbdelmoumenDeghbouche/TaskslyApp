@@ -78,7 +78,7 @@ public class Add_task extends AppCompatActivity {
 
         // setting the categories recycler view
 
-        adapter = new Categoty_list_adapter(Add_task.this);
+        adapter = new Categoty_list_adapter(getApplicationContext());
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -151,12 +151,12 @@ public class Add_task extends AppCompatActivity {
                     }
                     Gson gson = new Gson();
                     date =select_date_text.getText().toString().trim();
+
                     // this date and time variables are used just to create a different parent fir very child
                     String date_now = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
                     String time_now = new SimpleDateFormat("HH:mm:ss a").format(Calendar.getInstance().getTime());
-
-
-                    Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), "", is_clicked,date_now,time_now);
+                    Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), null, is_clicked,date_now,time_now);
+                    task_model.setDescription("");
                     progressDialog = new MaterialAlertDialogBuilder(Add_task.this);
                     progressDialog.setTitle("Wait a minute please !");
                     progressDialog.setMessage("We are saving your task...");
@@ -167,7 +167,7 @@ public class Add_task extends AppCompatActivity {
                     dialog = progressDialog.show();
                     dialog.show();
                     Utils.AddTaskToFirebase(task_model);
-
+                    Tasks_fragment.adapter.notifyDataSetChanged();
 
                 }
 
@@ -236,9 +236,4 @@ public class Add_task extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Utils.is_this_adapter_Home_fragment = false;
-    }
 }

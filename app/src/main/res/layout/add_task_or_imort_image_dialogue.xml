@@ -32,7 +32,7 @@
             android:clickable="false"
             android:focusable="false"
             android:orientation="horizontal"
-            android:visibility="invisible">
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="24dp"
@@ -113,6 +113,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:layout_gravity="center"
                 android:backgroundTint="@color/black"
                 android:src="@drawable/ic_baseline_camera_alt_24" />
 

@@ -8,7 +8,6 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.icu.util.Calendar;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
@@ -23,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -37,9 +37,9 @@ import androidx.fragment.app.DialogFragment;
 import com.github.drjacky.imagepicker.ImagePicker;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.net.URL;
-import java.text.SimpleDateFormat;
 
 public class TaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TimePickerDialog.OnTimeSetListener {
     private final String[] categories = new String[Utils.getCategories_list().size() - 1];
@@ -49,10 +49,10 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
     Task_Model task_model1_without_changes;
     private Dialog add_task_dialogue;
     private Dialog add_desc_dialogue;
-    private ImageView back_button_from_task_activity_to_main;
+    private RelativeLayout back_button_from_task_activity_to_main;
     private Spinner spinner_categories;
     private LinearLayout linear_layout_scan_table_ocr_of_task, Linear_layout_add_task, Linear_layout_import_image, Linear_layout_Take_photo_by_camera, linear_layout_date_of_task, linear_layout_time_of_task, linear_layout_description_of_task;
-    private EditText edit_text_name_of_the_task;
+    private TextInputLayout edit_text_name_of_the_task;
     private int selected_task_from_RV;
     private int selected_category;
     private EditText edit_text_desc_of_the_task;
@@ -116,12 +116,10 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
 
         if (null != intent) {
             String category_name_of_selecteed_task = intent.getStringExtra("category_name");
-            edit_text_name_of_the_task.setText(task_model.getTask_title());
+            edit_text_name_of_the_task.getEditText().setText(task_model.getTask_title());
             txt_date_of_the_task_in_task_activity.setText(task_model.getDate());
             txt_time_of_task_in_activity_task.setText(task_model.getTime());
-            String date_now = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
-            String time_now = new SimpleDateFormat("HH:mm:ss a").format(Calendar.getInstance().getTime());
-            task_model1_without_changes = new Task_Model(task_model.getTask_title(), task_model.getTime(), task_model.getDate(), new Category_Model(category_name_of_selecteed_task), task_model.getDescription(), false,date_now,time_now);
+            task_model1_without_changes = new Task_Model(task_model.getTask_title(), task_model.getTime(), task_model.getDate(), new Category_Model(category_name_of_selecteed_task), task_model.getDescription(), false, task_model.getCurrent_date(), task_model.getCurrent_time());
 
 
         }
@@ -168,14 +166,14 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
             categories[i] = Utils.categories_list.get(i).getCategory_name();
 
         }
-        this.getWindow().setStatusBarColor(this.getColor(R.color.mainbluex));
+        this.getWindow().setStatusBarColor(this.getColor(R.color.white));
 
         // to change the color of the icons in status bar to dark
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(APPEARANCE_LIGHT_STATUS_BARS, APPEARANCE_LIGHT_STATUS_BARS);
         }
         // to change the color of the icons in the navigation bar to dark
-        getWindow().setNavigationBarColor(ContextCompat.getColor(TaskActivity.this, R.color.mainbluex)); //setting bar color
+        getWindow().setNavigationBarColor(ContextCompat.getColor(TaskActivity.this, R.color.white)); //setting bar color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS, WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS);
         }
@@ -232,7 +230,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
             public void onClick(View v) {
                 onBackPressed();
                 String category_name = intent.getStringExtra("category_name");
-                task_model.setTask_title(edit_text_name_of_the_task.getText().toString());
+                task_model.setTask_title(edit_text_name_of_the_task.getEditText().getText().toString());
                 task_model.setDate(txt_date_of_the_task_in_task_activity.getText().toString());
                 task_model.setTime(txt_time_of_task_in_activity_task.getText().toString());
                 selected_task_from_RV = intent1.getIntExtra("selected_task", -1);
@@ -241,6 +239,8 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
                     task_model.setCategory(new Category_Model(category_name));
                     task_model1_without_changes.setCategory(new Category_Model(category_name));
 //                    task_model.setCategory(new Category_Model(categories[selected_category]));
+                    Log.d(TAG, "Old Task: " + task_model1_without_changes.getCurrent_date());
+
                     Utils.UpdateTask(task_model, task_model1_without_changes, getApplicationContext());
                     Utils.tasks_list = Utils.GetAllTasksFromFirebase();
                     Tasks_fragment.adapter.notifyDataSetChanged();

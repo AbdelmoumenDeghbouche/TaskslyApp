@@ -7,6 +7,7 @@
 
     android:background="#ffffff"
     tools:context=".Profile_activity">
+
     <LinearLayout
 
         android:layout_width="match_parent"
@@ -21,14 +22,15 @@
 
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2.6"
+            android:layout_weight="2.2"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_marginBottom="10dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/textViewd"
                     android:layout_width="wrap_content"
@@ -118,14 +120,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_semibold"
+                        android:maxLength="25"
+                        android:maxLines="1"
                         android:text="ichou"
                         android:maxLines="1"
                         android:maxLength="25"
                         android:textColor="#1D1235"
                         android:textSize="18dp" />
-
-
-
 
 
                     <TextView
@@ -300,6 +301,7 @@
                 android:id="@+id/canceled_tasks_layout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:visibility="gone"
                 android:layout_weight="1"
                 android:background="@drawable/about_user_items_background"
                 android:clickable="true"
@@ -328,10 +330,10 @@
 
             </LinearLayout>
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="0.3" />
+<!--            <Space-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="0.3" />-->
 
             <LinearLayout
                 android:id="@+id/total_tasks_layout"
@@ -368,7 +370,45 @@
             <Space
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_weight="0.5" />
+                android:layout_weight="0.3" />
+
+            <RelativeLayout
+                android:id="@+id/Logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/about_user_items_background"
+                android:backgroundTint="@color/mainblue"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/text"
+                    app:srcCompat="@drawable/ic_flesh" />
+
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Log out "
+                    android:textColor="@color/mainpink"
+                    android:textSize="22dp" />
+
+
+            </RelativeLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.2" />
 
         </LinearLayout>
 
