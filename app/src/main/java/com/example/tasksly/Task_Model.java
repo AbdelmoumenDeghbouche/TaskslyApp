@@ -3,6 +3,8 @@ package com.example.tasksly;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Objects;
+
 public class Task_Model implements Parcelable {
     private String task_title;
     private String time;
@@ -10,8 +12,27 @@ public class Task_Model implements Parcelable {
     private Category_Model category;
     private boolean is_finished, is_notified;
     private String description;
+    private String current_date ;
+    private String current_time ;
 
-    public Task_Model(String task_title, String time, String date, Category_Model category, String description, Boolean is_notified) {
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Task_Model)) return false;
+        Task_Model that = (Task_Model) o;
+        return is_finished == that.is_finished && is_notified == that.is_notified && Objects.equals(task_title, that.task_title) && Objects.equals(time, that.time) && Objects.equals(date, that.date) && Objects.equals(category, that.category) && Objects.equals(description, that.description) && Objects.equals(current_date, that.current_date) && Objects.equals(current_time, that.current_time);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(task_title, time, date, category, is_finished, is_notified, description, current_date, current_time);
+    }
+
+    public Task_Model() {
+    }
+
+    public Task_Model(String task_title, String time, String date, Category_Model category, String description, Boolean is_notified,String current_date, String current_time) {
         this.task_title = task_title;
         this.time = time;
         this.date = date;
@@ -19,6 +40,24 @@ public class Task_Model implements Parcelable {
         this.category = category;
         this.is_finished = false;
         this.description = description;
+        this.current_date = current_date ;
+        this.current_time = current_time ;
+    }
+
+    public String getCurrent_date() {
+        return current_date;
+    }
+
+    public void setCurrent_date(String current_date) {
+        this.current_date = current_date;
+    }
+
+    public String getCurrent_time() {
+        return current_time;
+    }
+
+    public void setCurrent_time(String current_time) {
+        this.current_time = current_time;
     }
 
     protected Task_Model(Parcel in) {
@@ -28,6 +67,8 @@ public class Task_Model implements Parcelable {
         is_finished = in.readByte() != 0;
         is_notified = in.readByte() != 0;
         description = in.readString();
+        current_date = in.readString();
+        current_time = in.readString();
     }
 
     public static final Creator<Task_Model> CREATOR = new Creator<Task_Model>() {
@@ -115,5 +156,7 @@ public class Task_Model implements Parcelable {
         dest.writeByte((byte) (is_finished ? 1 : 0));
         dest.writeByte((byte) (is_notified ? 1 : 0));
         dest.writeString(description);
+        dest.writeString(current_date);
+        dest.writeString(current_time);
     }
 }

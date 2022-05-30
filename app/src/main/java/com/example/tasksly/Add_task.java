@@ -1,11 +1,13 @@
 package com.example.tasksly;
 
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
+import static com.yalantis.ucrop.UCropFragment.TAG;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowInsetsController;
 import android.widget.EditText;
@@ -14,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,17 +24,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Add_task extends AppCompatActivity {
+    public static Categoty_list_adapter adapter;
+    public static AlertDialog dialog;
     EditText TaskTitle;
     RecyclerView recyclerView;
     RelativeLayout relativeLayout, relativeLayout2, task_done_button;
-    Categoty_list_adapter adapter;
     boolean is_clicked;
     TextView select_date_text, select_time_text;
     LinearLayout select_date_button, select_time_button;
@@ -39,6 +46,7 @@ public class Add_task extends AppCompatActivity {
             .setTitleText("SELECT A TIME")
             .setTimeFormat(TimeFormat.CLOCK_12H)
             .build();
+    MaterialAlertDialogBuilder progressDialog;
     MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setTitleText("SELECT A DATE");
     final MaterialDatePicker materialDatePicker = builder.build();
 
@@ -70,7 +78,7 @@ public class Add_task extends AppCompatActivity {
 
         // setting the categories recycler view
 
-        adapter = new Categoty_list_adapter(getApplicationContext());
+        adapter = new Categoty_list_adapter(Add_task.this);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -128,10 +136,13 @@ public class Add_task extends AppCompatActivity {
     }
 
     public void donepressed() {
+        String date_now_verify = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
+        String time_now_verify = new SimpleDateFormat("HH:mm:ss a").format(Calendar.getInstance().getTime());
+
         task_done_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TaskTitle.equals("")) {
+                if (TaskTitle.getText().toString().equals("")) {
                     Toast.makeText(Add_task.this, "Please Fill The title of your task", Toast.LENGTH_SHORT).show();
                 } else {
                     String time = "", date = "";
@@ -139,14 +150,41 @@ public class Add_task extends AppCompatActivity {
                         time = materialTimePicker.getHour() + ":" + materialTimePicker.getMinute();
                         date = materialDatePicker.getHeaderText();
                     } catch (NullPointerException e) {
-                        Toast.makeText(Add_task.this, "Fill the date and time", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "onClick: " + e);
                     }
-                    Gson gson = new Gson();
-                    Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), null, is_clicked);
-                    String task_element = gson.toJson(task_model);
-                    task_model.setDescription("");
-                    Intent intent = new Intent(Add_task.this, MainActivity.class).putExtra("task_element", task_element);
-                    startActivity(intent);
+                    date = select_date_text.getText().toString().trim();
+                    if (date.equals("") || time.equals("")) {
+                        Log.d(TAG, "onClick: time " + date);
+                        Toast.makeText(Add_task.this, "Please Fill The time and date", Toast.LENGTH_SHORT).show();
+                    }
+
+
+//                        else if(Integer.parseInt(date)<=Integer.parseInt(date_now_verify)||Integer.parseInt(time)<=Integer.parseInt(time_now_verify)){
+//                            Toast.makeText(Add_task.this, "Please Enter a Valid Date and Time", Toast.LENGTH_SHORT).show();
+//
+//                        }
+                    else {
+                        Gson gson = new Gson();
+                        // this date and time variables are used just to create a different parent fir very child
+                        String date_now = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
+                        String time_now = new SimpleDateFormat("HH:mm:ss a").format(Calendar.getInstance().getTime());
+
+
+                        Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), "", is_clicked, date_now, time_now);
+                        task_model.setIs_finished(false);
+                        progressDialog = new MaterialAlertDialogBuilder(Add_task.this);
+                        progressDialog.setTitle("Wait a minute please !");
+                        progressDialog.setMessage("We are saving your task...");
+                        progressDialog.setCancelable(false);
+                        progressDialog.setBackground(getResources().getDrawable(R.drawable.tasks_background));
+                        progressDialog.setIcon(R.drawable.ic__cloud_upload);
+                        progressDialog.setCancelable(false);
+                        dialog = progressDialog.show();
+                        dialog.show();
+                        Utils.AddTaskToFirebase(task_model, Add_task.this);
+                        Utils.tasks_list = Utils.GetAllTasksFromFirebase();
+                    }
+
 
                 }
 
@@ -213,5 +251,11 @@ public class Add_task extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Utils.is_this_adapter_Home_fragment = false;
     }
 }

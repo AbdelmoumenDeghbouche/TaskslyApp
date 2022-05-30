@@ -23,6 +23,8 @@
             android:layout_centerInParent="true"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/txt_category_name"
+            android:maxLength="20"
+            android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="16dp" />
 

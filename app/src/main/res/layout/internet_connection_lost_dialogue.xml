@@ -13,17 +13,17 @@
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
         android:src="@drawable/ic_baseline_signal_wifi_off_24"
-        app:tint="@color/black" />
+        app:tint="@color/darkblue3" />
 
     <TextView
         android:id="@+id/txt_oops"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgv_view_no_internet"
-        android:fontFamily="@font/poppins_medium"
+        android:fontFamily="@font/poppins_bold"
         android:gravity="center"
         android:text="OOPS!"
-        android:textColor="@color/black"
+        android:textColor="@color/red"
 
         android:textSize="40sp" />
 

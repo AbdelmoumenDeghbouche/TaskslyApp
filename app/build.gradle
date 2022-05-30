@@ -38,6 +38,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.+'
     implementation 'com.google.code.gson:gson:2.8.4'
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     //for  ocr
@@ -48,6 +49,8 @@ dependencies {
     // indicateur
     implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.0.6"
     implementation 'com.github.Drjacky:ImagePicker:1.8.4'
+    implementation 'io.github.youth5201314:banner:2.2.2'
+
 
 
     // navigation bar
@@ -57,10 +60,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.0.5'
     implementation 'com.google.firebase:firebase-auth:21.0.3'
 
+
     // firebase
     implementation platform('com.google.firebase:firebase-bom:29.3.1')
     // paper database
     implementation 'io.github.pilgr:paperdb:2.7.2'
+
 
     implementation 'androidx.browser:browser:1.4.0'
     implementation 'com.squareup.picasso:picasso:2.8'

@@ -1,23 +1,28 @@
 package com.example.tasksly;
 
-import static android.content.ContentValues.TAG;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 public class Tasks_fragment extends Fragment {
-    private RecyclerView tasks_list_recycler_view;
-    private Task_list_adapter adapter;
+    public static Task_list_adapter adapter;
+    public RecyclerView tasks_list_recycler_view;
     private int roww;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,25 +34,61 @@ public class Tasks_fragment extends Fragment {
         tasks_list_recycler_view = view.findViewById(R.id.tasks_list_recycler_view);
         adapter = new Task_list_adapter(this.getContext());
         tasks_list_recycler_view.setAdapter(adapter);
+
+        GetTasksFromRealTimeDataBaseWithListenerAndSetItToTheAdapter();
+
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
         tasks_list_recycler_view.setLayoutManager(linearLayoutManager);
         Utils.initTasksList();
-        ArrayList<Task_Model> tasks_list = Utils.category_map.get(Utils.getCategories_list().get(Categoty_list_adapter.row_index).getCategory_name());
-        Bundle bundle = this.getArguments();
-        if (null != bundle) {
-            roww = bundle.getInt("rowIndex");
 
-        }
-        Log.d(TAG, "onCreateView: row index" + roww);
-        if (Categoty_list_adapter.row_index == 0) {
-            Log.d(TAG, "onCreateView: condition worked");
-            getFragmentManager().beginTransaction().detach(Tasks_fragment.this).attach(Tasks_fragment.this).commit();
-
-        }
-        if (null!=tasks_list){
-            adapter.setTasks(Utils.return_only_not_completed_tasks(tasks_list));
-
-        }
         return view;
     }
+
+
+    private void GetTasksFromRealTimeDataBaseWithListenerAndSetItToTheAdapter() {
+        FirebaseDatabase.getInstance().getReference().child("Tasks").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Task_Model> list = new ArrayList<>();
+                if (snapshot.exists()) {
+                    for (DataSnapshot category : snapshot.getChildren()) {
+                        FirebaseDatabase.getInstance().getReference().child("Tasks").child(category.getKey()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()) {
+                                    for (DataSnapshot task : snapshot.getChildren()) {
+                                        Task_Model UserTask = task.getValue(Task_Model.class);
+                                        list.add(UserTask);
+                                    }
+                                }
+
+                                if (null != Utils.categories_list) {
+                                    if (Utils.categories_list.size() != 0) {
+                                        ArrayList<Task_Model> tasks_list = Utils.return_only_not_completed_tasks(Utils.GetTasksListOfSpecificCategory(Utils.categories_list.get(Categoty_list_adapter.row_index).getCategory_name(), list));
+
+                                        if (tasks_list != null) {
+                                            adapter.setTasks(tasks_list);
+
+                                        }
+                                    }
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
+
 }
