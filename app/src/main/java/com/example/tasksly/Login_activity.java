@@ -69,7 +69,7 @@ public class Login_activity extends AppCompatActivity {
         initialisation();
         handlingAnimation();
         handlingOnClicks();
-        RememberMeUser();
+        //RememberMeUser();
         //GoogelAuthentification.CreatGoogleSignInRequest();
         SettingUserEmail_Password_AfterUpdatingTheme();
 
@@ -314,6 +314,7 @@ public class Login_activity extends AppCompatActivity {
             this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS, WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS);
         }
     }
+
     @Override
     protected void onStart() {
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);

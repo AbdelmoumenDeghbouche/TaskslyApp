@@ -29,14 +29,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import io.paperdb.Paper;
+
 public class Profile_activity extends AppCompatActivity {
 
-    LinearLayout PlanningLayout, private_tasks_layout, CompletedLayout, CancelledLayout, TotalLayout ,edit;
-    TextView user_name , user_email ;
-    ImageView user_image ;
-    RelativeLayout relative_layout_submitting_pin_code_private_tasks_first_time;
+    LinearLayout PlanningLayout, private_tasks_layout, CompletedLayout, CancelledLayout, TotalLayout, edit;
+    TextView user_name, user_email;
+    ImageView user_image;
+    RelativeLayout relative_layout_submitting_pin_code_private_tasks_first_time, Logout;
     PinView pin_code_private_tasks_first_time;
-    TextView text_pin_code_submission_head ;
+    TextView text_pin_code_submission_head;
     Dialog Pin_code_submission_of_private_tasks_first_time;
     LinearLayout join_membership;
     DatabaseReference root = FirebaseDatabase.getInstance().getReference();
@@ -59,11 +61,11 @@ public class Profile_activity extends AppCompatActivity {
         text_pin_code_submission_head = Pin_code_submission_of_private_tasks_first_time.findViewById(R.id.text_pin_code_submission_head);
 
 
-        join_membership=findViewById(R.id.join_membership);
+        join_membership = findViewById(R.id.join_membership);
         join_membership.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Profile_activity.this,CongratsMembership.class);
+                Intent intent = new Intent(Profile_activity.this, CongratsMembership.class);
                 startActivity(intent);
             }
         });
@@ -83,21 +85,30 @@ public class Profile_activity extends AppCompatActivity {
         initialisation();
         handelingAnimations();
         initial_elements();
+        Logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Paper.book().destroy();
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(Profile_activity.this, Login_activity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
         private_tasks_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Profile_activity.this,DifferentTasksListActivity.class);
-                if (Utils.private_task_pin_code.equals("")){
+                Intent intent = new Intent(Profile_activity.this, DifferentTasksListActivity.class);
+                if (Utils.private_task_pin_code.equals("")) {
                     Pin_code_submission_of_private_tasks_first_time.show();
                     relative_layout_submitting_pin_code_private_tasks_first_time.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (pin_code_private_tasks_first_time.getText().toString().trim().length()<4){
+                            if (pin_code_private_tasks_first_time.getText().toString().trim().length() < 4) {
                                 Toast.makeText(Profile_activity.this, "Please Enter The PIN code correctly", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
+                            } else {
                                 Utils.private_task_pin_code = pin_code_private_tasks_first_time.getText().toString().trim();
-                                intent.putExtra("NameOfActivity","Private Tasks");
+                                intent.putExtra("NameOfActivity", "Private Tasks");
                                 Pin_code_submission_of_private_tasks_first_time.dismiss();
                                 pin_code_private_tasks_first_time.setText("");
                                 startActivity(intent);
@@ -105,31 +116,27 @@ public class Profile_activity extends AppCompatActivity {
 
                         }
                     });
-                }
-                else {
+                } else {
                     Pin_code_submission_of_private_tasks_first_time.show();
                     text_pin_code_submission_head.setText("PIN CODE \n Submission !");
                     relative_layout_submitting_pin_code_private_tasks_first_time.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (pin_code_private_tasks_first_time.getText().toString().trim().length()<4){
+                            if (pin_code_private_tasks_first_time.getText().toString().trim().length() < 4) {
                                 Toast.makeText(Profile_activity.this, "Please Enter The PIN code correctly", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
-                                if (pin_code_private_tasks_first_time.getText().toString().trim().equals(Utils.private_task_pin_code)){
-                                    intent.putExtra("NameOfActivity","Private Tasks");
+                            } else {
+                                if (pin_code_private_tasks_first_time.getText().toString().trim().equals(Utils.private_task_pin_code)) {
+                                    intent.putExtra("NameOfActivity", "Private Tasks");
                                     Pin_code_submission_of_private_tasks_first_time.dismiss();
                                     pin_code_private_tasks_first_time.setText("");
                                     startActivity(intent);
-                                }
-                                else {
+                                } else {
                                     Toast.makeText(Profile_activity.this, "Wrong PIN Code Please Check and try again", Toast.LENGTH_SHORT).show();
                                 }
                             }
 
                         }
                     });
-
 
 
                 }
@@ -139,31 +146,31 @@ public class Profile_activity extends AppCompatActivity {
         PlanningLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Profile_activity.this,DifferentTasksListActivity.class);
-                intent.putExtra("NameOfActivity","Planning Tasks");
+                Intent intent = new Intent(Profile_activity.this, DifferentTasksListActivity.class);
+                intent.putExtra("NameOfActivity", "Planning Tasks");
                 startActivity(intent);
             }
         });
         CompletedLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Profile_activity.this,DifferentTasksListActivity.class);
-                intent.putExtra("NameOfActivity","Completed Tasks");
+                Intent intent = new Intent(Profile_activity.this, DifferentTasksListActivity.class);
+                intent.putExtra("NameOfActivity", "Completed Tasks");
                 startActivity(intent);
             }
         });
         TotalLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Profile_activity.this,DifferentTasksListActivity.class);
-                intent.putExtra("NameOfActivity","All Tasks");
+                Intent intent = new Intent(Profile_activity.this, DifferentTasksListActivity.class);
+                intent.putExtra("NameOfActivity", "All Tasks");
                 startActivity(intent);
             }
         });
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Profile_activity.this,Edite_profle_activity.class));
+                startActivity(new Intent(Profile_activity.this, Edite_profle_activity.class));
             }
         });
 
@@ -171,6 +178,7 @@ public class Profile_activity extends AppCompatActivity {
     }
 
     public void initialisation() {
+        Logout = findViewById(R.id.Logout);
         user_email = findViewById(R.id.user_email);
         user_name = findViewById(R.id.user_name);
         user_image = findViewById(R.id.img_user_profile);
@@ -182,7 +190,7 @@ public class Profile_activity extends AppCompatActivity {
         TotalLayout = findViewById(R.id.total_tasks_layout);
     }
 
-    public void handelingAnimations(){
+    public void handelingAnimations() {
         Animations.FromeLeftToRightLinear(PlanningLayout);
         Animations.FromeLeftToRightLinear1(private_tasks_layout);
         Animations.FromeLeftToRightLinear2(CompletedLayout);
@@ -191,22 +199,23 @@ public class Profile_activity extends AppCompatActivity {
 
     }
 
-    public void initial_elements(){
+    public void initial_elements() {
         root.child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
+                if (snapshot.exists()) {
 
                     UserModel model = snapshot.getValue(UserModel.class);
                     user_name.setText(model.getName());
                     user_email.setText(model.getEmail());
-                    if (!model.getImage().equals("")){
+                    if (!model.getImage().equals("")) {
                         Picasso.get().load(model.getImage()).into(user_image);
                     } else {
                         user_image.setImageResource(R.drawable.ic_avataaars);
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

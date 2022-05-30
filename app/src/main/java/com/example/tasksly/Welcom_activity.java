@@ -25,7 +25,7 @@ public class Welcom_activity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ArrayList<welcom_activity_Model> liste;
-    LinearLayout LoginLayout, SignupLayout, GoogleLayout, Parent1, Parent2, Parent3;
+    LinearLayout LoginLayout, SignupLayout, Parent1, Parent2;
     NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -69,16 +69,13 @@ public class Welcom_activity extends AppCompatActivity {
     private void Initialisation() {
         LoginLayout = findViewById(R.id.login_layout);
         SignupLayout = findViewById(R.id.signup_layout);
-        GoogleLayout = findViewById(R.id.google_layout);
         Parent1 = findViewById(R.id.parent1);
         Parent2 = findViewById(R.id.parent2);
-        Parent3 = findViewById(R.id.google_parent);
     }
 
     private void HandlinAnimations() {
         Animations.FromeRightToLeftLinear(Parent1);
         Animations.FromeRightToLeftLinear1(Parent2);
-        Animations.FromeRightToLeftLinear2(Parent3);
     }
 
     private void HandelingClickListeners() {
@@ -92,14 +89,6 @@ public class Welcom_activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Welcom_activity.this, Signup_activity.class));
-            }
-        });
-        GoogleLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Welcom_activity.this,MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
             }
         });
     }

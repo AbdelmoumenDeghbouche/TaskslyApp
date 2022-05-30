@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,10 +56,11 @@ public class Utils {
     public static Dialog add_task_dialogue;
     public static URL myUrl = null;
     public static String private_task_pin_code = "";
-    public static  boolean should_i_delete_the_task_from_the_adapter;
+    public static boolean should_i_delete_the_task_from_the_adapter;
     public static int exists = 0;
     public static boolean is_this_adapter_Home_fragment = false;
     public static boolean task_uploaded = false;
+    public static boolean member = false;
 
 
     public static int getIndexOfCategoryModelByCategoryName(String CategoryName) {
@@ -329,7 +331,7 @@ public class Utils {
                         } else {
                             Toast.makeText(context1, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             Add_task.dialog.dismiss();
-                            task_uploaded =false;
+                            task_uploaded = false;
                         }
                     }
                 });
@@ -361,12 +363,12 @@ public class Utils {
 //                            Toast.makeText(context1, "Your task has been saved successfully !", Toast.LENGTH_SHORT).show();
                             if (Add_task.dialog != null) {
                                 Add_task.dialog.dismiss();
-                                task_uploaded =true;
+                                task_uploaded = true;
                             }
                         } else {
 //                            Toast.makeText(context1, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             Add_task.dialog.dismiss();
-                            task_uploaded =false;
+                            task_uploaded = false;
                         }
                     }
                 });
@@ -562,5 +564,24 @@ public class Utils {
 
             }
         });
+    }
+
+    public static boolean Is_member() {
+        FirebaseUser auth = FirebaseAuth.getInstance().getCurrentUser();
+        if (auth != null) {
+            FirebaseDatabase.getInstance().getReference().child("Users").child(auth.getUid()).child("is_memeber").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        member = snapshot.getValue(boolean.class);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+        }
+        return member;
     }
 }
