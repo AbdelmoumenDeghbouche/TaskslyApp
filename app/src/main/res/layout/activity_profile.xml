@@ -123,8 +123,6 @@
                         android:maxLength="25"
                         android:maxLines="1"
                         android:text="ichou"
-                        android:maxLines="1"
-                        android:maxLength="25"
                         android:textColor="#1D1235"
                         android:textSize="18dp" />
 
@@ -301,13 +299,13 @@
                 android:id="@+id/canceled_tasks_layout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:visibility="gone"
                 android:layout_weight="1"
                 android:background="@drawable/about_user_items_background"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="0dp"
@@ -330,10 +328,10 @@
 
             </LinearLayout>
 
-<!--            <Space-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="0dp"-->
-<!--                android:layout_weight="0.3" />-->
+            <!--            <Space-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="0dp"-->
+            <!--                android:layout_weight="0.3" />-->
 
             <LinearLayout
                 android:id="@+id/total_tasks_layout"
