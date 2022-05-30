@@ -55,6 +55,7 @@ public class Utils {
     public static Dialog add_task_dialogue;
     public static URL myUrl = null;
     public static String private_task_pin_code = "";
+    public static  boolean should_i_delete_the_task_from_the_adapter;
     public static int exists = 0;
     public static boolean is_this_adapter_Home_fragment = false;
     public static boolean task_uploaded = false;

@@ -75,16 +75,19 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                if (getItemCount() != Utils.getTasks_list().size()) {
+                if (Utils.should_i_delete_the_task_from_the_adapter) {
                     holder.img_view_check_box_oval_not_checked.setVisibility(View.GONE);
                     String categoty = tasks_list.get(position).getCategory().getCategory_name();
                     holder.img_view_check_box_oval_checked.setVisibility(View.VISIBLE);
+
                     Utils.completed_tasks.add(Utils.completed_tasks.size(), tasks_list.get(position));
                     Task_Model new_finished_task = new Task_Model(tasks_list.get(position).getTask_title(), tasks_list.get(position).getTime(), tasks_list.get(position).getDate(), tasks_list.get(position).getCategory(), tasks_list.get(position).getDescription(), true, tasks_list.get(position).getCurrent_date(), tasks_list.get(position).getCurrent_time());
                     new_finished_task.setIs_finished(true);
                     Utils.UpdateTask(tasks_list.get(position), new_finished_task, context);
                     tasks_list.get(position).setIs_finished(true);
                     tasks_list.remove(position);
+                    Utils.tasks_list = Utils.GetAllTasksFromFirebase();
+
                     notifyDataSetChanged();
                 } else {
                     holder.img_view_check_box_oval_not_checked.setVisibility(View.GONE);
@@ -109,39 +112,15 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
             public void onClick(View view) {
 
 
-                if (getItemCount() != Utils.getTasks_list().size()) {
+                tasks_list.get(position).setIs_finished(false);
+                Task_Model new_finished_task = new Task_Model(tasks_list.get(position).getTask_title(), tasks_list.get(position).getTime(), tasks_list.get(position).getDate(), tasks_list.get(position).getCategory(), tasks_list.get(position).getDescription(), true, tasks_list.get(position).getCurrent_date(), tasks_list.get(position).getCurrent_time());
+                new_finished_task.setIs_finished(false);
 
-                    tasks_list.get(position).setIs_finished(false);
-                    Task_Model new_finished_task = new Task_Model(tasks_list.get(position).getTask_title(), tasks_list.get(position).getTime(), tasks_list.get(position).getDate(), tasks_list.get(position).getCategory(), tasks_list.get(position).getDescription(), true, tasks_list.get(position).getCurrent_date(), tasks_list.get(position).getCurrent_time());
-                    new_finished_task.setIs_finished(false);
-
-                    Utils.UpdateTask(tasks_list.get(position), new_finished_task, context);
-                    holder.img_view_check_box_oval_checked.setVisibility(View.GONE);
-                    holder.img_view_check_box_oval_not_checked.setVisibility(View.VISIBLE);
-                    ArrayList<Task_Model> new_arrayList = Utils.category_map.get(tasks_list.get(position).getCategory().getCategory_name());
-                    if (null != new_arrayList) {
-                        new_arrayList.add(new_arrayList.size(), tasks_list.get(position));
-                        tasks_list.remove(position);
-                        notifyDataSetChanged();
-
-
-                    }
-                } else {
-                    tasks_list.get(position).setIs_finished(false);
-                    Task_Model new_finished_task = new Task_Model(tasks_list.get(position).getTask_title(), tasks_list.get(position).getTime(), tasks_list.get(position).getDate(), tasks_list.get(position).getCategory(), tasks_list.get(position).getDescription(), true, tasks_list.get(position).getCurrent_date(), tasks_list.get(position).getCurrent_time());
-                    new_finished_task.setIs_finished(false);
-                    Utils.UpdateTask(tasks_list.get(position), new_finished_task, context);
-                    holder.img_view_check_box_oval_checked.setVisibility(View.GONE);
-                    holder.img_view_check_box_oval_not_checked.setVisibility(View.VISIBLE);
-                    ArrayList<Task_Model> new_arrayList = Utils.category_map.get(tasks_list.get(position).getCategory().getCategory_name());
-                    if (null != new_arrayList) {
-                        new_arrayList.add(new_arrayList.size(), tasks_list.get(position));
-                        notifyDataSetChanged();
-
-
-                    }
-
-                }
+                Utils.UpdateTask(tasks_list.get(position), new_finished_task, context);
+                holder.img_view_check_box_oval_checked.setVisibility(View.GONE);
+                holder.img_view_check_box_oval_not_checked.setVisibility(View.VISIBLE);
+                tasks_list.remove(position);
+                notifyDataSetChanged();
 
 
             }

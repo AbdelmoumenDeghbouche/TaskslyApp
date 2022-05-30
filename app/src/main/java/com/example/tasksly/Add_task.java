@@ -34,10 +34,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Add_task extends AppCompatActivity {
+    public static Categoty_list_adapter adapter;
+    public static AlertDialog dialog;
     EditText TaskTitle;
     RecyclerView recyclerView;
     RelativeLayout relativeLayout, relativeLayout2, task_done_button;
-    public static Categoty_list_adapter adapter;
     boolean is_clicked;
     TextView select_date_text, select_time_text;
     LinearLayout select_date_button, select_time_button;
@@ -45,8 +46,7 @@ public class Add_task extends AppCompatActivity {
             .setTitleText("SELECT A TIME")
             .setTimeFormat(TimeFormat.CLOCK_12H)
             .build();
-    MaterialAlertDialogBuilder progressDialog ;
-    public static AlertDialog dialog;
+    MaterialAlertDialogBuilder progressDialog;
     MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setTitleText("SELECT A DATE");
     final MaterialDatePicker materialDatePicker = builder.build();
 
@@ -136,6 +136,9 @@ public class Add_task extends AppCompatActivity {
     }
 
     public void donepressed() {
+        String date_now_verify = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
+        String time_now_verify = new SimpleDateFormat("HH:mm:ss a").format(Calendar.getInstance().getTime());
+
         task_done_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,26 +150,40 @@ public class Add_task extends AppCompatActivity {
                         time = materialTimePicker.getHour() + ":" + materialTimePicker.getMinute();
                         date = materialDatePicker.getHeaderText();
                     } catch (NullPointerException e) {
-                        Log.d(TAG, "onClick: "+ e);
+                        Log.d(TAG, "onClick: " + e);
                     }
-                    Gson gson = new Gson();
-                    date =select_date_text.getText().toString().trim();
-                    // this date and time variables are used just to create a different parent fir very child
-                    String date_now = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
-                    String time_now = new SimpleDateFormat("HH:mm:ss a").format(Calendar.getInstance().getTime());
+                    date = select_date_text.getText().toString().trim();
+                    if (date.equals("") || time.equals("")) {
+                        Log.d(TAG, "onClick: time " + date);
+                        Toast.makeText(Add_task.this, "Please Fill The time and date", Toast.LENGTH_SHORT).show();
+                    }
 
 
-                    Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), "", is_clicked,date_now,time_now);
-                    progressDialog = new MaterialAlertDialogBuilder(Add_task.this);
-                    progressDialog.setTitle("Wait a minute please !");
-                    progressDialog.setMessage("We are saving your task...");
-                    progressDialog.setCancelable(false);
-                    progressDialog.setBackground(getResources().getDrawable(R.drawable.tasks_background));
-                    progressDialog.setIcon(R.drawable.ic__cloud_upload);
-                    progressDialog.setCancelable(false);
-                    dialog = progressDialog.show();
-                    dialog.show();
-                    Utils.AddTaskToFirebase(task_model,Add_task.this);
+//                        else if(Integer.parseInt(date)<=Integer.parseInt(date_now_verify)||Integer.parseInt(time)<=Integer.parseInt(time_now_verify)){
+//                            Toast.makeText(Add_task.this, "Please Enter a Valid Date and Time", Toast.LENGTH_SHORT).show();
+//
+//                        }
+                    else {
+                        Gson gson = new Gson();
+                        // this date and time variables are used just to create a different parent fir very child
+                        String date_now = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
+                        String time_now = new SimpleDateFormat("HH:mm:ss a").format(Calendar.getInstance().getTime());
+
+
+                        Task_Model task_model = new Task_Model(TaskTitle.getText().toString(), time, date, Utils.getCategories_list().get(adapter.getRow_index()), "", is_clicked, date_now, time_now);
+                        task_model.setIs_finished(false);
+                        progressDialog = new MaterialAlertDialogBuilder(Add_task.this);
+                        progressDialog.setTitle("Wait a minute please !");
+                        progressDialog.setMessage("We are saving your task...");
+                        progressDialog.setCancelable(false);
+                        progressDialog.setBackground(getResources().getDrawable(R.drawable.tasks_background));
+                        progressDialog.setIcon(R.drawable.ic__cloud_upload);
+                        progressDialog.setCancelable(false);
+                        dialog = progressDialog.show();
+                        dialog.show();
+                        Utils.AddTaskToFirebase(task_model, Add_task.this);
+                        Utils.tasks_list = Utils.GetAllTasksFromFirebase();
+                    }
 
 
                 }

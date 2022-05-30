@@ -56,6 +56,7 @@ public class DifferentTasksListActivity extends AppCompatActivity {
         if (intent != null) {
             if (intent.getStringExtra("NameOfActivity").equals("Private Tasks")) {
                 tasks_list = Utils.category_map.get("sqddqsdjqsoidjqsjdsoqidjoqsidjqsoi");
+                Utils.should_i_delete_the_task_from_the_adapter= false;
 
                 txt_name_of_the_activity.setText(intent.getStringExtra("NameOfActivity"));
 
@@ -63,17 +64,20 @@ public class DifferentTasksListActivity extends AppCompatActivity {
 
             }
             if (intent.getStringExtra("NameOfActivity").equals("Completed Tasks")) {
-                tasks_list =Utils.return_only_completed_tasks(Utils.getTasks_list());
+                Utils.should_i_delete_the_task_from_the_adapter= true;
+                tasks_list =Utils.return_only_completed_tasks(Utils.tasks_list);
                 txt_name_of_the_activity.setText(intent.getStringExtra("NameOfActivity"));
 
             }
             if (intent.getStringExtra("NameOfActivity").equals("All Tasks")){
+                Utils.should_i_delete_the_task_from_the_adapter= false;
                 tasks_list =Utils.getTasks_list();
                 txt_name_of_the_activity.setText(intent.getStringExtra("NameOfActivity"));
 
 
             }
             if (intent.getStringExtra("NameOfActivity").equals("Planning Tasks")){
+                Utils.should_i_delete_the_task_from_the_adapter= true;
                 tasks_list =Utils.return_only_not_completed_tasks(Utils.getTasks_list() );
                 txt_name_of_the_activity.setText(intent.getStringExtra("NameOfActivity"));
 
