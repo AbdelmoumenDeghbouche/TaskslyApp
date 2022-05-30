@@ -82,6 +82,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
             android:hint="Email "
+            android:text="minou@gmail.com"
             android:inputType="textEmailAddress"
             android:textColor="@color/fontmain"
             android:textSize="15dp" />
@@ -113,6 +114,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
             android:hint="Password "
+            android:text="12345ss"
             android:inputType="textEmailAddress"
             android:textColor="@color/fontmain"
             android:textSize="15dp" />
