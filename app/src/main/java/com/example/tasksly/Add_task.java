@@ -187,7 +187,7 @@ public class Add_task extends AppCompatActivity {
                     // initializing thr notification ...
 
 
-                    notificationId = Long.parseLong(String.valueOf(System.currentTimeMillis()));
+                    notificationId  = Long.parseLong(String.valueOf(System.currentTimeMillis()));
 
                     Intent intent = new Intent(Add_task.this, AlarmReceiver.class);
                     intent.putExtra("notificationId", notificationId);
