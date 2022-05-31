@@ -1,5 +1,6 @@
 package com.example.tasksly;
 
+import static android.content.ContentValues.TAG;
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
 import android.annotation.SuppressLint;
@@ -7,6 +8,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsetsController;
@@ -22,6 +24,7 @@ import androidx.core.content.ContextCompat;
 
 import com.chaos.view.PinView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,9 +36,10 @@ import io.paperdb.Paper;
 
 public class Profile_activity extends AppCompatActivity {
 
-    LinearLayout PlanningLayout, private_tasks_layout, CompletedLayout, CancelledLayout, TotalLayout, edit;
+    public static boolean member;
+    LinearLayout PlanningLayout, private_tasks_layout, CompletedLayout, CancelledLayout, TotalLayout, Already_A_pro_membre, edit;
     TextView user_name, user_email;
-    ImageView user_image;
+    ImageView user_image, img_view_pro_memb;
     RelativeLayout relative_layout_submitting_pin_code_private_tasks_first_time, Logout;
     PinView pin_code_private_tasks_first_time;
     TextView text_pin_code_submission_head;
@@ -183,11 +187,13 @@ public class Profile_activity extends AppCompatActivity {
         user_name = findViewById(R.id.user_name);
         user_image = findViewById(R.id.img_user_profile);
         edit = findViewById(R.id.Edite_profile);
+        img_view_pro_memb = findViewById(R.id.img_view_pro_memb);
         PlanningLayout = findViewById(R.id.planing_layout);
         private_tasks_layout = findViewById(R.id.private_tasks_layout);
         CompletedLayout = findViewById(R.id.completed_tasks_layout);
         CancelledLayout = findViewById(R.id.canceled_tasks_layout);
         TotalLayout = findViewById(R.id.total_tasks_layout);
+        Already_A_pro_membre = findViewById(R.id.Already_A_pro_membre);
     }
 
     public void handelingAnimations() {
@@ -221,6 +227,38 @@ public class Profile_activity extends AppCompatActivity {
 
             }
         });
+        Log.d(TAG, "initial_elements:" + Utils.Is_member());
+        if (IsheAmember()) {
+            img_view_pro_memb.setVisibility(View.VISIBLE);
+            join_membership.setVisibility(View.GONE);
+            Already_A_pro_membre.setVisibility(View.VISIBLE);
+            Already_A_pro_membre.setClickable(false);
+            join_membership.setClickable(false);
+
+        } else {
+            img_view_pro_memb.setVisibility(View.GONE);
+            Already_A_pro_membre.setVisibility(View.GONE);
+            join_membership.setVisibility(View.VISIBLE);
+
+        }
     }
 
+    private boolean IsheAmember() {
+        FirebaseUser auth = FirebaseAuth.getInstance().getCurrentUser();
+        if (auth != null) {
+            FirebaseDatabase.getInstance().getReference().child("Users").child(auth.getUid()).child("is_memeber").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        member = snapshot.getValue(boolean.class);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+        }
+        return member;
+    }
 }

@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.view.WindowInsetsController;
 import android.view.animation.AnimationUtils;
@@ -25,7 +24,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
@@ -64,7 +62,9 @@ public class CongratsMembership extends AppCompatActivity {
         backHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CongratsMembership.this,Profile_activity.class));
+                Intent intent = new Intent(CongratsMembership.this,Profile_activity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
     }

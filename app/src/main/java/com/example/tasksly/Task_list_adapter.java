@@ -45,6 +45,7 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
         return new Viewholder(view);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, @SuppressLint("RecyclerView") int position) {
         holder.txt_task_name.setText(tasks_list.get(position).getTask_title());
@@ -61,16 +62,7 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
                 context.startActivity(intent);
             }
         });
-        if (tasks_list.get(position).isIs_finished()) {
-            holder.img_view_check_box_oval_not_checked.setVisibility(View.GONE);
-            holder.img_view_check_box_oval_checked.setVisibility(View.VISIBLE);
-            holder.txt_task_name.setPaintFlags(holder.txt_task_name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
-        } else {
-            holder.img_view_check_box_oval_checked.setVisibility(View.GONE);
-            holder.img_view_check_box_oval_not_checked.setVisibility(View.VISIBLE);
-
-        }
         holder.img_view_check_box_oval_not_checked.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -83,12 +75,12 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
                     Utils.completed_tasks.add(Utils.completed_tasks.size(), tasks_list.get(position));
                     Task_Model new_finished_task = new Task_Model(tasks_list.get(position).getTask_title(), tasks_list.get(position).getTime(), tasks_list.get(position).getDate(), tasks_list.get(position).getCategory(), tasks_list.get(position).getDescription(), true, tasks_list.get(position).getCurrent_date(), tasks_list.get(position).getCurrent_time());
                     new_finished_task.setIs_finished(true);
-                    Utils.UpdateTask(tasks_list.get(position), new_finished_task, context);
                     tasks_list.get(position).setIs_finished(true);
+
+                    Utils.UpdateTask(tasks_list.get(position), new_finished_task, context);
                     tasks_list.remove(position);
                     Utils.tasks_list = Utils.GetAllTasksFromFirebase();
 
-                    notifyDataSetChanged();
                 } else {
                     holder.img_view_check_box_oval_not_checked.setVisibility(View.GONE);
                     String categoty = tasks_list.get(position).getCategory().getCategory_name();
@@ -96,8 +88,8 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
                     Utils.completed_tasks.add(Utils.completed_tasks.size(), tasks_list.get(position));
                     Task_Model new_finished_task = new Task_Model(tasks_list.get(position).getTask_title(), tasks_list.get(position).getTime(), tasks_list.get(position).getDate(), tasks_list.get(position).getCategory(), tasks_list.get(position).getDescription(), true, tasks_list.get(position).getCurrent_date(), tasks_list.get(position).getCurrent_time());
                     new_finished_task.setIs_finished(true);
-                    Utils.UpdateTask(tasks_list.get(position), new_finished_task, context);
                     tasks_list.get(position).setIs_finished(true);
+                    Utils.UpdateTask(tasks_list.get(position), new_finished_task, context);
                     notifyDataSetChanged();
                 }
 
@@ -126,8 +118,20 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
             }
         });
 
+            if (tasks_list.get(position).isIs_finished()) {
+                holder.img_view_check_box_oval_not_checked.setVisibility(View.GONE);
+                holder.img_view_check_box_oval_checked.setVisibility(View.VISIBLE);
+                holder.txt_task_name.setPaintFlags(holder.txt_task_name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
-    }
+            } else {
+                holder.img_view_check_box_oval_checked.setVisibility(View.GONE);
+                holder.img_view_check_box_oval_not_checked.setVisibility(View.VISIBLE);
+                holder.txt_task_name.setPaintFlags(Paint.HINTING_OFF);
+            }
+        }
+
+
+
 
 
     @Override

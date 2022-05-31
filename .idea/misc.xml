@@ -63,6 +63,7 @@
         <entry key="..\:/Tasksly/app/src/main/res/drawable/ic_task_create_icon_calendar.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/line.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/font/poppins_medium.xml" value="0.12361111111111112" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_add_task.xml" value="0.1605351170568562" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_congrats_membership.xml" value="0.1605351170568562" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_crypto_pay.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_description.xml" value="0.264" />
@@ -72,9 +73,10 @@
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_main.xml" value="0.16216216216216217" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_otp_verification.xml" value="0.1605351170568562" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_pay.xml" value="0.1605351170568562" />
-        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_profile.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_profile.xml" value="0.2" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_remember_me.xml" value="0.1605351170568562" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_signup.xml" value="0.12013888888888889" />
-        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_task.xml" value="0.176" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_task.xml" value="0.2" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_vip.xml" value="0.16216216216216217" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_vip_special_2.xml" value="0.16216216216216217" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_welcom.xml" value="0.12013888888888889" />
@@ -86,9 +88,10 @@
         <entry key="..\:/Tasksly/app/src/main/res/layout/editeesctiptioneftaskdialogue.xml" value="0.176" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/fragment_2.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/fragment_home_.xml" value="0.16216216216216217" />
-        <entry key="..\:/Tasksly/app/src/main/res/layout/fragment_settings_.xml" value="0.16216216216216217" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/fragment_settings_.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/internet_connection_lost_dialogue.xml" value="0.264" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/private_tasks_pin_dialogue.xml" value="0.2" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/protest.xml" value="0.2391713747645951" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/task_recycler_view.xml" value="0.264" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/toolbar_vip_normal.xml" value="0.16216216216216217" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/vip_price_symbol.xml" value="0.16216216216216217" />

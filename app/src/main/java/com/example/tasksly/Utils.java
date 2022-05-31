@@ -569,7 +569,7 @@ public class Utils {
     public static boolean Is_member() {
         FirebaseUser auth = FirebaseAuth.getInstance().getCurrentUser();
         if (auth != null) {
-            FirebaseDatabase.getInstance().getReference().child("Users").child(auth.getUid()).child("is_memeber").addListenerForSingleValueEvent(new ValueEventListener() {
+            FirebaseDatabase.getInstance().getReference().child("Users").child(auth.getUid()).child("is_memeber").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {

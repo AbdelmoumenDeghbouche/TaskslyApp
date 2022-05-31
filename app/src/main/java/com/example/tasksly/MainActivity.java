@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +31,12 @@ import androidx.fragment.app.Fragment;
 
 import com.github.drjacky.imagepicker.ImagePicker;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
@@ -44,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     public static ChipNavigationBar chipNavigationBar;
     public static Uri uri;
     public static Tasks_fragment Saved_tasks_fragment;
+    public static boolean member;
     public Dialog add_task_dialogue;
     boolean is_clicked;
     Fragment fragment;
@@ -75,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
         Linear_layout_add_task.setClickable(true);
         Linear_layout_add_task.setVisibility(View.VISIBLE);
         Linear_layout_add_task.setFocusable(true);
+
+        IsheAmember();
+
+
         Linear_layout_add_task.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,11 +98,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 add_task_dialogue.dismiss();
-                ImagePicker.Companion.with(MainActivity.this)
-                        .crop()
-                        .cameraOnly()
-                        .start();
+                if (IsheAmember()) {
 
+
+                    ImagePicker.Companion.with(MainActivity.this)
+                            .crop()
+                            .cameraOnly()
+                            .start();
+                }
+                else {
+                    Intent intent = new Intent(MainActivity.this,PayActivity.class);
+                    startActivity(intent);
+                }
             }
 
         });
@@ -192,6 +211,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private boolean IsheAmember() {
+        FirebaseUser auth = FirebaseAuth.getInstance().getCurrentUser();
+        if (auth != null) {
+            FirebaseDatabase.getInstance().getReference().child("Users").child(auth.getUid()).child("is_memeber").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        member = snapshot.getValue(boolean.class);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+        }
+        return member;
+    }
+
 
     private void showsnackbar() {
         Snackbar.make(Main_activity_layout_parent, "This Feature needs the camera permission", Snackbar.LENGTH_INDEFINITE)
@@ -222,23 +260,21 @@ public class MainActivity extends AppCompatActivity {
             URL url = Utils.ParseUrl(uri);
 
             if (null != url) {
-                Log.d(TAG, "uri when url not null : "+ uri+  " " + url);
+                Log.d(TAG, "uri when url not null : " + uri + " " + url);
 
                 Utils.OcrExtraction(url.toString());
                 Toast.makeText(this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
 
             } else {
                 URL url2 = Utils.ParseUrl(uri);
-                if (null!=url2){
+                if (null != url2) {
                     Utils.OcrExtraction(url2.toString());
-                }
-                else {
-                    Log.d(TAG, "uri when url is null : "+ uri + "  " +url2);
+                } else {
+                    Log.d(TAG, "uri when url is null : " + uri + "  " + url2);
 
                     Toast.makeText(this, "Operation Failed Please Upload the Image Again", Toast.LENGTH_LONG).show();
 
                 }
-
 
 
             }
@@ -279,12 +315,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (chipNavigationBar.getSelectedItemId()==R.id.settings){
+        if (chipNavigationBar.getSelectedItemId() == R.id.settings) {
             chipNavigationBar.setItemSelected(R.id.home, true);
             fragment = Saved_home_fragment;
 
-        }
-        else {
+        } else {
             super.onBackPressed();
 
         }

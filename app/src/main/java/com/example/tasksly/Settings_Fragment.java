@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 public class Settings_Fragment extends Fragment {
 
-    RelativeLayout relativeLayout, relativeLayout2;
+    RelativeLayout On_relalive_layout_sound,On_relalive_layout_vibrate_on_mute,Off_relalive_layout_vibrate_on_mute ,Off_relalive_layout_sound, On_relalive_layout_vibration, Off_relalive_layout_vibration;
     boolean is_clicked;
 
     @Override
@@ -23,10 +23,15 @@ public class Settings_Fragment extends Fragment {
 
         return view;
     }
+
     public void AssingElements(View view) {
 
-        relativeLayout = view.findViewById(R.id.On_relalive_layout);
-        relativeLayout2 = view.findViewById(R.id.Off_relalive_layout);
+        On_relalive_layout_sound = view.findViewById(R.id.On_relalive_layout_sound);
+        Off_relalive_layout_sound = view.findViewById(R.id.Off_relalive_layout_sound);
+        On_relalive_layout_vibration = view.findViewById(R.id.On_relalive_layout_vibration);
+        Off_relalive_layout_vibration = view.findViewById(R.id.Off_relalive_layout_vibration);
+        On_relalive_layout_vibrate_on_mute=view.findViewById(R.id.On_relalive_layout_vibrate_on_mute);
+        Off_relalive_layout_vibrate_on_mute = view.findViewById(R.id.Off_relalive_layout_vibrate_on_mute);
         is_clicked = true;
 
     }
@@ -35,18 +40,45 @@ public class Settings_Fragment extends Fragment {
 
         // handling on off clicks
 
-        view.findViewById(R.id.parent_layout).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.parent_layout_sound).setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
                 if (is_clicked) {
-                    relativeLayout.setVisibility(View.GONE);
-                    relativeLayout2.setVisibility(View.VISIBLE);
+                    On_relalive_layout_sound.setVisibility(View.GONE);
+                    Off_relalive_layout_sound.setVisibility(View.VISIBLE);
                 } else {
-                    relativeLayout.setVisibility(View.VISIBLE);
-                    relativeLayout2.setVisibility(View.GONE);
+                    On_relalive_layout_sound.setVisibility(View.VISIBLE);
+                    Off_relalive_layout_sound.setVisibility(View.GONE);
                 }
                 is_clicked = !is_clicked;
+            }
+        });
+        view.findViewById(R.id.parent_layout_vibration).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!is_clicked) {
+                    On_relalive_layout_vibration.setVisibility(View.GONE);
+                    Off_relalive_layout_vibration.setVisibility(View.VISIBLE);
+                } else {
+                    On_relalive_layout_vibration.setVisibility(View.VISIBLE);
+                    Off_relalive_layout_vibration.setVisibility(View.GONE);
+                }
+                is_clicked = !is_clicked;
+            }
+        });
+        view.findViewById(R.id.parent_layout_vibrate_on_mute).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!is_clicked) {
+                    On_relalive_layout_vibrate_on_mute.setVisibility(View.GONE);
+                    Off_relalive_layout_vibrate_on_mute.setVisibility(View.VISIBLE);
+                } else {
+                    On_relalive_layout_vibrate_on_mute.setVisibility(View.VISIBLE);
+                    Off_relalive_layout_vibrate_on_mute.setVisibility(View.GONE);
+                }
+                is_clicked = !is_clicked;
+
             }
         });
 

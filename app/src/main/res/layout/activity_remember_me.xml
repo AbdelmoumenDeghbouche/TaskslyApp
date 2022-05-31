@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
             android:layout_gravity="center"
-            android:text="Wait a minut ! "
+            android:text="Wait a minute ! "
             android:textColor="#0F1647"
             android:textSize="30sp" />
         <TextView
