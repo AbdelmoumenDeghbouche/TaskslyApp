@@ -40,6 +40,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TimePickerDialog.OnTimeSetListener {
     private final String[] categories = new String[Utils.getCategories_list().size() - 1];
@@ -80,7 +81,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
         add_task_dialogue = new Dialog(TaskActivity.this);
         add_task_dialogue.setContentView(R.layout.add_task_or_imort_image_dialogue);
         add_task_dialogue.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background_of_dialogue_add_category));
@@ -224,6 +225,7 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
         });
 
         back_button_from_task_activity_to_main.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
