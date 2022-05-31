@@ -3,6 +3,7 @@ package com.example.tasksly;
 import static android.content.ContentValues.TAG;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
@@ -22,7 +23,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,15 +48,16 @@ import java.util.HashMap;
 public class Utils {
     public static final String COMPLETED_TASKS_KEY = "slqdlmùqssqllqdsldmqslmmlmslqd";
     public static ArrayList<Category_Model> categories_list;
-    public static ArrayList<Task_Model> tasks_list, private_tasks, completed_tasks;
+    public static ArrayList<Task_Model> tasks_list, private_tasks, completed_tasks, planing_tasks;
     public static HashMap<String, ArrayList<Task_Model>> category_map = new HashMap<>();
     public static ArrayList<welcom_activity_Model> Welcomlist;
     public static Context context;
+    public static Dialog add_task_dialogue;
     public static URL myUrl = null;
     public static String private_task_pin_code = "";
     public static int exists = 0;
     public static boolean is_this_adapter_Home_fragment = false;
-    public static boolean member = false;
+    public static boolean task_uploaded;
 
 
     public static int getIndexOfCategoryModelByCategoryName(String CategoryName) {
@@ -164,10 +165,7 @@ public class Utils {
     public static void AddTaskByTaskModel(Task_Model task_model) {
         if (tasks_list != null) {
             Log.d(TAG, "AddTaskByTaskModel: Niccce");
-            Category_Model category_model = null;
-            if (task_model != null) {
-                category_model = task_model.getCategory();
-            }
+            Category_Model category_model = task_model.getCategory();
             if (category_model != null) {
                 Log.d(TAG, "AddTaskByTaskModel: Niccce2");
 
@@ -312,14 +310,14 @@ public class Utils {
     }
 
     public static void AddTaskToFirebase(Task_Model task) {
-        if (task != null) {
+        if (task != null){
             Category_Model category = task.getCategory();
-            if (category != null) {
+            if (category != null){
                 //if (categoryIsExist(category.getCategory_name())){
                 FirebaseDatabase.getInstance().getReference().child("Tasks").child(category.getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(task).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
+                        if (task.isSuccessful()){
 //                            Toast.makeText(contextt, "Your task has been saved successfully !", Toast.LENGTH_SHORT).show();
                             Add_task.dialog.dismiss();
                         } else {
@@ -328,7 +326,10 @@ public class Utils {
                         }
                     }
                 });
-
+//                } else {
+//                    Toast.makeText(contextt, "No category with this name !", Toast.LENGTH_SHORT).show();
+//                    Add_task.dialog.dismiss();
+//                }
             } else {
 //                Toast.makeText(contextt, "Please select a category !", Toast.LENGTH_SHORT).show();
                 Add_task.dialog.dismiss();
@@ -456,10 +457,7 @@ public class Utils {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     for (DataSnapshot task : snapshot.getChildren()) {
-                        if (task.getValue(Task_Model.class).getCurrent_date().equals(oldtask.getCurrent_date()) && task.getValue(Task_Model.class).getCurrent_time().equals(oldtask.getCurrent_time()) &&
-                                task.getValue(Task_Model.class).getTask_title().equals(oldtask.getTask_title()) && task.getValue(Task_Model.class).getCategory().getCategory_name().equals(oldtask.getCategory().getCategory_name()) &&
-                                task.getValue(Task_Model.class).getTime().equals(oldtask.getTime()) && task.getValue(Task_Model.class).getDate().equals(oldtask.getDate()) &&
-                                task.getValue(Task_Model.class).getDescription().equals(oldtask.getDescription())) {
+                        if (task.getValue(Task_Model.class).getCurrent_date().equals(oldtask.getCurrent_date()) && task.getValue(Task_Model.class).getCurrent_time().equals(oldtask.getCurrent_time())) {
                             // means this is the task that we want to update so we update it
                             FirebaseDatabase.getInstance().getReference().child("Tasks").child(oldtask.getCategory().getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(task.getKey()).setValue(newtask).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -511,24 +509,5 @@ public class Utils {
 
             }
         });
-    }
-
-    public static boolean Is_member() {
-        FirebaseUser auth = FirebaseAuth.getInstance().getCurrentUser();
-        if (auth != null) {
-            FirebaseDatabase.getInstance().getReference().child("Users").child(auth.getUid()).child("is_memeber").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        member = snapshot.getValue(boolean.class);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-            });
-        }
-        return member;
     }
 }

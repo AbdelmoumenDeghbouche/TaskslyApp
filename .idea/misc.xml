@@ -20,6 +20,7 @@
         <entry key="..\:/Tasksly/app/src/main/res/drawable/background_of_add_new_task_dialogue.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/background_of_dialogue_add_category.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/background_of_dialogue_no_connection.xml" value="0.1" />
+        <entry key="..\:/Tasksly/app/src/main/res/drawable/background_style_of_button.xml" value="0.179" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/card_off_back.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/card_on_back.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/drawable/cardview_style.xml" value="0.1" />
@@ -72,8 +73,9 @@
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_pay.xml" value="0.1605351170568562" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_profile.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_signup.xml" value="0.12013888888888889" />
-        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_task.xml" value="0.16" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/activity_task.xml" value="0.176" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/activity_welcom.xml" value="0.12013888888888889" />
+        <entry key="..\:/Tasksly/app/src/main/res/layout/add_category_daialogue.xml" value="0.4" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/add_category_view.xml" value="0.1" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/add_task_or_imort_image_dialogue.xml" value="0.17973856209150327" />
         <entry key="..\:/Tasksly/app/src/main/res/layout/add_task_or_imort_image_dialogue2.xml" value="0.15763888888888888" />

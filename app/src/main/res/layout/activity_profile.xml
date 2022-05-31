@@ -123,6 +123,8 @@
                         android:maxLength="25"
                         android:maxLines="1"
                         android:text="ichou"
+                        android:maxLines="1"
+                        android:maxLength="25"
                         android:textColor="#1D1235"
                         android:textSize="18dp" />
 

@@ -2,6 +2,7 @@ package com.example.tasksly;
 
 import static android.content.ContentValues.TAG;
 
+import android.icu.util.Calendar;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.SystemClock;
@@ -16,7 +17,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import okhttp3.Credentials;
 import okhttp3.FormBody;
@@ -104,7 +104,7 @@ public class OcrRequestAsync extends AsyncTask<String, Void, Response> {
                         // this date and time variables are used just to create a different parent fir very child
                         String date_now = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
                         String time_now = new SimpleDateFormat("HH:mm:ss a").format(Calendar.getInstance().getTime());
-                        Utils.AddTaskByTaskModel(new Task_Model(cells.get(j).text, cells.get((row - 1) * colsize).text, Utils.nextDayDate(cells.get(i).text), new Category_Model("General"), "", true,date_now,time_now));
+                        Utils.AddTaskToFirebase(new Task_Model(cells.get(j).text, cells.get((row - 1) * colsize).text, Utils.nextDayDate(cells.get(i).text), new Category_Model("General"), "", true,date_now,time_now));
                         j += colsize;
                         row += 1;
                     }

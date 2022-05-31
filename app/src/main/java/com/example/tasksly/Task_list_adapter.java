@@ -21,9 +21,9 @@ import com.google.android.material.card.MaterialCardView;
 import java.util.ArrayList;
 
 public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Viewholder> {
+    private final Context context;
+    int row_ind = 0;
     private ArrayList<Task_Model> tasks_list = new ArrayList<>();
-    private Context context;
-    int row_ind=0;
 
 
     public Task_list_adapter(Context context) {
@@ -57,6 +57,7 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
                 intent.putExtra("TaskModel", tasks_list.get(position));
                 intent.putExtra("selected_task", position);
                 intent.putExtra("category_name", tasks_list.get(position).getCategory().getCategory_name());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
         });
@@ -74,17 +75,17 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                    holder.img_view_check_box_oval_not_checked.setVisibility(View.GONE);
-                    String categoty = tasks_list.get(position).getCategory().getCategory_name();
-                    holder.img_view_check_box_oval_checked.setVisibility(View.VISIBLE);
-                    Utils.completed_tasks.add(Utils.completed_tasks.size(), tasks_list.get(position));
-                    tasks_list.get(position).setIs_finished(true);
-                    tasks_list.remove(position);
-                    Utils.category_map.replace(categoty, tasks_list);
-                    notifyDataSetChanged();
-
-
-
+                holder.img_view_check_box_oval_not_checked.setVisibility(View.GONE);
+                String categoty = tasks_list.get(position).getCategory().getCategory_name();
+                holder.img_view_check_box_oval_checked.setVisibility(View.VISIBLE);
+                Utils.completed_tasks.add(Utils.completed_tasks.size(), tasks_list.get(position));
+                Task_Model new_finished_task = new Task_Model(tasks_list.get(position).getTask_title(), tasks_list.get(position).getTime(), tasks_list.get(position).getDate(), tasks_list.get(position).getCategory(), tasks_list.get(position).getDescription(), true,tasks_list.get(position).getCurrent_date(),tasks_list.get(position).getCurrent_time());
+                new_finished_task.setIs_finished(true);
+                Utils.UpdateTask(tasks_list.get(position), new_finished_task, context);
+                tasks_list.get(position).setIs_finished(true);
+                tasks_list.remove(position);
+                Utils.category_map.replace(categoty, tasks_list);
+                notifyDataSetChanged();
 
 
             }
@@ -95,7 +96,7 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                if (position==tasks_list.size()){
+                if (position == tasks_list.size()) {
                     holder.img_view_check_box_oval_checked.setVisibility(View.GONE);
                     holder.img_view_check_box_oval_not_checked.setVisibility(View.VISIBLE);
 
@@ -109,11 +110,10 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
 
 
                     }
-                }
-                else {
+                } else {
                     holder.img_view_check_box_oval_checked.setVisibility(View.GONE);
                     holder.img_view_check_box_oval_not_checked.setVisibility(View.VISIBLE);
-                    row_ind=position;
+                    row_ind = position;
 
                     tasks_list.get(row_ind).setIs_finished(false);
                     ArrayList<Task_Model> new_arrayList = Utils.category_map.get(tasks_list.get(row_ind).getCategory().getCategory_name());
@@ -127,13 +127,10 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
                 }
 
 
-
-
-
             }
         });
 
-        if (getItemCount()==Utils.getTasks_list().size()){
+        if (getItemCount() == Utils.getTasks_list().size()) {
             holder.parent_relative_layout_of_task_name.setClickable(true);
             holder.img_view_check_box_oval_checked.setClickable(false);
             holder.img_view_check_box_oval_not_checked.setClickable(false);
@@ -143,17 +140,22 @@ public class Task_list_adapter extends RecyclerView.Adapter<Task_list_adapter.Vi
 
     @Override
     public int getItemCount() {
-        if (tasks_list != null){
+        if (tasks_list != null) {
             return tasks_list.size();
         }
-        return 0 ;
+        return 0;
     }
 
     class Viewholder extends RecyclerView.ViewHolder {
-        private MaterialCardView card_view_layout_of_task_item;
-        private RelativeLayout parent_relative_layout_of_task_name;
-        private TextView txt_time_of_task, txt_description_of_task, txt_task_name, txt_view_date_of_task_in_RV;
-        private ImageView img_view_clock, img_view_check_box_oval_checked, img_view_check_box_oval_not_checked;
+        private final MaterialCardView card_view_layout_of_task_item;
+        private final RelativeLayout parent_relative_layout_of_task_name;
+        private final TextView txt_time_of_task;
+        private final TextView txt_description_of_task;
+        private final TextView txt_task_name;
+        private final TextView txt_view_date_of_task_in_RV;
+        private final ImageView img_view_clock;
+        private final ImageView img_view_check_box_oval_checked;
+        private final ImageView img_view_check_box_oval_not_checked;
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);

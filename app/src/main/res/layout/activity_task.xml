@@ -4,105 +4,95 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/mainbluex"
     android:orientation="vertical"
-    android:padding="20dp"
     tools:context=".TaskActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:fontFamily="@font/poppins_semibold"
-        android:layout_marginBottom="25dp"
-        android:gravity="center"
-        android:text="Edit task "
-        android:textColor="@color/colorfirst"
-        android:textSize="30dp" />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_semibold"
-        android:gravity="center"
-        android:text="Task title"
-        android:textColor="@color/colorfirst"
-        android:textSize="20dp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_text_name_of_the_task"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:textColorHint="#676767"
-        app:boxBackgroundColor="#EDEDED"
-        app:boxCornerRadiusBottomEnd="10dp"
-        app:boxCornerRadiusBottomStart="10dp"
-        app:boxCornerRadiusTopEnd="10dp"
-        app:boxCornerRadiusTopStart="10dp"
-        app:boxStrokeColor="@color/darkblue3"
-        app:boxStrokeWidth="0dp"
-        app:endIconMode="clear_text"
-        app:endIconTint="#636363"
-        app:hintTextColor="@color/black"
-        app:startIconTint="@color/darkblue3">
+        android:layout_margin="15dp"
+        android:orientation="horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/useremail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/fontmain"
-            android:textSize="15dp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp">
-
-        <com.google.android.material.card.MaterialCardView
+        <ImageView
+            android:id="@+id/back_button_from_task_activity_to_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:backgroundTint="@color/black"
+            android:src="@drawable/ic_baseline_arrow_back_24" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_baseline_more_vert_24" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/style_spinner_categories"
+        android:backgroundTint="@color/background_of_items"
+        android:clickable="true"
+        app:cardCornerRadius="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
             android:background="@drawable/style_spinner_categories"
-            android:backgroundTint="@color/mainbluex"
-            app:strokeColor="@color/darkblue3"
-            app:strokeWidth="1dp"
-            android:clickable="true"
-            app:cardCornerRadius="15dp">
+            android:clickable="false"
+            android:focusable="true">
 
             <Spinner
                 android:id="@+id/spinner_categories"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:backgroundTint="@color/mainpink" />
+                android:backgroundTint="@color/black" />
 
-        </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="Category"
-            android:textColor="@color/colorfirst"
-            android:textSize="18dp" />
 
-    </RelativeLayout>
+    <EditText
+        android:id="@+id/edit_text_name_of_the_task"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@null"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingStart="24.0dip"
+        android:paddingTop="12.0dip"
+        android:paddingEnd="27.0dip"
+        android:paddingBottom="10.0dip"
+        android:maxLines="3"
+        android:maxLength="85"
+        android:singleLine="false"
+        android:textCursorDrawable="@drawable/cursor_drawable"
+        android:textSize="20.0dip" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="150dp" />
 
     <LinearLayout
         android:id="@+id/linear_layout_date_of_task"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_margin="15dp"
         android:clickable="true"
-        android:focusable="true"
-        android:padding="5dp">
+        android:focusable="true">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -117,8 +107,7 @@
             android:layout_marginLeft="5dp"
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
-            android:text="Due Date"
-            android:textColor="@color/colorfirst" />
+            android:text="Due Date" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -143,10 +132,9 @@
         android:id="@+id/linear_layout_time_of_task"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_margin="15dp"
         android:clickable="true"
-        android:focusable="true"
-        android:padding="5dp">
+        android:focusable="true">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -161,8 +149,7 @@
             android:layout_marginLeft="5dp"
             android:fontFamily="@font/poppins_medium"
             android:gravity="center"
-            android:text="Due Time"
-            android:textColor="@color/colorfirst" />
+            android:text="Due Time" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -187,10 +174,9 @@
         android:id="@+id/linear_layout_reminder_of_task"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_margin="15dp"
         android:clickable="true"
-        android:focusable="true"
-        android:padding="5dp">
+        android:focusable="true">
 
         <ImageView
             android:layout_width="24.0dip"
@@ -204,8 +190,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="Reminder at"
-            android:textColor="@color/colorfirst" />
+            android:text="Reminder at" />
 
 
     </LinearLayout>
@@ -215,10 +200,9 @@
         android:id="@+id/linear_layout_description_of_task"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_margin="15dp"
         android:clickable="true"
-        android:focusable="true"
-        android:padding="5dp">
+        android:focusable="true">
 
         <ImageView
             android:layout_width="24.0dip"
@@ -233,18 +217,16 @@
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="Description"
-            android:textColor="@color/colorfirst" />
+            android:text="Description" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linear_layout_scan_table_ocr_of_task"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_margin="15dp"
         android:clickable="true"
-        android:focusable="true"
-        android:padding="5dp">
+        android:focusable="true">
 
         <ImageView
             android:layout_width="24.0dip"
@@ -259,8 +241,8 @@
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="Scan Table By OCR"
-            android:textColor="@color/colorfirst" />
+
+            android:text="Scan Table By OCR" />
 
         <ImageView
             android:layout_width="16.0dip"
@@ -269,26 +251,6 @@
             android:layout_marginLeft="10dp"
             android:src="@drawable/vip_icon" />
     </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/back_button_from_task_activity_to_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/done_creating_task_button_back"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="Save changes"
-            android:textColor="#1D1235"
-            android:textSize="18dp" />
-    </RelativeLayout>
 
 
 </LinearLayout>
