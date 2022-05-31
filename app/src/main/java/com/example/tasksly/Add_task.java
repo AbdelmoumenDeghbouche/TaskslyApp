@@ -208,9 +208,9 @@ public class Add_task extends AppCompatActivity {
 
                     // set day and month and year alarm
 
-                    startTime.set(Calendar.YEAR, Notification_year);
-                    startTime.set(Calendar.MONTH, Notification_month);
-                    startTime.set(Calendar.DAY_OF_MONTH, Notification_day);
+//                    startTime.set(Calendar.YEAR, Notification_year);
+//                    startTime.set(Calendar.MONTH, Notification_month);
+//                    startTime.set(Calendar.DAY_OF_MONTH, Notification_day);
                     startTime.set(Calendar.HOUR_OF_DAY, hour);
                     startTime.set(Calendar.MINUTE, minute);
                     startTime.set(Calendar.SECOND, 0);

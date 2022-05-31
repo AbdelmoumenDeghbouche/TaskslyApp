@@ -1,5 +1,6 @@
 package com.example.tasksly;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -40,10 +41,11 @@ public class AlarmReceiver extends BroadcastReceiver {
         }
 
 
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID).setSmallIcon(R.drawable.ic_alarm)
-                    .setContentTitle("TaskSly Reminder")
+            @SuppressLint("ResourceAsColor") NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID).setSmallIcon(R.drawable.ic_alarm)
+                    .setContentTitle("Tasksly")
                     .setContentText(message)
-                    .setContentIntent(contentIntent)
+                    .setContentIntent(contentIntent )
+                    .setColor(R.color.mainyellow)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setAutoCancel(true);
 
