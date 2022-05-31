@@ -227,36 +227,47 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-                onBackPressed();
                 String category_name = intent.getStringExtra("category_name");
                 task_model.setTask_title(edit_text_name_of_the_task.getEditText().getText().toString());
                 task_model.setDate(txt_date_of_the_task_in_task_activity.getText().toString());
                 task_model.setTime(txt_time_of_task_in_activity_task.getText().toString());
                 selected_task_from_RV = intent1.getIntExtra("selected_task", -1);
-                if (spinner_categories.getSelectedItem().toString().equals(category_name)) {
-                    Toast.makeText(TaskActivity.this, "Task Updated successfully", Toast.LENGTH_SHORT).show();
-                    task_model.setCategory(new Category_Model(category_name));
-                    task_model1_without_changes.setCategory(new Category_Model(category_name));
-//                    task_model.setCategory(new Category_Model(categories[selected_category]));
-                    Log.d(TAG, "Old Task: " + task_model1_without_changes.getCurrent_date());
-
-                    Utils.UpdateTask(task_model, task_model1_without_changes, getApplicationContext());
-                    Utils.tasks_list = Utils.GetAllTasksFromFirebase();
-                    ArrayList<Task_Model> task_modelArrayList =Utils.GetTasksListOfSpecificCategory(Utils.categories_list.get(Categoty_list_adapter.row_index).getCategory_name());
-
-                    Tasks_fragment.adapter.setTasks(Utils.return_only_not_completed_tasks(task_modelArrayList));
-
-                    Tasks_fragment.adapter.notifyDataSetChanged();
-
-
+//                if (task_model.getTask_title().equals(task_model1_without_changes.getTask_title()) && task_model.getTime().equals(task_model1_without_changes.getTime()) && task_model.getDate().equals(task_model1_without_changes.getDate()) && task_model.getCategory().getCategory_name().equals(task_model1_without_changes.getCategory().getCategory_name()) && task_model.getDescription().equals(task_model1_without_changes.getDescription())) {
+                if (task_model.getTask_title().equals(task_model1_without_changes.getTask_title())) {
+                    Log.d(TAG, "onClick: tass" +task_model.toString());
+                    Log.d(TAG, "onClick: tassss" + task_model1_without_changes.toString());
+                    finish();
                 } else {
-                    task_model.setCategory(new Category_Model(spinner_categories.getSelectedItem().toString()));
-                    Log.d(TAG, "Old Task: " + task_model1_without_changes.toString());
-                    Utils.DeleteTask(task_model1_without_changes, getApplicationContext());
-                    Utils.AddTaskToFirebase(task_model,getApplicationContext());
-                    Utils.tasks_list = Utils.GetAllTasksFromFirebase();
-                    Tasks_fragment.adapter.notifyDataSetChanged();
+                    onBackPressed();
+                    task_model.setTask_title(edit_text_name_of_the_task.getEditText().getText().toString());
+                    task_model.setDate(txt_date_of_the_task_in_task_activity.getText().toString());
+                    task_model.setTime(txt_time_of_task_in_activity_task.getText().toString());
+                    selected_task_from_RV = intent1.getIntExtra("selected_task", -1);
+                    if (spinner_categories.getSelectedItem().toString().equals(category_name)) {
+                        Toast.makeText(TaskActivity.this, "Task Updated successfully", Toast.LENGTH_SHORT).show();
+                        task_model.setCategory(new Category_Model(category_name));
+                        task_model1_without_changes.setCategory(new Category_Model(category_name));
+//                    task_model.setCategory(new Category_Model(categories[selected_category]));
+                        Log.d(TAG, "Old Task: " + task_model1_without_changes.getCurrent_date());
 
+                        Utils.UpdateTask(task_model, task_model1_without_changes, getApplicationContext());
+                        Utils.tasks_list = Utils.GetAllTasksFromFirebase();
+                        ArrayList<Task_Model> task_modelArrayList = Utils.GetTasksListOfSpecificCategory(Utils.categories_list.get(Categoty_list_adapter.row_index).getCategory_name());
+
+                        Tasks_fragment.adapter.setTasks(Utils.return_only_not_completed_tasks(task_modelArrayList));
+
+                        Tasks_fragment.adapter.notifyDataSetChanged();
+
+
+                    } else {
+                        task_model.setCategory(new Category_Model(spinner_categories.getSelectedItem().toString()));
+                        Log.d(TAG, "Old Task: " + task_model1_without_changes.toString());
+                        Utils.DeleteTask(task_model1_without_changes, getApplicationContext());
+                        Utils.AddTaskToFirebase(task_model, getApplicationContext());
+                        Utils.tasks_list = Utils.GetAllTasksFromFirebase();
+                        Tasks_fragment.adapter.notifyDataSetChanged();
+
+                    }
                 }
 
 

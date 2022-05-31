@@ -4,7 +4,6 @@ import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 import static com.yalantis.ucrop.UCropFragment.TAG;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -125,13 +124,7 @@ public class Add_task extends AppCompatActivity {
             }
         });
 
-        task_done_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                startActivity(new Intent(Add_task.this, MainActivity.class));
-            }
-        });
 
     }
 
