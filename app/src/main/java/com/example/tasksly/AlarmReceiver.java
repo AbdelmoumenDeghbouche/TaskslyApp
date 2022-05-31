@@ -48,7 +48,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                     .setAutoCancel(true);
 
 
-            notificationManager.notify((int) notificationId,builder.build());
+            notificationManager.notify( (int) notificationId,builder.build());
 
 
     }
