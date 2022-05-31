@@ -87,6 +87,11 @@ public class Profile_activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Profile_activity.this,DifferentTasksListActivity.class);
+
+                // this is ichou work here
+
+
+
                 if (Utils.private_task_pin_code.equals("")){
                     Pin_code_submission_of_private_tasks_first_time.show();
                     relative_layout_submitting_pin_code_private_tasks_first_time.setOnClickListener(new View.OnClickListener() {
