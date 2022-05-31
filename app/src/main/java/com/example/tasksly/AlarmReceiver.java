@@ -35,7 +35,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             int importance = notificationManager.IMPORTANCE_DEFAULT;
 
 
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, channel_name, importance);
+            NotificationChannel channel = new NotificationChannel( CHANNEL_ID, channel_name, importance);
             notificationManager.createNotificationChannel(channel);
         }
 
