@@ -48,6 +48,7 @@ import java.util.HashMap;
 
 public class Utils {
     public static final String COMPLETED_TASKS_KEY = "slqdlmùqssqllqdsldmqslmmlmslqd";
+    public static boolean exist, exist2;
     public static ArrayList<Category_Model> categories_list;
     public static ArrayList<Task_Model> tasks_list, private_tasks, completed_tasks, planing_tasks;
     public static HashMap<String, ArrayList<Task_Model>> category_map = new HashMap<>();
@@ -586,5 +587,66 @@ public class Utils {
             });
         }
         return member;
+    }
+
+    public static void Set_User_Pin(String pin) {
+        FirebaseDatabase.getInstance().getReference().child("Private").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(pin).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(context, "Pin saved successfully !", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    public static boolean check_if_user_have_pin() {
+        // use this function to know which page you will show to the user ( new pin , or set the old pin)
+        exist2 = false;
+        FirebaseDatabase.getInstance().getReference().child("Private").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String pin = snapshot.getValue(String.class);
+                    if (pin == null && pin.equals("")) {
+                        exist2 = false;
+                    } else {
+                        exist2 = true;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return exist2;
+    }
+
+    public static boolean check_Private_Pin(String user_pin) {
+        // use this function to check if the pin that the user entered is the same one as in the firebase
+        exist = false;
+        FirebaseDatabase.getInstance().getReference().child("Private").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String pin = snapshot.getValue(String.class);
+                    if (pin.equals(user_pin)) {
+
+                        exist = true;
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return exist;
     }
 }

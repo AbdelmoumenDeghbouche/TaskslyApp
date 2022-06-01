@@ -5,7 +5,6 @@ import static android.content.ContentValues.TAG;
 import android.icu.util.Calendar;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.SystemClock;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
@@ -104,7 +103,7 @@ public class OcrRequestAsync extends AsyncTask<String, Void, Response> {
                         // this date and time variables are used just to create a different parent fir very child
                         String date_now = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
                         String time_now = new SimpleDateFormat("HH:mm:ss a").format(Calendar.getInstance().getTime());
-                        Utils.AddTaskToFirebasewithoutcontext(new Task_Model(cells.get(j).text, cells.get((row - 1) * colsize).text, Utils.nextDayDate(cells.get(i).text), new Category_Model("General"), "", true,date_now,time_now));
+                        Utils.AddTaskToFirebasewithoutcontext(new Task_Model(cells.get(j).text, cells.get((row - 1) * colsize).text, Utils.nextDayDate(cells.get(i).text), new Category_Model("General"), "", true, date_now, time_now));
                         j += colsize;
                         row += 1;
                     }
@@ -152,11 +151,9 @@ public class OcrRequestAsync extends AsyncTask<String, Void, Response> {
             response = client.newCall(request).execute();
 
             Log.d(TAG, "doInBackground: Nice ");
-            SystemClock.sleep(3000);
         } catch (IOException e) {
             e.printStackTrace();
             Log.d(TAG, "doInBackground: BAD");
-            SystemClock.sleep(3000);
         }
         return response;
     }

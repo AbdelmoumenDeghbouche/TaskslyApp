@@ -3,6 +3,8 @@ package com.example.tasksly;
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -47,6 +49,7 @@ public class Edite_profle_activity extends AppCompatActivity {
     ImageView user_image;
     Uri image_uri;
     MaterialAlertDialogBuilder progressDialog;
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
     AlertDialog dialog;
     ProgressBar progressBar;
@@ -232,5 +235,19 @@ public class Edite_profle_activity extends AppCompatActivity {
             user_image.setImageURI(image_uri);
             Toast.makeText(Edite_profle_activity.this, "Image selected successfully !", Toast.LENGTH_SHORT).show();
         }
+    }
+    @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener,intentFilter);
+        super.onStart();
+
+    }
+
+    @Override
+    protected void onStop() {
+
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 }

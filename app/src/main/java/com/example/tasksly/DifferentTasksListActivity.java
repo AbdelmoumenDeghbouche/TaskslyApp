@@ -7,7 +7,9 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowInsetsController;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,6 +32,8 @@ public class DifferentTasksListActivity extends AppCompatActivity {
     private Task_list_adapter adapter;
     private TextView txt_name_of_the_activity;
     private ArrayList<Task_Model> tasks_list;
+    private TextView prorgess,progress_number ;
+    private ProgressBar progressBar ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +54,9 @@ public class DifferentTasksListActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_different_tasks_list);
         txt_name_of_the_activity = findViewById(R.id.txt_private_task_title);
-
+        progressBar = findViewById(R.id.simpleProgressBar);
+        prorgess = findViewById(R.id.progress);
+        progress_number = findViewById(R.id.progress_number);
         recycler_view_of_private_tasks = findViewById(R.id.recycler_view_of_private_tasks);
 
         adapter = new Task_list_adapter(getApplicationContext());
@@ -59,10 +65,19 @@ public class DifferentTasksListActivity extends AppCompatActivity {
         recycler_view_of_private_tasks.setLayoutManager(linearLayoutManager);
         Utils.initTasksList();
         tasks_list = new ArrayList<>();
+
+        // setting the progress bar
+
+
+
+
         if (intent != null) {
             if (intent.getStringExtra("NameOfActivity").equals("Private Tasks")) {
                 tasks_list = Utils.category_map.get("sqddqsdjqsoidjqsjdsoqidjoqsidjqsoi");
                 Utils.should_i_delete_the_task_from_the_adapter = false;
+                prorgess.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
+                progress_number.setVisibility(View.GONE);
 
                 txt_name_of_the_activity.setText(intent.getStringExtra("NameOfActivity"));
 
@@ -115,6 +130,9 @@ public class DifferentTasksListActivity extends AppCompatActivity {
             }
             if (intent.getStringExtra("NameOfActivity").equals("All Tasks")) {
                 Utils.should_i_delete_the_task_from_the_adapter = false;
+                prorgess.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
+                progress_number.setVisibility(View.VISIBLE);
                 FirebaseDatabase.getInstance().getReference().child("Tasks").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -132,11 +150,14 @@ public class DifferentTasksListActivity extends AppCompatActivity {
                                         }
 
                                         ArrayList<Task_Model> tasks_list = list;
-
+                                        int a = ((Utils.return_only_completed_tasks(list).size())*100)/tasks_list.size();
+                                        progressBar.setProgress(a);
+                                        progress_number.setText(a+"%");
                                         if (tasks_list != null) {
                                             adapter.setTasks(tasks_list);
 
                                         }
+
 
 
                                     }
@@ -159,6 +180,9 @@ public class DifferentTasksListActivity extends AppCompatActivity {
             }
             if (intent.getStringExtra("NameOfActivity").equals("Planning Tasks")) {
                 Utils.should_i_delete_the_task_from_the_adapter = true;
+                prorgess.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
+                progress_number.setVisibility(View.GONE);
                 FirebaseDatabase.getInstance().getReference().child("Tasks").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
