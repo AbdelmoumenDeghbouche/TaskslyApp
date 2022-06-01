@@ -85,6 +85,9 @@ public class DifferentTasksListActivity extends AppCompatActivity {
             }
             if (intent.getStringExtra("NameOfActivity").equals("Completed Tasks")) {
                 Utils.should_i_delete_the_task_from_the_adapter = true;
+                prorgess.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
+                progress_number.setVisibility(View.GONE);
                 FirebaseDatabase.getInstance().getReference().child("Tasks").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
