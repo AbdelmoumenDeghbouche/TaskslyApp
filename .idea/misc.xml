@@ -190,6 +190,8 @@
         <entry key="..\:/Users/Admin/Desktop/TaskslyApp/app/src/main/res/drawable/ic_task_create_icon_calendar.xml" value="0.2145" />
         <entry key="..\:/Users/Admin/Desktop/TaskslyApp/app/src/main/res/drawable/ic_thinking_color.xml" value="0.168" />
         <entry key="..\:/Users/Admin/Desktop/TaskslyApp/app/src/main/res/drawable/navigation_back.xml" value="0.1" />
+        <entry key="..\:/Users/Admin/Desktop/TaskslyApp/app/src/main/res/drawable/progress_back.xml" value="0.168" />
+        <entry key="..\:/Users/Admin/Desktop/TaskslyApp/app/src/main/res/drawable/progress_drawable.xml" value="0.168" />
         <entry key="..\:/Users/Admin/Desktop/TaskslyApp/app/src/main/res/drawable/style_spinner_categories.xml" value="0.2145" />
         <entry key="..\:/Users/Admin/Desktop/TaskslyApp/app/src/main/res/drawable/welcom1.xml" value="0.173" />
         <entry key="..\:/Users/Admin/Desktop/TaskslyApp/app/src/main/res/drawable/welcom2.xml" value="0.173" />
@@ -200,6 +202,7 @@
         <entry key="..\:/Users/Admin/Desktop/TaskslyApp/app/src/main/res/layout/activity_change_password_succes.xml" value="0.14" />
         <entry key="..\:/Users/Admin/Desktop/TaskslyApp/app/src/main/res/layout/activity_confirme_password_email.xml" value="0.22" />
         <entry key="..\:/Users/Admin/Desktop/TaskslyApp/app/src/main/res/layout/activity_congrats_membership.xml" value="0.13445945945945945" />
+        <entry key="..\:/Users/Admin/Desktop/TaskslyApp/app/src/main/res/layout/activity_different_tasks_list.xml" value="0.25" />
         <entry key="..\:/Users/Admin/Desktop/TaskslyApp/app/src/main/res/layout/activity_edite_profle.xml" value="0.25" />
         <entry key="..\:/Users/Admin/Desktop/TaskslyApp/app/src/main/res/layout/activity_forget_password.xml" value="0.18" />
         <entry key="..\:/Users/Admin/Desktop/TaskslyApp/app/src/main/res/layout/activity_login.xml" value="0.25" />

@@ -3,8 +3,6 @@ package com.example.tasksly;
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -18,8 +16,12 @@ import androidx.core.content.ContextCompat;
 public class PayActivity extends AppCompatActivity {
     RelativeLayout crypto_pay_option_button, google_pay_option_button;
     ProgressBar progressBar ;
-    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        progressBar.setVisibility(View.GONE);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,22 +57,5 @@ public class PayActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
             }
         });
-
-    }
-    @Override
-    protected void onStart() {
-        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(networkChangeListener,intentFilter);
-        super.onStart();
-
-    }
-
-    @Override
-    protected void onStop() {
-
-        unregisterReceiver(networkChangeListener);
-        super.onStop();
-        progressBar.setVisibility(View.GONE);
-
     }
 }
