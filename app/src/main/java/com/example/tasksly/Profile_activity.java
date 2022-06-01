@@ -29,14 +29,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import io.paperdb.Paper;
-
 public class Profile_activity extends AppCompatActivity {
 
     LinearLayout PlanningLayout, private_tasks_layout, CompletedLayout, CancelledLayout, TotalLayout ,edit;
     TextView user_name , user_email ;
     ImageView user_image ;
-    RelativeLayout relative_layout_submitting_pin_code_private_tasks_first_time , Logout;
+    RelativeLayout relative_layout_submitting_pin_code_private_tasks_first_time;
     PinView pin_code_private_tasks_first_time;
     TextView text_pin_code_submission_head ;
     Dialog Pin_code_submission_of_private_tasks_first_time;
@@ -85,18 +83,15 @@ public class Profile_activity extends AppCompatActivity {
         initialisation();
         handelingAnimations();
         initial_elements();
-        Logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Paper.book().destroy();
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(Profile_activity.this, Login_activity.class));
-            }
-        });
         private_tasks_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Profile_activity.this,DifferentTasksListActivity.class);
+
+                // this is ichou work here
+
+
+
                 if (Utils.private_task_pin_code.equals("")){
                     Pin_code_submission_of_private_tasks_first_time.show();
                     relative_layout_submitting_pin_code_private_tasks_first_time.setOnClickListener(new View.OnClickListener() {
@@ -181,7 +176,6 @@ public class Profile_activity extends AppCompatActivity {
     }
 
     public void initialisation() {
-        Logout = findViewById(R.id.Logout);
         user_email = findViewById(R.id.user_email);
         user_name = findViewById(R.id.user_name);
         user_image = findViewById(R.id.img_user_profile);
