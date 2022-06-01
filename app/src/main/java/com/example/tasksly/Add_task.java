@@ -4,6 +4,9 @@ import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 import static com.yalantis.ucrop.UCropFragment.TAG;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,10 +34,15 @@ import com.google.gson.Gson;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 public class Add_task extends AppCompatActivity {
     public static Categoty_list_adapter adapter;
     public static AlertDialog dialog;
+    int Notification_year;
+    int Notification_day;
+    int Notification_month;
+    Calendar calendar;
     EditText TaskTitle;
     RecyclerView recyclerView;
     RelativeLayout relativeLayout, relativeLayout2, task_done_button;
@@ -48,6 +56,7 @@ public class Add_task extends AppCompatActivity {
     MaterialAlertDialogBuilder progressDialog;
     MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setTitleText("SELECT A DATE");
     final MaterialDatePicker materialDatePicker = builder.build();
+    private long notificationId = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +134,6 @@ public class Add_task extends AppCompatActivity {
         });
 
 
-
     }
 
     public void donepressed() {
@@ -176,6 +184,51 @@ public class Add_task extends AppCompatActivity {
                         dialog.show();
                         Utils.AddTaskToFirebase(task_model, Add_task.this);
                         Utils.tasks_list = Utils.GetAllTasksFromFirebase();
+
+
+                        // initializing thr notification ...
+
+
+                        notificationId = Long.parseLong(String.valueOf(System.currentTimeMillis()));
+
+                        Intent intent = new Intent(Add_task.this, AlarmReceiver.class);
+                        intent.putExtra("notificationId", notificationId);
+                        intent.putExtra("message", task_model.getTask_title());
+
+                        PendingIntent alarmIntent = PendingIntent.getBroadcast(Add_task.this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+
+                        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+                        // set hour and minute alarm
+                        int hour = materialTimePicker.getHour();
+                        int minute = materialTimePicker.getMinute();
+
+                        Calendar startTime = Calendar.getInstance();
+
+                        // to make for us the format of the date year-month-day
+                        datepicker();
+
+                        // set day and month and year alarm
+
+//                    startTime.set(Calendar.YEAR, Notification_year);
+//                    startTime.set(Calendar.MONTH, Notification_month);
+//                    startTime.set(Calendar.DAY_OF_MONTH, Notification_day);
+                        startTime.set(Calendar.HOUR_OF_DAY, hour);
+                        startTime.set(Calendar.MINUTE, minute);
+                        startTime.set(Calendar.SECOND, 0);
+                        startTime.set(Calendar.MILLISECOND, 0);
+                        long alarmStartTime = startTime.getTimeInMillis();
+
+
+                        Log.d("yeaaaaaaaaaaaaaaaaaaaaar", String.valueOf(Notification_year));
+                        Log.d("daaaaaaaaaaaaaaaaaaaaaay", String.valueOf(Notification_day));
+                        Log.d("moixxxxxxxxxxxxxxxxxxxxx", String.valueOf(Notification_month));
+                        Log.d("houuuuuuuuuuuuuuuuuuuuur", String.valueOf(hour));
+                        Log.d("minuuuuuuuuuuuuuuuuuuuute", String.valueOf(minute));
+
+
+                        alarmManager.set(AlarmManager.RTC_WAKEUP, alarmStartTime, alarmIntent);
+                        Toast.makeText(Add_task.this, "Alarm added successfully !", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -216,10 +269,22 @@ public class Add_task extends AppCompatActivity {
         materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
             @Override
             public void onPositiveButtonClick(Object selection) {
-                select_date_text.setText(materialDatePicker.getHeaderText());
+
+                // this is to get the specific day , month , year
+
+                Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                calendar.setTimeInMillis((Long) selection);
+                SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+                String formattedDate = format.format(calendar.getTime());
+                Notification_year = Integer.parseInt(formattedDate.substring(0, 4));
+                Notification_month = Integer.parseInt(formattedDate.substring(4, 6));
+                Notification_day = Integer.parseInt(formattedDate.substring(6, 8));
+
+                select_date_text.setText(materialDatePicker.getHeaderText().trim());
             }
         });
     }
+
 
     /*public void Handlingonoffclicks(View view){
 

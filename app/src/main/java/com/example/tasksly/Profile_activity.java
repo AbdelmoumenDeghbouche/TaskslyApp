@@ -1,6 +1,5 @@
 package com.example.tasksly;
 
-import static android.content.ContentValues.TAG;
 import static android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
 import android.annotation.SuppressLint;
@@ -8,7 +7,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsetsController;
@@ -66,13 +64,8 @@ public class Profile_activity extends AppCompatActivity {
 
 
         join_membership = findViewById(R.id.join_membership);
-        join_membership.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Profile_activity.this, CongratsMembership.class);
-                startActivity(intent);
-            }
-        });
+
+
         // changing the color of the status bar
         this.getWindow().setStatusBarColor(this.getColor(R.color.white));
 
@@ -85,6 +78,14 @@ public class Profile_activity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             this.getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS, WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS);
         }
+        join_membership.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Profile_activity.this, CongratsMembership.class);
+                startActivity(intent);
+            }
+        });
+        IsheAmember();
 
         initialisation();
         handelingAnimations();
@@ -145,6 +146,12 @@ public class Profile_activity extends AppCompatActivity {
 
                 }
 
+            }
+        });
+        Already_A_pro_membre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Profile_activity.this, "You Are Already a Pro Member ", Toast.LENGTH_SHORT).show();
             }
         });
         PlanningLayout.setOnClickListener(new View.OnClickListener() {
@@ -227,20 +234,7 @@ public class Profile_activity extends AppCompatActivity {
 
             }
         });
-        Log.d(TAG, "initial_elements:" + Utils.Is_member());
-        if (IsheAmember()) {
-            img_view_pro_memb.setVisibility(View.VISIBLE);
-            join_membership.setVisibility(View.GONE);
-            Already_A_pro_membre.setVisibility(View.VISIBLE);
-            Already_A_pro_membre.setClickable(false);
-            join_membership.setClickable(false);
 
-        } else {
-            img_view_pro_memb.setVisibility(View.GONE);
-            Already_A_pro_membre.setVisibility(View.GONE);
-            join_membership.setVisibility(View.VISIBLE);
-
-        }
     }
 
     private boolean IsheAmember() {
@@ -251,6 +245,18 @@ public class Profile_activity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
                         member = snapshot.getValue(boolean.class);
+                        if (member) {
+                            img_view_pro_memb.setVisibility(View.VISIBLE);
+                            join_membership.setVisibility(View.GONE);
+                            Already_A_pro_membre.setVisibility(View.VISIBLE);
+                            join_membership.setClickable(false);
+                        } else {
+                            img_view_pro_memb.setVisibility(View.GONE);
+                            Already_A_pro_membre.setVisibility(View.GONE);
+                            join_membership.setVisibility(View.VISIBLE);
+                            Already_A_pro_membre.setClickable(false);
+                            join_membership.setClickable(true);
+                        }
                     }
                 }
 

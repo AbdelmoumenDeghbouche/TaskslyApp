@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,12 +38,19 @@ import com.github.drjacky.imagepicker.ImagePicker;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class TaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TimePickerDialog.OnTimeSetListener {
+    private static boolean member;
     private final String[] categories = new String[Utils.getCategories_list().size() - 1];
     MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker().setTitleText("SELECT A DATE");
     final MaterialDatePicker materialDatePicker = builder.build();
@@ -136,22 +144,35 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View v) {
                 add_task_dialogue.dismiss();
-                ImagePicker.Companion.with(TaskActivity.this)
-                        .crop()
-                        .cameraOnly()
-                        .start();
+                if (IsheAmember()) {
 
+
+                    ImagePicker.Companion.with(TaskActivity.this)
+                            .crop()
+                            .cameraOnly()
+                            .start();
+                } else {
+                    Intent intent = new Intent(TaskActivity.this, PayActivity.class);
+                    startActivity(intent);
+                }
             }
 
         });
+
         Linear_layout_import_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 add_task_dialogue.dismiss();
-                ImagePicker.Companion.with(TaskActivity.this)
-                        .crop()
-                        .galleryOnly()
-                        .start();
+                if (IsheAmember()) {
+                    ImagePicker.Companion.with(TaskActivity.this)
+                            .crop()
+                            .galleryOnly()
+                            .start();
+                } else {
+                    Intent intent = new Intent(TaskActivity.this, PayActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
         linear_layout_time_of_task.setOnClickListener(new View.OnClickListener() {
@@ -233,10 +254,12 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
                 task_model.setTask_title(edit_text_name_of_the_task.getEditText().getText().toString());
                 task_model.setDate(txt_date_of_the_task_in_task_activity.getText().toString());
                 task_model.setTime(txt_time_of_task_in_activity_task.getText().toString());
+                task_model.setCategory(new Category_Model(spinner_categories.getSelectedItem().toString()));
                 selected_task_from_RV = intent1.getIntExtra("selected_task", -1);
+
 //                if (task_model.getTask_title().equals(task_model1_without_changes.getTask_title()) && task_model.getTime().equals(task_model1_without_changes.getTime()) && task_model.getDate().equals(task_model1_without_changes.getDate()) && task_model.getCategory().getCategory_name().equals(task_model1_without_changes.getCategory().getCategory_name()) && task_model.getDescription().equals(task_model1_without_changes.getDescription())) {
-                if (task_model.getTask_title().equals(task_model1_without_changes.getTask_title())) {
-                    Log.d(TAG, "onClick: tass" +task_model.toString());
+                if (task_model.getTask_title().equals(task_model1_without_changes.getTask_title()) && task_model.getDescription().equals(task_model1_without_changes.getDescription()) && task_model.getCategory().getCategory_name().equals(task_model1_without_changes.getCategory().getCategory_name()) && task_model.getDate().equals(task_model1_without_changes.getDate()) && task_model.getTime().equals(task_model1_without_changes.getTime())) {
+                    Log.d(TAG, "onClick: tass" + task_model.toString());
                     Log.d(TAG, "onClick: tassss" + task_model1_without_changes.toString());
                     finish();
                 } else {
@@ -276,6 +299,25 @@ public class TaskActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
+    }
+
+    private boolean IsheAmember() {
+        FirebaseUser auth = FirebaseAuth.getInstance().getCurrentUser();
+        if (auth != null) {
+            FirebaseDatabase.getInstance().getReference().child("Users").child(auth.getUid()).child("is_memeber").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        member = snapshot.getValue(boolean.class);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+        }
+        return member;
     }
 
 

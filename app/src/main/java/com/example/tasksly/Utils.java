@@ -512,7 +512,10 @@ public class Utils {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     for (DataSnapshot task : snapshot.getChildren()) {
-                        if (task.getValue(Task_Model.class).getCurrent_date().equals(oldtask.getCurrent_date()) && task.getValue(Task_Model.class).getCurrent_time().equals(oldtask.getCurrent_time())) {
+                        if (task.getValue(Task_Model.class).getCurrent_date().equals(oldtask.getCurrent_date()) && task.getValue(Task_Model.class).getCurrent_time().equals(oldtask.getCurrent_time()) &&
+                                task.getValue(Task_Model.class).getTask_title().equals(oldtask.getTask_title()) && task.getValue(Task_Model.class).getCategory().getCategory_name().equals(oldtask.getCategory().getCategory_name()) &&
+                                task.getValue(Task_Model.class).getTime().equals(oldtask.getTime()) && task.getValue(Task_Model.class).getDate().equals(oldtask.getDate()) &&
+                                task.getValue(Task_Model.class).getDescription().equals(oldtask.getDescription())) {
                             // means this is the task that we want to update so we update it
                             FirebaseDatabase.getInstance().getReference().child("Tasks").child(oldtask.getCategory().getCategory_name()).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(task.getKey()).setValue(newtask).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override

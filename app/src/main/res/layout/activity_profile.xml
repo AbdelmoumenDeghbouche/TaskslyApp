@@ -61,7 +61,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?attr/selectableItemBackground"
-                        android:visibility="gone">
+                        android:visibility="visible">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -179,6 +179,7 @@
                             android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:layout_marginLeft="5dp"
+                            android:visibility="gone"
                             android:layout_marginBottom="2dp"
                             android:src="@drawable/vip_icon" />
                     </LinearLayout>

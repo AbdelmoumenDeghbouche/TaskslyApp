@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     public static ChipNavigationBar chipNavigationBar;
     public static Uri uri;
     public static Tasks_fragment Saved_tasks_fragment;
-    public static boolean member;
+    private static boolean member;
     public Dialog add_task_dialogue;
     boolean is_clicked;
     Fragment fragment;
@@ -118,10 +118,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 add_task_dialogue.dismiss();
-                ImagePicker.Companion.with(MainActivity.this)
-                        .crop()
-                        .galleryOnly()
-                        .start();
+                if (IsheAmember()){
+                    ImagePicker.Companion.with(MainActivity.this)
+                            .crop()
+                            .galleryOnly()
+                            .start();
+                }
+                else {
+                    Intent intent = new Intent(MainActivity.this,PayActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
 
